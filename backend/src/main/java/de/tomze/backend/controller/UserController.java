@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.ResponseEntity.notFound;
@@ -18,6 +20,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/api/tomze")
+@CrossOrigin
 @Getter
 @Setter
 public class UserController {
@@ -29,7 +32,15 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("user/{userName}")
+    @GetMapping("/user")
+    public ResponseEntity<List<UserToAppDto>> getAllUsers (){
+        List<UserEntity> listOfAllUserEntities = new ArrayList<>(userService.getAllUsers());
+        List<UserToAppDto> listOfAllUsersToApp = map(listOfAllUserEntities);
+
+        return ok(listOfAllUsersToApp);
+    }
+
+    @GetMapping("/user/{userName}")
     public ResponseEntity<UserToAppDto> getUser(@PathVariable String userName) {
         Optional<UserEntity> foundUserEntity = userService.getUser(userName);
         if (foundUserEntity.isPresent()) {
@@ -67,5 +78,17 @@ public class UserController {
                 .city(userEntity.getCity())
                 .zipCode(userEntity.getZipCode())
                 .build();
+    }
+
+    private List<UserToAppDto> map(List<UserEntity> userEntityList){
+
+       List<UserToAppDto> userToAppDtoList = new ArrayList<>();
+
+        for(UserEntity user :userEntityList){
+            UserToAppDto userToAppDto = map1(user);
+            userToAppDtoList.add(userToAppDto);
+
+        }
+        return(userToAppDtoList);
     }
 }

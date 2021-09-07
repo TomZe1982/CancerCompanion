@@ -7,9 +7,10 @@ import TextField from "../components/TextField";
 import Button from "../components/Button";
 
 
+
 const initialState = {
-    username: '',
-    password: '',
+    userName: 'Tomze',
+    password: '12345',
 }
 
 
@@ -35,7 +36,7 @@ export default function Login() {
                 <TextField
                     title="Benutzername"
                     name="Benutzername"
-                    value={initialState.username}
+                    value={initialState.userName}
                 onChange={handleCredentialsChange}/>
                 <TextField
                     title="Passwort"

@@ -2,6 +2,7 @@ package de.tomze.backend.service;
 
 
 import de.tomze.backend.api.UserFromAppDto;
+import de.tomze.backend.api.UserToAppDto;
 import de.tomze.backend.model.UserEntity;
 import de.tomze.backend.repository.UserRepository;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,5 +44,9 @@ public class UserService {
                  .build();
    userRepository.save(createdUserEntity);
    return createdUserEntity;
+    }
+
+    public List<UserEntity> getAllUsers() {
+        return userRepository.findAll();
     }
 }
