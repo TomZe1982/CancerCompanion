@@ -8,8 +8,8 @@ import Button from "../components/Button";
 
 
 const initialState = {
-    username: "Kitty",
-    password: "Hello",
+    username: '',
+    password: '',
 }
 
 

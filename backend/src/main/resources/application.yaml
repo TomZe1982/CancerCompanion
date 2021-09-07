@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/cancerCompanion
+    url: jdbc:postgresql://localhost:5432/cancer-companion
     username: admin
     password: 12345
     driver-class-name: org.postgresql.Driver
