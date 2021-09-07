@@ -53,10 +53,20 @@ public class UserController {
 
     @PostMapping()
     public ResponseEntity<UserFromAppDto> createUser(@RequestBody UserFromAppDto userFromAppDto) {
+
         UserEntity createdUserEntity = userService.createUser(userFromAppDto);
         UserFromAppDto createdUserFromAppDto = map2(createdUserEntity);
         return ok(createdUserFromAppDto);
+
     }
+
+    @PutMapping("/user/{userName}")
+    public ResponseEntity<UserFromAppDto> updateUser(@PathVariable String userName, @RequestBody UserFromAppDto userFromAppDto){
+        UserEntity updatedUserEntity = userService.updateUser(userName, userFromAppDto);
+        UserFromAppDto updatedUserFromAppDto = map2(updatedUserEntity);
+        return ok(updatedUserFromAppDto);
+    }
+
 
 
     private UserToAppDto map1(UserEntity userEntity) {

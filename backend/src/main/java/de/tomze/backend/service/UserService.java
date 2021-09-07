@@ -2,13 +2,15 @@ package de.tomze.backend.service;
 
 
 import de.tomze.backend.api.UserFromAppDto;
-import de.tomze.backend.api.UserToAppDto;
 import de.tomze.backend.model.UserEntity;
 import de.tomze.backend.repository.UserRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+
+
 
 import java.util.List;
 import java.util.Optional;
@@ -31,22 +33,41 @@ public class UserService {
     }
 
     public UserEntity createUser(UserFromAppDto userFromAppDto) {
-   UserEntity createdUserEntity = UserEntity.builder()
-                 .userName(userFromAppDto.getUserName())
-                 .password(userFromAppDto.getPassword())
-                 .secondName(userFromAppDto.getSecondName())
-                 .firstName(userFromAppDto.getFirstName())
-                 .email(userFromAppDto.getEmail())
-                 .street(userFromAppDto.getStreet())
-                 .number(userFromAppDto.getNumber())
-                 .city(userFromAppDto.getCity())
-                 .zipCode(userFromAppDto.getZipCode())
-                 .build();
-   userRepository.save(createdUserEntity);
-   return createdUserEntity;
+
+        UserEntity createdUserEntity = UserEntity.builder()
+                .userName(userFromAppDto.getUserName())
+                .password(userFromAppDto.getPassword())
+                .secondName(userFromAppDto.getSecondName())
+                .firstName(userFromAppDto.getFirstName())
+                .email(userFromAppDto.getEmail())
+                .street(userFromAppDto.getStreet())
+                .number(userFromAppDto.getNumber())
+                .city(userFromAppDto.getCity())
+                .zipCode(userFromAppDto.getZipCode())
+                .build();
+
+        String userName = createdUserEntity.getUserName();
+        Optional<UserEntity> existingUserEntityOptional = getUser(userName);
+        if(existingUserEntityOptional.isPresent()){
+            throw new IllegalArgumentException("This username is not available");
+        }
+        userRepository.save(createdUserEntity);
+        return createdUserEntity;
     }
 
     public List<UserEntity> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public UserEntity updateUser(String userName, UserFromAppDto userFromAppDto) {
+        Optional<UserEntity> userEntityOptional = getUser(userName);
+        if (userEntityOptional.isEmpty()) {
+            throw new IllegalArgumentException("NotFound");
+        }
+        UserEntity userEntityToUpdate = userEntityOptional.get();
+        if (userEntityToUpdate.equals(userFromAppDto)) {
+            throw new IllegalArgumentException("User already exists");
+        }
+        return createUser(userFromAppDto);
     }
 }

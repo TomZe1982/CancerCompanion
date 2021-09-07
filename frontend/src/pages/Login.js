@@ -5,29 +5,20 @@ import {NavLink} from "react-router-dom";
 import Main from "../components/Main";
 import TextField from "../components/TextField";
 import Button from "../components/Button";
-
-
-
-const initialState = {
-    userName: 'Tomze',
-    password: '12345',
-}
+import {useState} from "react";
 
 
 export default function Login() {
-
+    const [credentials, setCredentials] = useState({});
 
     const submitHandler = (event) => {
         event.preventDefault()
 
     }
-
     const handleCredentialsChange = (event) => {
+        setCredentials({...credentials, [event.target.name]: event.target.value})
 
     }
-
-
-
     return (
         <Page>
             <NavBar/>
@@ -36,12 +27,12 @@ export default function Login() {
                 <TextField
                     title="Benutzername"
                     name="Benutzername"
-                    value={initialState.userName}
+                    value={credentials.userName}
                 onChange={handleCredentialsChange}/>
                 <TextField
                     title="Passwort"
                     name="Passwort"
-                    value={initialState.password}
+                    value={credentials.password}
                 onChange={handleCredentialsChange}/>
                 <Button>Login</Button>
             </Main>
