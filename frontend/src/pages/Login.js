@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import Page from "../components/Page";
 import NavBar from "../components/NavBar";
-import {NavLink, Route} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import Main from "../components/Main";
 import TextField from "../components/TextField";
 import Button from "../components/Button";
