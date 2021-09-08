@@ -16,10 +16,16 @@ import java.util.Objects;
 @Builder
 public class UserEntity {
 
+  //  @Embedded
+ //   private Address address;
+
     @Id
     @GeneratedValue
     @Column(name="id", nullable = false)
     private Long id;
+
+    @Column(name="role")
+    private String role;
 
     @Column(name="userName", nullable = false)
     private String userName;
@@ -33,7 +39,7 @@ public class UserEntity {
     @Column(name="firstName", nullable = false)
     private String firstName;
 
-    @Column(name="email", nullable = false)
+    @Column(name="email", nullable = false, unique = true)
     private String email;
 
     @Column(name="street")
@@ -53,11 +59,11 @@ public class UserEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(userName, that.userName) && Objects.equals(password, that.password) && Objects.equals(secondName, that.secondName) && Objects.equals(firstName, that.firstName) && Objects.equals(email, that.email) && Objects.equals(street, that.street) && Objects.equals(number, that.number) && Objects.equals(city, that.city) && Objects.equals(zipCode, that.zipCode);
+        return id.equals(that.id) && role.equals(that.role) && userName.equals(that.userName) && password.equals(that.password) && secondName.equals(that.secondName) && firstName.equals(that.firstName) && email.equals(that.email) && Objects.equals(street, that.street) && Objects.equals(number, that.number) && Objects.equals(city, that.city) && Objects.equals(zipCode, that.zipCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userName, password, secondName, firstName, email, street, number, city, zipCode);
+        return Objects.hash(id, role, userName, password, secondName, firstName, email, street, number, city, zipCode);
     }
 }

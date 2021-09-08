@@ -10,6 +10,7 @@ import lombok.Setter;
 @Builder
 public class UserToAppDto {
 
+    private String role;
 
     private String userName;
 

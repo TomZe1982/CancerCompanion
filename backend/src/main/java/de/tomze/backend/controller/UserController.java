@@ -23,7 +23,7 @@ import static org.springframework.http.ResponseEntity.ok;
 @CrossOrigin
 @Getter
 @Setter
-public class UserController {
+public class UserController extends UserControllerMapper {
 
     private final UserService userService;
 
@@ -45,7 +45,7 @@ public class UserController {
         Optional<UserEntity> foundUserEntity = userService.getUser(userName);
         if (foundUserEntity.isPresent()) {
             UserEntity userEntity = foundUserEntity.get();
-            UserToAppDto foundUserToAppDto = map1(userEntity);
+            UserToAppDto foundUserToAppDto = mapUserToAppDto(userEntity);
             return ok(foundUserToAppDto);
         }
         return notFound().build();
@@ -55,7 +55,7 @@ public class UserController {
     public ResponseEntity<UserFromAppDto> createUser(@RequestBody UserFromAppDto userFromAppDto) {
 
         UserEntity createdUserEntity = userService.createUser(userFromAppDto);
-        UserFromAppDto createdUserFromAppDto = map2(createdUserEntity);
+        UserFromAppDto createdUserFromAppDto = mapUserFromAppDto(createdUserEntity);
         return ok(createdUserFromAppDto);
 
     }
@@ -63,42 +63,18 @@ public class UserController {
     @PutMapping("/user/{userName}")
     public ResponseEntity<UserFromAppDto> updateUser(@PathVariable String userName, @RequestBody UserFromAppDto userFromAppDto){
         UserEntity updatedUserEntity = userService.updateUser(userName, userFromAppDto);
-        UserFromAppDto updatedUserFromAppDto = map2(updatedUserEntity);
+        UserFromAppDto updatedUserFromAppDto = mapUserFromAppDto(updatedUserEntity);
         return ok(updatedUserFromAppDto);
     }
 
-
-
-    private UserToAppDto map1(UserEntity userEntity) {
-        return UserToAppDto.builder()
-                .userName(userEntity.getUserName())
-                .password(userEntity.getPassword())
-                .build();
+    @DeleteMapping("/user/{userName}")
+    public ResponseEntity<UserFromAppDto> deleteUser(@PathVariable String userName) {
+        UserEntity userEntityToDelete = userService.deleteUser(userName);
+        UserFromAppDto deletedUserFromAppDto = mapUserFromAppDto(userEntityToDelete);
+        return  ok(deletedUserFromAppDto);
     }
 
-    private UserFromAppDto map2(UserEntity userEntity){
-        return UserFromAppDto.builder()
-                .userName(userEntity.getUserName())
-                .password(userEntity.getPassword())
-                .secondName(userEntity.getSecondName())
-                .firstName(userEntity.getFirstName())
-                .email(userEntity.getEmail())
-                .street(userEntity.getStreet())
-                .number(userEntity.getNumber())
-                .city(userEntity.getCity())
-                .zipCode(userEntity.getZipCode())
-                .build();
-    }
 
-    private List<UserToAppDto> map(List<UserEntity> userEntityList){
 
-       List<UserToAppDto> userToAppDtoList = new ArrayList<>();
 
-        for(UserEntity user :userEntityList){
-            UserToAppDto userToAppDto = map1(user);
-            userToAppDtoList.add(userToAppDto);
-
-        }
-        return(userToAppDtoList);
-    }
 }

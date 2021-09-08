@@ -13,3 +13,7 @@ spring:
         format_sql: false
     hibernate:
       ddl-auto: update
+security:
+  jwt:
+    secret: "super-secret"
+    expiresAfterMinutes: 30

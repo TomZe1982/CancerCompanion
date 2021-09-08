@@ -1,6 +1,5 @@
 package de.tomze.backend.service;
 
-
 import de.tomze.backend.api.UserFromAppDto;
 import de.tomze.backend.model.UserEntity;
 import de.tomze.backend.repository.UserRepository;
@@ -8,9 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
-
 
 import java.util.List;
 import java.util.Optional;
@@ -34,17 +30,7 @@ public class UserService {
 
     public UserEntity createUser(UserFromAppDto userFromAppDto) {
 
-        UserEntity createdUserEntity = UserEntity.builder()
-                .userName(userFromAppDto.getUserName())
-                .password(userFromAppDto.getPassword())
-                .secondName(userFromAppDto.getSecondName())
-                .firstName(userFromAppDto.getFirstName())
-                .email(userFromAppDto.getEmail())
-                .street(userFromAppDto.getStreet())
-                .number(userFromAppDto.getNumber())
-                .city(userFromAppDto.getCity())
-                .zipCode(userFromAppDto.getZipCode())
-                .build();
+        UserEntity createdUserEntity = map(userFromAppDto);
 
         String userName = createdUserEntity.getUserName();
         Optional<UserEntity> existingUserEntityOptional = getUser(userName);
@@ -66,8 +52,39 @@ public class UserService {
         }
         UserEntity userEntityToUpdate = userEntityOptional.get();
         if (userEntityToUpdate.equals(userFromAppDto)) {
-            throw new IllegalArgumentException("User already exists");
+            throw new IllegalArgumentException("Nothing to Change");
         }
-        return createUser(userFromAppDto);
+        deleteUser(userEntityToUpdate.getUserName());
+        UserEntity updatedUserEntity = map(userFromAppDto);
+        userRepository.save(updatedUserEntity);
+        return updatedUserEntity;
+    }
+
+    public UserEntity deleteUser(String userName) {
+        Optional<UserEntity> userEntityOptionalToDelete = getUser(userName);
+        if(userEntityOptionalToDelete.isEmpty()){
+            throw new IllegalArgumentException("No user found to delete");
+        }
+        UserEntity userEntityToDelete = userEntityOptionalToDelete.get();
+        userRepository.delete(userEntityToDelete);
+        return userEntityToDelete;
+    }
+
+    public UserEntity map(UserFromAppDto userFromAppDto){
+
+        return  UserEntity.builder()
+                .role("user")
+                .userName(userFromAppDto.getUserName())
+                .password(userFromAppDto.getPassword())
+                .secondName(userFromAppDto.getSecondName())
+                .firstName(userFromAppDto.getFirstName())
+                .email(userFromAppDto.getEmail())
+                .street(userFromAppDto.getStreet())
+                .number(userFromAppDto.getNumber())
+                .city(userFromAppDto.getCity())
+                .zipCode(userFromAppDto.getZipCode())
+                .build();
+
+
     }
 }

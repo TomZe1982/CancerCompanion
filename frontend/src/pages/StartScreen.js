@@ -5,20 +5,15 @@ import NavBar from "../components/NavBar";
 import Main from "../components/Main";
 import {NavLink} from "react-router-dom";
 
-
-
-
 export default function StartScreen() {
-
-
 
     return (
         <Page>
+            <NavBar/>
             <Main>
-                <NavBar/>
                 <Header title="CancerCompanion"></Header>
                 <div>
-                <Img src="CC.png" alt=""/>
+                <Img src="CC.png" alt="fb"/>
                 </div>
                 <NavLink to ="/login">Community</NavLink>
             </Main>
