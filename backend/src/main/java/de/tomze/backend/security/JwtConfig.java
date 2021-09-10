@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Data
 public class JwtConfig {
 
-    String secret;
-    int expireAfterMinutes;
+    private String secret;
+   private int expireAfterMinutes;
 
 }

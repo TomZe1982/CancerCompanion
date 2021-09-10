@@ -35,9 +35,10 @@ public class AuthController {
 
 
     @GetMapping("/auth/me")
-    public ResponseEntity<UserToAppDto> getLoggedInUser(@AuthenticationPrincipal UserToAppDto userToAppDto){
+    public ResponseEntity<UserToAppDto> getLoggedInUser(@AuthenticationPrincipal UserEntity userEntity){
         return ok(
-                userToAppDto
+                UserToAppDto.builder().userName(userEntity.getUserName())
+                        .role(userEntity.getRole()).build()
                 );
     }
 
