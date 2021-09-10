@@ -14,6 +14,9 @@ export const getAllUser = (token) =>
         .then(response => response.data)
         .then(response => console.log(response))
 
+export const getLoggedInUser =(token) =>
+    axios.get("api/auth/me", headers(token))
+        .then(response => response.data)
 //Route without token needed
 
 export const getToken = credentials =>

@@ -24,8 +24,11 @@ export default function Login() {
             .catch(error => console.error(error))
     }
 
+    console.log(user)
+
+
     if (user) {
-        return <Redirect to="/profile"/>
+        return <Redirect to="/profile" user={user}/>
     }
 
     return (

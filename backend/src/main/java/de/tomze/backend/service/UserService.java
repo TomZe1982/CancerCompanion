@@ -6,6 +6,7 @@ import de.tomze.backend.repository.UserRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +30,9 @@ public class UserService {
     }
 
     public UserEntity createUser(UserFromAppDto userFromAppDto) {
+
+
+
 
         UserEntity createdUserEntity = map(userFromAppDto);
 
@@ -71,11 +75,11 @@ public class UserService {
     }
 
     public UserEntity map(UserFromAppDto userFromAppDto){
-
+        String hashedPassword = new BCryptPasswordEncoder().encode(userFromAppDto.getPassword());
         return  UserEntity.builder()
                 .role("user")
                 .userName(userFromAppDto.getUserName())
-                .password(userFromAppDto.getPassword())
+                .password(hashedPassword)
                 .secondName(userFromAppDto.getSecondName())
                 .firstName(userFromAppDto.getFirstName())
                 .email(userFromAppDto.getEmail())
