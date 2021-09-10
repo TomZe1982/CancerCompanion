@@ -13,7 +13,7 @@ abstract class UserControllerMapper {
         return UserToAppDto.builder()
                 .role(userEntity.getRole())
                 .userName(userEntity.getUserName())
-                .password(userEntity.getPassword())
+                .email(userEntity.getEmail())
                 .build();
     }
 
@@ -24,11 +24,11 @@ abstract class UserControllerMapper {
                 .secondName(userEntity.getSecondName())
                 .firstName(userEntity.getFirstName())
                 .email(userEntity.getEmail())
+                .role(userEntity.getRole())
                 .street(userEntity.getStreet())
                 .number(userEntity.getNumber())
-                .city(userEntity.getCity())
                 .zipCode(userEntity.getZipCode())
-                .role(userEntity.getRole())
+                .city(userEntity.getCity())
                 .build();
     }
 

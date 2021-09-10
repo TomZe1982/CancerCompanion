@@ -17,14 +17,14 @@ export default function Registration() {
         setCredentials({...credentials, [event.target.name]: event.target.value})
     }
 
+    console.log(credentials)
+
     const handleSubmit = event => {
         event.preventDefault()
         createUser(credentials)
             .catch(error => console.error(error))
             .finally(() => setCredentials({credentials: ""}))
-
     }
-
 
 
 return (

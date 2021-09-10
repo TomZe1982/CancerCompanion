@@ -81,8 +81,8 @@ public class UserService {
                 .email(userFromAppDto.getEmail())
                 .street(userFromAppDto.getStreet())
                 .number(userFromAppDto.getNumber())
-                .city(userFromAppDto.getCity())
                 .zipCode(userFromAppDto.getZipCode())
+                .city(userFromAppDto.getCity())
                 .build();
 
 

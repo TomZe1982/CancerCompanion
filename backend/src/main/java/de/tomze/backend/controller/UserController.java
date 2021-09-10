@@ -19,11 +19,11 @@ import static org.springframework.http.ResponseEntity.notFound;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/tomze")
 @CrossOrigin
 @Getter
 @Setter
 public class UserController extends UserControllerMapper {
+
 
     private final UserService userService;
 
@@ -32,7 +32,8 @@ public class UserController extends UserControllerMapper {
         this.userService = userService;
     }
 
-    @GetMapping("/user")
+
+    @GetMapping("/api/tomze/user")
     public ResponseEntity<List<UserToAppDto>> getAllUsers (){
         List<UserEntity> listOfAllUserEntities = new ArrayList<>(userService.getAllUsers());
         List<UserToAppDto> listOfAllUsersToApp = map(listOfAllUserEntities);
@@ -40,7 +41,7 @@ public class UserController extends UserControllerMapper {
         return ok(listOfAllUsersToApp);
     }
 
-    @GetMapping("/user/{userName}")
+    @GetMapping("/api/tomze/user/{userName}")
     public ResponseEntity<UserToAppDto> getUser(@PathVariable String userName) {
         Optional<UserEntity> foundUserEntity = userService.getUser(userName);
         if (foundUserEntity.isPresent()) {
@@ -51,7 +52,7 @@ public class UserController extends UserControllerMapper {
         return notFound().build();
     }
 
-    @PostMapping()
+    @PostMapping("/api/tomze/register")
     public ResponseEntity<UserFromAppDto> createUser(@RequestBody UserFromAppDto userFromAppDto) {
 
         UserEntity createdUserEntity = userService.createUser(userFromAppDto);
@@ -60,14 +61,14 @@ public class UserController extends UserControllerMapper {
 
     }
 
-    @PutMapping("/user/{userName}")
+    @PutMapping("/api/tomze/user/{userName}")
     public ResponseEntity<UserFromAppDto> updateUser(@PathVariable String userName, @RequestBody UserFromAppDto userFromAppDto){
         UserEntity updatedUserEntity = userService.updateUser(userName, userFromAppDto);
         UserFromAppDto updatedUserFromAppDto = mapUserFromAppDto(updatedUserEntity);
         return ok(updatedUserFromAppDto);
     }
 
-    @DeleteMapping("/user/{userName}")
+    @DeleteMapping("/api/tomze/user/{userName}")
     public ResponseEntity<UserFromAppDto> deleteUser(@PathVariable String userName) {
         UserEntity userEntityToDelete = userService.deleteUser(userName);
         UserFromAppDto deletedUserFromAppDto = mapUserFromAppDto(userEntityToDelete);

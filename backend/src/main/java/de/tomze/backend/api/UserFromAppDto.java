@@ -1,7 +1,8 @@
 package de.tomze.backend.api;
 
-
 import lombok.*;
+
+
 
 @Getter
 @Setter
@@ -18,6 +19,6 @@ public class UserFromAppDto {
     private String email;
     private String street;
     private String number;
-    private String city;
     private String zipCode;
+    private String city;
 }

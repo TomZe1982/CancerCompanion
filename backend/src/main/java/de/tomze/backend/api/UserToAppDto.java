@@ -14,5 +14,6 @@ public class UserToAppDto {
 
     private String userName;
 
-    private String password;
+    private String email;
+
 }

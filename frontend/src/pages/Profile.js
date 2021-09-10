@@ -6,7 +6,6 @@ import Main from "../components/Main";
 export default function Profile(){
 
 
-
     return(
         <Page>
             <Main>
