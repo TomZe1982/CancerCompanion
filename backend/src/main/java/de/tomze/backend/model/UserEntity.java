@@ -16,8 +16,8 @@ import java.util.Objects;
 @Builder
 public class UserEntity {
 
-  //  @Embedded
- //   private Address address;
+  // @Embedded
+   //private Address address;
 
     @Id
     @GeneratedValue

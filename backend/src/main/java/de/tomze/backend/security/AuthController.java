@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -18,6 +19,8 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @CrossOrigin
 public class AuthController {
+
+    public static final String ACCESS_TOKEN_URL = "/auth/access_token";
 
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
@@ -30,16 +33,15 @@ public class AuthController {
         this.userService = userService;
     }
 
+
     @GetMapping("/auth/me")
-    public ResponseEntity<UserToAppDto> getLoggedInUser(UserEntity userEntity){
+    public ResponseEntity<UserToAppDto> getLoggedInUser(@AuthenticationPrincipal UserToAppDto userToAppDto){
         return ok(
-                UserToAppDto.builder()
-                        .userName(userEntity.getUserName())
-                        .build()
+                userToAppDto
                 );
     }
 
-    @PostMapping("/auth/access_token")
+    @PostMapping(ACCESS_TOKEN_URL)
     public ResponseEntity<AccessToken> getAccessToken(@RequestBody Credentials credentials){
         String userName = credentials.getUserName();
         hasText(userName, "Username must not be blank to get token");
@@ -51,8 +53,8 @@ public class AuthController {
         try {
             authenticationManager.authenticate(authToken);
 
-            UserEntity user = userService.getUser(userName).orElseThrow();
-            String token = jwtService.createJwtToken(user);
+            UserEntity userEntity = userService.getUser(userName).orElseThrow();
+            String token = jwtService.createJwtToken(userEntity);
 
             AccessToken accessToken = new AccessToken(token);
             return ok(accessToken);

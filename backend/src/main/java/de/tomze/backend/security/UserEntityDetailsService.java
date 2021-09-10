@@ -21,13 +21,13 @@ public class UserEntityDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        UserEntity user = userRepository
+        UserEntity userEntity= userRepository
                 .findByUserName(userName)
                 .orElseThrow(()->new UsernameNotFoundException("not found" + userName));
 
         return User.builder()
-                .username(user.getUserName())
-                .password(user.getPassword())
+                .username(userEntity.getUserName())
+                .password(userEntity.getPassword())
                 .authorities("user")
                 .build();
 

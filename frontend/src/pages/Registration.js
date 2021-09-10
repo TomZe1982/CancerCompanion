@@ -9,7 +9,7 @@ import Header from "../components/Header";
 
 
 
-export default function Registration({...user}) {
+export default function Registration() {
     const [credentials, setCredentials] = useState({});
 
 

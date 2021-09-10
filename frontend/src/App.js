@@ -24,7 +24,7 @@ export default function App() {
             <Switch>
                 <Route exact path="/" component={StartScreen}/>
                 <Route path="/login" component={Login}/>
-                <Route path="/register" component={Registration} user={user}/>
+                <Route path="/register" component={Registration}/>
                 <Route path="/profile" component={Profile} user={user}/>
             </Switch>
         </Router>

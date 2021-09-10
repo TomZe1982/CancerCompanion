@@ -24,16 +24,16 @@ public class JwtService {
         this.jwtConfig = jwtConfig;
     }
 
-    public String createJwtToken(UserEntity user){
+    public String createJwtToken(UserEntity userEntity){
         Instant now = Instant.now();
         Date iat = Date.from(now);
         Date exp = Date.from(now.plus(Duration.ofMinutes(jwtConfig.getExpireAfterMinutes())));
 
         Map<String, Object> claims = new HashMap<>();
-        claims.put("role", user.getRole());
+        claims.put("role", userEntity.getRole());
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(user.getUserName())
+                .setSubject(userEntity.getUserName())
                 .setIssuedAt(iat)
                 .setExpiration(exp)
                 .signWith(SignatureAlgorithm.HS256, jwtConfig.getSecret())
