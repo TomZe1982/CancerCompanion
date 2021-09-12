@@ -25,10 +25,7 @@ abstract class UserControllerMapper {
                 .firstName(userEntity.getFirstName())
                 .email(userEntity.getEmail())
                 .role(userEntity.getRole())
-                .street(userEntity.getStreet())
-                .number(userEntity.getNumber())
-                .zipCode(userEntity.getZipCode())
-                .city(userEntity.getCity())
+                .address(userEntity.getAddress())
                 .build();
     }
 

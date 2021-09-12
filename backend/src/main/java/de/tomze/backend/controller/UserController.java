@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -74,8 +75,6 @@ public class UserController extends UserControllerMapper {
         UserFromAppDto deletedUserFromAppDto = mapUserFromAppDto(userEntityToDelete);
         return  ok(deletedUserFromAppDto);
     }
-
-
 
 
 }

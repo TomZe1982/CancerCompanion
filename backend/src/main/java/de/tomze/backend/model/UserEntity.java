@@ -16,8 +16,12 @@ import java.util.Objects;
 @Builder
 public class UserEntity {
 
-    // @Embedded
-     //private Address address;
+    @Embedded
+    private Address address;
+
+    public Address getAddress() {
+        return address;
+    }
 
     @Id
     @GeneratedValue
@@ -27,7 +31,7 @@ public class UserEntity {
     @Column(name="role", nullable = false)
     private String role;
 
-    @Column(name="userName", nullable = false)
+    @Column(name="userName", nullable = false, unique = true)
     private String userName;
 
     @Column(name="password", nullable = false)
@@ -42,7 +46,7 @@ public class UserEntity {
     @Column(name="email", nullable = false, unique = true)
     private String email;
 
-    @Column(name="street")
+   /* @Column(name="street")
     private String street;
 
     @Column(name="number")
@@ -52,18 +56,18 @@ public class UserEntity {
     private String city;
 
     @Column(name="zipCode")
-    private String zipCode;
+    private String zipCode;*/
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
-        return id.equals(that.id) && role.equals(that.role) && userName.equals(that.userName) && password.equals(that.password) && secondName.equals(that.secondName) && firstName.equals(that.firstName) && email.equals(that.email) && Objects.equals(street, that.street) && Objects.equals(number, that.number) && Objects.equals(city, that.city) && Objects.equals(zipCode, that.zipCode);
+        return id.equals(that.id) && role.equals(that.role) && userName.equals(that.userName) && password.equals(that.password) && secondName.equals(that.secondName) && firstName.equals(that.firstName) && email.equals(that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, role, userName, password, secondName, firstName, email, street, number, city, zipCode);
+        return Objects.hash(id, role, userName, password, secondName, firstName, email);
     }
 }

@@ -1,11 +1,13 @@
 package de.tomze.backend.service;
 
 import de.tomze.backend.api.UserFromAppDto;
+import de.tomze.backend.api.UserToAppDto;
 import de.tomze.backend.model.UserEntity;
 import de.tomze.backend.repository.UserRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,9 +32,6 @@ public class UserService {
     }
 
     public UserEntity createUser(UserFromAppDto userFromAppDto) {
-
-
-
 
         UserEntity createdUserEntity = map(userFromAppDto);
 
@@ -83,12 +82,11 @@ public class UserService {
                 .secondName(userFromAppDto.getSecondName())
                 .firstName(userFromAppDto.getFirstName())
                 .email(userFromAppDto.getEmail())
-                .street(userFromAppDto.getStreet())
-                .number(userFromAppDto.getNumber())
-                .zipCode(userFromAppDto.getZipCode())
-                .city(userFromAppDto.getCity())
+                .address(userFromAppDto.getAddress())
                 .build();
 
 
     }
+
+
 }

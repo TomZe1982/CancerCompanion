@@ -2,7 +2,7 @@ import Page from "../components/Page";
 import Header from "../components/Header";
 import Main from "../components/Main";
 import {useAuth} from "../auth/AuthProvider";
-import {Redirect} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 
 
 export default function Profile(){
@@ -14,6 +14,7 @@ export default function Profile(){
 
     return(
         <Page>
+            <NavLink to="/">Home</NavLink>
             <Main>
                 <Header title = "Profile von " />
                 <h1>{user.userName}</h1>

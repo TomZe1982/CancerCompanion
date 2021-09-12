@@ -1,7 +1,9 @@
 package de.tomze.backend.api;
 
+import de.tomze.backend.model.Address;
 import lombok.*;
 
+import javax.persistence.Embedded;
 
 
 @Getter
@@ -17,8 +19,6 @@ public class UserFromAppDto {
     private String secondName;
     private String firstName;
     private String email;
-    private String street;
-    private String number;
-    private String zipCode;
-    private String city;
+    @Embedded
+    private Address address;
 }
