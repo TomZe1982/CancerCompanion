@@ -13,7 +13,7 @@ export default function StartScreen() {
             <Main>
                 <Header title="CancerCompanion"></Header>
                 <div>
-                <Img src="CC.png" alt="fb"/>
+                <Img src="CC1.png" alt="fb"/>
                 </div>
                 <NavLink to ="/login">Community</NavLink>
             </Main>

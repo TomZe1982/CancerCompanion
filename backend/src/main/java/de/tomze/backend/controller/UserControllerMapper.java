@@ -21,11 +21,7 @@ abstract class UserControllerMapper {
         return UserFromAppDto.builder()
                 .userName(userEntity.getUserName())
                 .password(userEntity.getPassword())
-                .secondName(userEntity.getSecondName())
-                .firstName(userEntity.getFirstName())
                 .email(userEntity.getEmail())
-                .role(userEntity.getRole())
-                .address(userEntity.getAddress())
                 .build();
     }
 

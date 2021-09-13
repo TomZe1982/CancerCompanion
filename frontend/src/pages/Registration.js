@@ -27,6 +27,8 @@ export default function Registration() {
     }
 
 
+
+
 return (
     <Page>
         <NavBar/>
@@ -36,42 +38,11 @@ return (
                 title="Benutzername"
                 name="userName"
                 value={credentials.userName || ""}
-                onChange={handleOnChange}
-            />
-            <TextField
-                title="Vorname"
-                name="firstName"
-                value={credentials.firstName || ""}
                 onChange={handleOnChange}/>
             <TextField
-                title="Nachname"
-                name="secondName"
-                value={credentials.secondName || ""}
-                onChange={handleOnChange}/>
-            <TextField
-                title="E-Mail"
+                title="Email"
                 name="email"
                 value={credentials.email || ""}
-                onChange={handleOnChange}/>
-            <TextField
-                title="Straße"
-                name="street"
-                value={credentials.street || ""}
-                onChange={handleOnChange}/>
-            <TextField
-                title="Hausnummer"
-                name="number"
-                value={credentials.number || ""}
-                onChange={handleOnChange}/>
-            <TextField
-                title="Postleitzahl"
-                name="zipCode"
-                value={credentials.zipCode || ""}
-                onChange={handleOnChange}/>
-            <TextField
-                title="Stadt"
-                name="city"
-                value={credentials.city || ""}
                 onChange={handleOnChange}/>
             <TextField
                 title="Passwort"

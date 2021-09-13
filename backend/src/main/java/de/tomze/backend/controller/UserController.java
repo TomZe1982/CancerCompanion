@@ -54,8 +54,7 @@ public class UserController extends UserControllerMapper {
     }
 
     @PostMapping("/api/tomze/register")
-    public ResponseEntity<UserFromAppDto> createUser(@RequestBody UserFromAppDto userFromAppDto) {
-
+    public ResponseEntity<UserFromAppDto> createUser(@AuthenticationPrincipal UserEntity authUser, @RequestBody UserFromAppDto userFromAppDto) {
         UserEntity createdUserEntity = userService.createUser(userFromAppDto);
         UserFromAppDto createdUserFromAppDto = mapUserFromAppDto(createdUserEntity);
         return ok(createdUserFromAppDto);
@@ -63,14 +62,23 @@ public class UserController extends UserControllerMapper {
     }
 
     @PutMapping("/api/tomze/user/{userName}")
-    public ResponseEntity<UserFromAppDto> updateUser(@PathVariable String userName, @RequestBody UserFromAppDto userFromAppDto){
+    public ResponseEntity<UserFromAppDto> updateUser(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName, @RequestBody UserFromAppDto userFromAppDto){
+        if(authUser.getRole().equals("user") && !authUser.getUserName().equals(userFromAppDto.getUserName())){
+            throw new IllegalArgumentException("User must not update other user");
+        }
         UserEntity updatedUserEntity = userService.updateUser(userName, userFromAppDto);
         UserFromAppDto updatedUserFromAppDto = mapUserFromAppDto(updatedUserEntity);
         return ok(updatedUserFromAppDto);
     }
 
-    @DeleteMapping("/api/tomze/user/{userName}")
-    public ResponseEntity<UserFromAppDto> deleteUser(@PathVariable String userName) {
+    @DeleteMapping("/api/tomze/user/delete/{userName}")
+    public ResponseEntity<UserFromAppDto> deleteUser(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName) {
+       if(authUser.getRole().equals("admin") && authUser.getUserName().equals(userName)){
+           throw new IllegalArgumentException("Admin is not allowed to delete himself");
+       }
+       if(authUser.getRole().equals("user") && !authUser.getUserName().equals(userName)){
+           throw new IllegalArgumentException("User must not delete other User");
+       }
         UserEntity userEntityToDelete = userService.deleteUser(userName);
         UserFromAppDto deletedUserFromAppDto = mapUserFromAppDto(userEntityToDelete);
         return  ok(deletedUserFromAppDto);

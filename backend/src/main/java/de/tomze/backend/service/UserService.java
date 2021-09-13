@@ -1,15 +1,14 @@
 package de.tomze.backend.service;
 
 import de.tomze.backend.api.UserFromAppDto;
-import de.tomze.backend.api.UserToAppDto;
 import de.tomze.backend.model.UserEntity;
 import de.tomze.backend.repository.UserRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import static org.springframework.util.StringUtils.hasText;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +31,15 @@ public class UserService {
     }
 
     public UserEntity createUser(UserFromAppDto userFromAppDto) {
-
+        if(!hasText(userFromAppDto.getUserName())){
+            throw new IllegalArgumentException("Username must not be empty!");
+        }
+        if(!hasText(userFromAppDto.getEmail())) {
+            throw new IllegalArgumentException("Email must not be empty!");
+        }
+        if(!hasText(userFromAppDto.getPassword())){
+            throw new IllegalArgumentException("Password must not be empty!");
+        }
         UserEntity createdUserEntity = map(userFromAppDto);
 
         String userName = createdUserEntity.getUserName();
@@ -79,13 +86,8 @@ public class UserService {
                 .role("user")
                 .userName(userFromAppDto.getUserName())
                 .password(hashedPassword)
-                .secondName(userFromAppDto.getSecondName())
-                .firstName(userFromAppDto.getFirstName())
                 .email(userFromAppDto.getEmail())
-                .address(userFromAppDto.getAddress())
                 .build();
-
-
     }
 
 
