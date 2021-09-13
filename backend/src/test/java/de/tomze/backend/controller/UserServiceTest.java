@@ -41,7 +41,7 @@ class UserServiceTest extends SpringBootTests {
         if(actualOptional.isPresent()){
             UserEntity actual = actualOptional.get();
 
-            assertEquals(user, actual);
+            assertEquals(user.getUserName(), actual.getUserName());
         }
     }
 
