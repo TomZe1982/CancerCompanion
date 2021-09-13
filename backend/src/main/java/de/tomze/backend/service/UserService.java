@@ -45,7 +45,7 @@ public class UserService {
         String userName = createdUserEntity.getUserName();
         Optional<UserEntity> existingUserEntityOptional = getUser(userName);
         if(existingUserEntityOptional.isPresent()){
-            throw new IllegalArgumentException("This username is not available");
+            throw new IllegalArgumentException("Username is already in use");
         }
         userRepository.save(createdUserEntity);
         return createdUserEntity;
@@ -61,16 +61,13 @@ public class UserService {
             throw new IllegalArgumentException("NotFound");
         }
         UserEntity userEntityToUpdate = userEntityOptional.get();
-        if (userEntityToUpdate.equals(userFromAppDto)) {
-            throw new IllegalArgumentException("Nothing to Change");
-        }
-        deleteUser(userEntityToUpdate.getUserName());
+        deleteUser(userEntityToUpdate);
         UserEntity updatedUserEntity = map(userFromAppDto);
         userRepository.save(updatedUserEntity);
         return updatedUserEntity;
     }
 
-    public UserEntity deleteUser(String userName) {
+    public UserEntity adminDeleteUser(String userName) {
         Optional<UserEntity> userEntityOptionalToDelete = getUser(userName);
         if(userEntityOptionalToDelete.isEmpty()){
             throw new IllegalArgumentException("No user found to delete");
@@ -80,6 +77,15 @@ public class UserService {
         return userEntityToDelete;
     }
 
+    public UserEntity deleteUser(UserEntity authUser) {
+        Optional<UserEntity> userEntityOptionalToDelete = getUser(authUser.getUserName());
+        if(userEntityOptionalToDelete.isEmpty()){
+            throw new IllegalArgumentException("No user found to delete");
+        }
+        UserEntity userEntityToDelete = userEntityOptionalToDelete.get();
+        userRepository.delete(userEntityToDelete);
+        return userEntityToDelete;
+    }
     public UserEntity map(UserFromAppDto userFromAppDto){
         String hashedPassword = new BCryptPasswordEncoder().encode(userFromAppDto.getPassword());
         return  UserEntity.builder()

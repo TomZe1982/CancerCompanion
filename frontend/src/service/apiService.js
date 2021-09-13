@@ -17,6 +17,10 @@ export const getAllUser = (token) =>
 export const getLoggedInUser =(token) =>
     axios.get("api/auth/me", headers(token))
         .then(response => response.data)
+
+export const deleteUser = (token) =>
+    axios.delete("api/tomze/user/delete", headers(token))
+
 //Route without token needed
 
 export const getToken = credentials =>

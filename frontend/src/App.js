@@ -6,6 +6,8 @@ import Registration from "./pages/Registration";
 
 import Profile from "./pages/Profile";
 import AuthProvider from "./auth/AuthProvider";
+import Logout from "./components/Logout";
+import Delete from "./pages/Delete";
 
 
 
@@ -18,8 +20,10 @@ export default function App() {
                 <Switch>
                     <Route exact path="/" component={StartScreen}/>
                     <Route path="/login" component={Login}/>
+                    <Route path="/logout" component={Logout}/>
                     <Route path="/register" component={Registration}/>
                     <Route path="/profile" component={Profile}/>
+                    <Route path="/delete" component={Delete}/>
                 </Switch>
             </Router>
         </AuthProvider>

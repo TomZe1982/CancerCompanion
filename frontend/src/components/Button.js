@@ -2,12 +2,12 @@ import styled from 'styled-components/macro'
 import { css } from 'styled-components'
 
 export default styled.button`
-  padding: var(--size-m);
+  padding: var(--size-s);
   background: var(--accent);
   border: 1px solid var(--accent);
   color: var(--neutral-light);
   font-size: 1em;
-  border-radius: var(--size-s);
+  border-radius: var(--size-xs);
 
   :disabled {
     border-color: var(--neutral-dark);

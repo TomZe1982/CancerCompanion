@@ -1,16 +1,20 @@
 import Header from "../components/Header";
 import Page from "../components/Page";
 import NavBar from "../components/NavBar";
-import {NavLink, Redirect} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import Main from "../components/Main";
 import TextField from "../components/TextField";
 import Button from "../components/Button";
 import {useState} from "react";
 import {useAuth} from "../auth/AuthProvider";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 
 export default function Login() {
     const {login, user} = useAuth()
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState()
     const [credentials, setCredentials] = useState({});
 
     const handleOnChange = (event) => {
@@ -20,8 +24,13 @@ export default function Login() {
 
     const submitHandler = (event) => {
         event.preventDefault()
+        setLoading(true)
+        setError()
         login(credentials)
-            .catch(error => console.error(error))
+            .catch(error => {
+                setError(error)
+                setLoading(false)
+            })
     }
 
     console.log(user)
@@ -35,6 +44,8 @@ export default function Login() {
         <Page>
             <NavBar/>
             <Header title="Login"/>
+            {loading && <Loading/>}
+            {!loading && (
             <Main as="form" onSubmit={submitHandler}>
                 <TextField
                     title="Benutzername"
@@ -49,8 +60,9 @@ export default function Login() {
                     onChange={handleOnChange}
                 />
                 <Button>Login</Button>
-            </Main>
-            <NavLink to="/register">Registrieren</NavLink>
+            </Main>)}
+            {error && <Error>{error.message}</Error>}
+            <Button as={Link} to = "/register" >Registrieren</Button>
 
         </Page>
     )
