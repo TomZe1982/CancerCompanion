@@ -77,6 +77,21 @@ public class UserService {
         return userEntityToUpdate;
     }
 
+    public UserEntity resetPassword(String userName, UserFromAppDto userFromAppDto) {
+
+        Optional<UserEntity> fetchedUserEntityOptional = userRepository.findByUserName(userName);
+
+        if(fetchedUserEntityOptional.isEmpty()){
+            throw new EntityNotFoundException("User not found");
+        }
+        UserEntity resetPasswordUserEntity = fetchedUserEntityOptional.get();
+
+        String newHashedPassword = new BCryptPasswordEncoder().encode(userFromAppDto.getPassword());
+        resetPasswordUserEntity.setPassword(newHashedPassword);
+        userRepository.save(resetPasswordUserEntity);
+        return resetPasswordUserEntity;
+    }
+
     public UserEntity adminDeleteUser(String userName) {
         Optional<UserEntity> userEntityOptionalToDelete = getUser(userName);
         if(userEntityOptionalToDelete.isEmpty()){
@@ -105,6 +120,7 @@ public class UserService {
                 .email(userFromAppDto.getEmail())
                 .build();
     }
+
 
 
 }

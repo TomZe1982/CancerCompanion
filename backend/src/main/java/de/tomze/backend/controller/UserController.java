@@ -71,6 +71,16 @@ public class UserController extends UserControllerMapper {
         return ok(updatedUserFromAppDto);
     }
 
+    @PutMapping("api/tomze/user/password/{userName}")
+    public ResponseEntity<UserFromAppDto> resetPassword(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName, @RequestBody UserFromAppDto userFromAppDto){
+        if(authUser.getRole().equals("user") && !authUser.getUserName().equals(userName) && !userFromAppDto.getUserName().equals(userName)){
+            throw new IllegalArgumentException("User must not reset other users password");
+        }
+        UserEntity passwordResetUserEntity = userService.resetPassword(userName, userFromAppDto);
+        UserFromAppDto passwordResetUserFromAppDto = mapUserFromAppDto(passwordResetUserEntity);
+        return ok(passwordResetUserFromAppDto);
+    }
+
     @DeleteMapping("/api/tomze/user/delete/{userName}")
     public ResponseEntity<UserFromAppDto> adminDeleteUser(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName) {
         if (authUser.getRole().equals("admin") && authUser.getUserName().equals(userName)) {
