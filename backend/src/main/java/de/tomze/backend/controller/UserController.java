@@ -82,27 +82,18 @@ public class UserController extends UserControllerMapper {
     }
 
     @DeleteMapping("/api/tomze/user/delete/{userName}")
-    public ResponseEntity<UserFromAppDto> adminDeleteUser(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName) {
+    public ResponseEntity<UserFromAppDto> deleteUser(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName) {
         if (authUser.getRole().equals("admin") && authUser.getUserName().equals(userName)) {
             throw new IllegalArgumentException("Admin is not allowed to delete himself");
         }
         if (authUser.getRole().equals("user") && !authUser.getUserName().equals(userName)) {
             throw new IllegalArgumentException("User must not delete other User");
         }
-        UserEntity userEntityToDelete = userService.adminDeleteUser(userName);
+        UserEntity userEntityToDelete = userService.deleteUser(userName);
         UserFromAppDto deletedUserFromAppDto = mapUserFromAppDto(userEntityToDelete);
         return ok(deletedUserFromAppDto);
     }
 
-    @DeleteMapping("/api/tomze/user/delete")
-    public ResponseEntity<UserFromAppDto> deleteUser(@AuthenticationPrincipal UserEntity authUser) {
-        if (authUser.getRole().equals("admin")) {
-            throw new IllegalArgumentException("Admin is not allowed to delete himself");
-        }
-        UserEntity userEntityToDelete = userService.deleteUser(authUser);
-        UserFromAppDto deletedUserFromAppDto = mapUserFromAppDto(userEntityToDelete);
-        return ok(deletedUserFromAppDto);
-    }
 
 
 }

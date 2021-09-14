@@ -92,7 +92,7 @@ public class UserService {
         return resetPasswordUserEntity;
     }
 
-    public UserEntity adminDeleteUser(String userName) {
+    public UserEntity deleteUser(String userName) {
         Optional<UserEntity> userEntityOptionalToDelete = getUser(userName);
         if(userEntityOptionalToDelete.isEmpty()){
             throw new IllegalArgumentException("No user found to delete");
@@ -102,15 +102,6 @@ public class UserService {
         return userEntityToDelete;
     }
 
-    public UserEntity deleteUser(UserEntity authUser) {
-        Optional<UserEntity> userEntityOptionalToDelete = getUser(authUser.getUserName());
-        if(userEntityOptionalToDelete.isEmpty()){
-            throw new IllegalArgumentException("No user found to delete");
-        }
-        UserEntity userEntityToDelete = userEntityOptionalToDelete.get();
-        userRepository.delete(userEntityToDelete);
-        return userEntityToDelete;
-    }
     public UserEntity map(UserFromAppDto userFromAppDto){
         String hashedPassword = new BCryptPasswordEncoder().encode(userFromAppDto.getPassword());
         return  UserEntity.builder()
