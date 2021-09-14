@@ -6,8 +6,10 @@ import Button from "../components/Button";
 import {Redirect} from "react-router-dom";
 
 
+
 export default function Logout () {
-const {user, logout} = useAuth()
+    const {user, logout} = useAuth()
+
 
     if(!user){
         return <Redirect to = "/login"/>

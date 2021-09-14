@@ -22,7 +22,6 @@ export default function EditProfile () {
     },[])
 
 
-
     const handleOnChange = (event) => {
         setCredentials({userName: userToChange.userName, password: userToChange.password, email: userToChange.email, ...credentials, [event.target.name] : event.target.value})
     }
@@ -35,7 +34,6 @@ export default function EditProfile () {
         updateUser(credentials)
 
     }
-
 
     if(!user){
         return <Redirect to = "/login"/>

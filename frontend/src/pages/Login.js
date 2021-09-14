@@ -20,7 +20,7 @@ export default function Login() {
     const handleOnChange = (event) => {
         setCredentials({...credentials, [event.target.name]: event.target.value})
     }
-    console.log(credentials)
+
 
     const submitHandler = (event) => {
         event.preventDefault()
@@ -32,8 +32,6 @@ export default function Login() {
                 setLoading(false)
             })
     }
-
-    console.log(user)
 
 
     if (user) {

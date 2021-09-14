@@ -8,6 +8,8 @@ import {createUser} from "../service/apiService";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
+import {Redirect} from "react-router-dom";
+
 
 
 
@@ -16,23 +18,27 @@ import Error from "../components/Error";
 export default function Registration() {
     const [credentials, setCredentials] = useState("");
     const [loading, setLoading] = useState(false)
+    const [registeredUser, setRegisteredUser] = useState()
     const [error, setError] = useState()
+
 
     const handleOnChange = event => {
         setCredentials({...credentials, [event.target.name]: event.target.value})
     }
 
-    console.log(credentials)
-
     const handleSubmit = event => {
         event.preventDefault()
         setError()
         createUser(credentials)
+            .then(registeredUser => setRegisteredUser(registeredUser))
             .catch(error => {setError(error)
             setLoading(false)})
             .finally(() => setCredentials({credentials: ""}))
     }
 
+    if(registeredUser){
+        return <Redirect to = "/login"/>
+    }
 
 return (
     <Page>

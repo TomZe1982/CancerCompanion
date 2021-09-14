@@ -12,7 +12,6 @@ const headers = token => ({
 export const getAllUser = (token) =>
     axios.get("/api/tomze/user", headers(token))
         .then(response => response.data)
-        .then(response => console.log(response))
 
 export const getUser =(userName, token) =>
     axios.get("api/tomze/user/"+userName, headers(token))
@@ -35,7 +34,7 @@ export const getToken = credentials =>
 
 export const createUser = credentials =>
     axios.post("/api/tomze/register", credentials)
-        .then(response => console.log(response))
+        .then(response => response.data)
 
 
 
