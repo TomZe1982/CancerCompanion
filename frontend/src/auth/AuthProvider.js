@@ -20,7 +20,7 @@ export default function AuthProvider ({children}) {
 
     const deleteUser = (userName) => deleteAPI(userName, token)
 
-    const updateUser = (userName, user) => updateAPI(userName, user, token)
+    const updateUser = (credentials) => updateAPI(credentials, token)
 
     return(
         <AuthContext.Provider value={{ token, user, login, logout, deleteUser, updateUser }}>

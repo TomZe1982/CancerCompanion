@@ -24,7 +24,7 @@ export default function EditProfile () {
 
 
     const handleOnChange = (event) => {
-        setCredentials({...credentials, [event.target.name] : event.target.value})
+        setCredentials({userName: userToChange.userName, password: userToChange.password, email: userToChange.email, ...credentials, [event.target.name] : event.target.value})
     }
 
 
@@ -32,6 +32,7 @@ export default function EditProfile () {
 
     const handleSubmit = (event) => {
         event.preventDefault()
+        updateUser(credentials)
 
     }
 
@@ -50,7 +51,12 @@ export default function EditProfile () {
                     name="email"
                     value={credentials.email || ""}
                     onChange={handleOnChange}/>
-                {(credentials.email !== "") ?
+                    <TextField
+                        title="Passwort"
+                        name="password"
+                        value={credentials.password || ""}
+                        onChange={handleOnChange}/>
+                    {(credentials.email !== "" || credentials.password !== "") ?
                     <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
             </Main>
         </Page>

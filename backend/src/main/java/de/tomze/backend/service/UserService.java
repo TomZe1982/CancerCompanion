@@ -71,8 +71,14 @@ public class UserService {
         if(userEntityToUpdate.getEmail().equals(userFromAppDto.getEmail())){
             throw new IllegalArgumentException("Nothing to change");
         }
-        userEntityToUpdate.setEmail(userFromAppDto.getEmail());
+        if(userFromAppDto.getPassword() == null) {
+            userEntityToUpdate.setEmail(userFromAppDto.getEmail());
+        }
+        if(userFromAppDto.getEmail().equals("")) {
+            userEntityToUpdate = resetPassword(userFromAppDto.getUserName(), userFromAppDto);
+        }
         userRepository.save(userEntityToUpdate);
+
         return userEntityToUpdate;
     }
 

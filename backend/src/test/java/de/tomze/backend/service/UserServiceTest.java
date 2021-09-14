@@ -1,8 +1,9 @@
-package de.tomze.backend.controller;
+package de.tomze.backend.service;
 
 import de.tomze.backend.api.UserFromAppDto;
 
 import de.tomze.backend.model.UserEntity;
+import de.tomze.backend.repository.UserRepository;
 import de.tomze.backend.service.SpringBootTests;
 import de.tomze.backend.service.UserService;
 
@@ -13,10 +14,15 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
+
+
 class UserServiceTest extends SpringBootTests {
 
     @Autowired
     UserService userService;
+    @Autowired
+    UserRepository userRepository;
 
 
 
@@ -24,13 +30,14 @@ class UserServiceTest extends SpringBootTests {
     void ShouldFindOneUser() {
 
         //GIVEN
-
         UserEntity user = UserEntity.builder()
                 .role("user")
                 .userName("tom")
                 .email("tom")
                 .password("123")
               .build();
+
+        userRepository.save(user);
 
         //WHEN
 
@@ -47,14 +54,22 @@ class UserServiceTest extends SpringBootTests {
 
     @Test
     void ShouldNotFindOneUser() {
+        //GIVEN
+        UserEntity user = UserEntity.builder()
+                .role("user")
+                .userName("tom")
+                .email("tom")
+                .password("123")
+                .build();
 
+        userRepository.save(user);
         //WHEN
 
         Optional<UserEntity> actualOptional = userService.getUser("elise");
 
 
         //THEN
-            assertEquals(Optional.empty(),actualOptional);
+            assertEquals(Optional.empty(), actualOptional);
 
     }
 
@@ -81,43 +96,4 @@ class UserServiceTest extends SpringBootTests {
 
     }
 
-    @Test
-    void UserShouldUpdateHimself() {
-    }
-
-    @Test
-    void UserShouldNotUpdateOtherUser() {
-    }
-
-    @Test
-    void UserShouldNotUpdateAdmin() {
-    }
-
-    @Test
-    void AdminShouldUpdateHimself() {
-    }
-
-    @Test
-    void AdminShouldUpdateOtherUser() {
-    }
-
-    @Test
-    void UserShouldDeleteHimself() {
-    }
-
-    @Test
-    void UserShouldNotDeleteOtherUSer() {
-    }
-
-    @Test
-    void UserShouldNotDeleteAdmin() {
-    }
-
-    @Test
-    void AdminShouldDeleteOtherUser() {
-    }
-
-    @Test
-    void AdminShouldNotDeleteHimself() {
-    }
 }

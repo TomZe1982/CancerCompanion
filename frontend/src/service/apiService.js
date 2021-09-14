@@ -21,8 +21,8 @@ export const getUser =(userName, token) =>
 export const deleteUser = (userName, token) =>
     axios.delete("api/tomze/user/delete/"+userName, headers(token) )
 
-export const updateUser = (user, userName, token) =>
-    axios.put("api/tomze/user/update/"+userName, user, headers(token))
+export const updateUser = (credentials, token) =>
+    axios.put("api/tomze/user/update/"+credentials.userName, credentials, headers(token))
 
 //Route without token needed
 
