@@ -68,7 +68,6 @@ public class UserService {
         if(!userFromAppDto.getUserName().equals(userName)){
             throw new IllegalArgumentException("Username cannot be changed");
         }
-
         if(userEntityToUpdate.getEmail().equals(userFromAppDto.getEmail())){
             throw new IllegalArgumentException("Nothing to change");
         }

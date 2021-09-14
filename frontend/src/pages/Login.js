@@ -56,6 +56,7 @@ export default function Login() {
                 <TextField
                     title="Passwort"
                     name="password"
+                    type="password"
                     value={credentials.password || ""}
                     onChange={handleOnChange}
                 />

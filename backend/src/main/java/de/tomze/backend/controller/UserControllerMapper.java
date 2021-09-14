@@ -2,6 +2,7 @@ package de.tomze.backend.controller;
 
 import de.tomze.backend.api.UserFromAppDto;
 import de.tomze.backend.api.UserToAppDto;
+import de.tomze.backend.api.UserToUpdateDto;
 import de.tomze.backend.model.UserEntity;
 
 import java.util.ArrayList;
@@ -21,6 +22,13 @@ abstract class UserControllerMapper {
         return UserFromAppDto.builder()
                 .userName(userEntity.getUserName())
                 .password(userEntity.getPassword())
+                .email(userEntity.getEmail())
+                .build();
+    }
+
+    protected UserToUpdateDto mapUserToUpdateDto(UserEntity userEntity){
+        return UserToUpdateDto.builder()
+                .userName(userEntity.getUserName())
                 .email(userEntity.getEmail())
                 .build();
     }

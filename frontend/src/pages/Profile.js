@@ -21,8 +21,10 @@ export default function Profile(){
             <Main>
                 <Header title = "Profile von " />
                 <h1>{user.userName}</h1>
-                <Button as={Link} to = "/logout" >Logout</Button>
-                <Button as={Link} to = "/delete" >Profil löschen</Button>
+                <Button as = {Link} to = "/edit">Profil bearbeiten</Button>
+                <Button as = {Link} to = "/logout" >Logout</Button>
+                <Button as = {Link} to = "/delete" >Profil löschen</Button>
+                <Button as = {Link} to = "/tutorials">Schmink Tutorials</Button>
             </Main>
         </Page>
     )

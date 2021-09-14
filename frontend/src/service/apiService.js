@@ -14,12 +14,15 @@ export const getAllUser = (token) =>
         .then(response => response.data)
         .then(response => console.log(response))
 
-export const getLoggedInUser =(token) =>
-    axios.get("api/auth/me", headers(token))
+export const getUser =(userName, token) =>
+    axios.get("api/tomze/user/"+userName, headers(token))
         .then(response => response.data)
 
-export const deleteUser = (token) =>
-    axios.delete("api/tomze/user/delete", headers(token))
+export const deleteUser = (userName, token) =>
+    axios.delete("api/tomze/user/delete/"+userName, headers(token) )
+
+export const updateUser = (user, userName, token) =>
+    axios.put("api/tomze/user/update/"+userName, user, headers(token))
 
 //Route without token needed
 

@@ -14,7 +14,7 @@ import Error from "../components/Error";
 
 
 export default function Registration() {
-    const [credentials, setCredentials] = useState({});
+    const [credentials, setCredentials] = useState("");
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
 
@@ -56,7 +56,8 @@ return (
                 name="password"
                 value={credentials.password || ""}
                 onChange={handleOnChange}/>
-            <Button>Bestätigen</Button>
+            {(credentials.userName !== "" && credentials.email !== "" && credentials.password !== "") ?
+            <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
         </Main>
         )}
         {error && <Error>{error.message}</Error>}
