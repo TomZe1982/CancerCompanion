@@ -8,6 +8,9 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+
 import static org.springframework.util.StringUtils.hasText;
 
 import java.util.List;
@@ -58,13 +61,20 @@ public class UserService {
     public UserEntity updateUser(String userName, UserFromAppDto userFromAppDto) {
         Optional<UserEntity> userEntityOptional = getUser(userName);
         if (userEntityOptional.isEmpty()) {
-            throw new IllegalArgumentException("NotFound");
+            throw new EntityNotFoundException("NotFound");
         }
         UserEntity userEntityToUpdate = userEntityOptional.get();
-        deleteUser(userEntityToUpdate);
-        UserEntity updatedUserEntity = map(userFromAppDto);
-        userRepository.save(updatedUserEntity);
-        return updatedUserEntity;
+
+        if(!userFromAppDto.getUserName().equals(userName)){
+            throw new IllegalArgumentException("Username cannot be changed");
+        }
+
+        if(userEntityToUpdate.getEmail().equals(userFromAppDto.getEmail())){
+            throw new IllegalArgumentException("Nothing to change");
+        }
+        userEntityToUpdate.setEmail(userFromAppDto.getEmail());
+        userRepository.save(userEntityToUpdate);
+        return userEntityToUpdate;
     }
 
     public UserEntity adminDeleteUser(String userName) {

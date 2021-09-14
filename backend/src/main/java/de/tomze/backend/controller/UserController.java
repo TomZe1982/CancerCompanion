@@ -63,7 +63,7 @@ public class UserController extends UserControllerMapper {
 
     @PutMapping("/api/tomze/user/{userName}")
     public ResponseEntity<UserFromAppDto> updateUser(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName, @RequestBody UserFromAppDto userFromAppDto) {
-        if (authUser.getRole().equals("user") && !authUser.getUserName().equals(userFromAppDto.getUserName())) {
+        if (authUser.getRole().equals("user") && !authUser.getUserName().equals(userName)){
             throw new IllegalArgumentException("User must not update other user");
         }
         UserEntity updatedUserEntity = userService.updateUser(userName, userFromAppDto);
