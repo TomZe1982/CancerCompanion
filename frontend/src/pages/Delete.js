@@ -4,23 +4,21 @@ import Main from "../components/Main";
 import {useAuth} from "../auth/AuthProvider";
 import {Link, Redirect} from "react-router-dom";
 import Button from "../components/Button";
-import {useEffect} from "react";
+import {useState} from "react";
 
 
 export default function Delete() {
     const {user, logout, deleteUser} = useAuth()
-
-    useEffect(()=>{
-        return logout
-    },[() => deleteUser(user.userName)])
-
+    const [deletedUser, setDeletedUser] = useState()
 
     const handleDelete = () => {
         deleteUser(user.userName)
+            .then(deletedUser => setDeletedUser(deletedUser))
             .then(logout)
     }
 
-    if(!user)
+
+    if(deletedUser)
     {
         return <Redirect to = "/"/>
     }
