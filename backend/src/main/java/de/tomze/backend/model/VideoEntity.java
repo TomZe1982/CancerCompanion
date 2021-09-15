@@ -21,7 +21,4 @@ public class VideoEntity {
     @Column(name="vid_id", nullable = false)
     private String vid_id;
 
-    @Column(name="etag", nullable = false)
-    private String etag;
-
 }

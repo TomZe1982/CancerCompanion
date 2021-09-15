@@ -21,14 +21,10 @@ public class YoutubeClient {
         this.youtubeApi = youtubeApi;
     }
 
-    private String getAccessToken() {
-        return youtubeClientConfigProperties.getAccessToken();
-    }
-
     public YoutubeToApiDto getVideo(String id) {
-       YoutubeToApiDto youtubeAPIDto =  youtubeApi.getVideo(getAccessToken(), id);
+    return youtubeApi.getVideo("AIzaSyBn0MUBtxKvqbeXLMu_iv7my_1l_Alut0A", id);
 
-       return youtubeAPIDto;
+
     }
 
 }

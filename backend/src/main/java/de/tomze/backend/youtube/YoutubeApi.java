@@ -1,14 +1,16 @@
 package de.tomze.backend.youtube;
 
 import de.tomze.backend.api.YoutubeToApiDto;
+import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 
+
+
 public interface YoutubeApi {
 
-    String ACCESS_TOKEN_PARAM = "access-token";
 
-    @RequestLine("GET videos/{id}")
-    YoutubeToApiDto getVideo(@Param(ACCESS_TOKEN_PARAM) String accessToken,
+    @RequestLine("GET videos?id={id}&key={accessToken}")
+    YoutubeToApiDto getVideo(@Param("accessToken") String accessToken,
                                 @Param("id") String id);
 }

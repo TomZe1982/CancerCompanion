@@ -9,8 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 public class YoutubeToApiDto {
 
-    private String etag;
     private String id;
-
 
 }

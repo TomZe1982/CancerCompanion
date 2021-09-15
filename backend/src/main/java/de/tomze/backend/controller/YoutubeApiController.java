@@ -1,14 +1,14 @@
 package de.tomze.backend.controller;
 
 import de.tomze.backend.api.YoutubeToApiDto;
-import de.tomze.backend.model.UserEntity;
+
 import de.tomze.backend.model.VideoEntity;
 import de.tomze.backend.repository.VideoRepository;
 import de.tomze.backend.service.YoutubeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,8 +36,7 @@ public class YoutubeApiController {
         YoutubeToApiDto youtubeToApiDto = youtubeService.getVideo(id);
 
         VideoEntity videoEntity = VideoEntity.builder()
-                .vid_id(youtubeToApiDto.getId())
-                        .etag(youtubeToApiDto.getEtag()).build();
+                .vid_id(id).build();
         videoRepository.save(videoEntity);
         return ok(youtubeToApiDto);
     }
