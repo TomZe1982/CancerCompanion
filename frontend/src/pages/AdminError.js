@@ -1,18 +1,19 @@
+import Page from "../components/Page";
 import NavBar from "../components/NavBar";
-import {useAuth} from "../auth/AuthProvider";
 import Main from "../components/Main";
 import Header from "../components/Header";
-import Page from "../components/Page";
+import {useAuth} from "../auth/AuthProvider";
 
 
-export default function Admin () {
+export default function AdminError(){
     const {user} = useAuth()
 
     return(
         <Page>
             <NavBar user = {user}/>
             <Main>
-                <Header title={user.userName}/>
+                <Header> title = "Oh oh" </Header>
+                <h1>{user.userName}, you are fucking admin !!!</h1>
             </Main>
         </Page>
     )

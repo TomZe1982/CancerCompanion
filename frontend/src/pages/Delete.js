@@ -6,17 +6,18 @@ import {Link, Redirect} from "react-router-dom";
 import Button from "../components/Button";
 import {useState} from "react";
 import NavBar from "../components/NavBar";
-import Error from "../components/Error";
+
 
 
 export default function Delete() {
     const {user, logout, deleteUser} = useAuth()
     const [deletedUser, setDeletedUser] = useState()
 
+    if(user.role === "admin"){
+        return <Redirect to = "/adminerror"/>
+    }
+
     const handleDelete = () => {
-        if(user.role === "admin"){
-            return <Error>Nope</Error>
-        }
         deleteUser(user.userName)
             .then(deletedUser => setDeletedUser(deletedUser))
             .then(logout)
