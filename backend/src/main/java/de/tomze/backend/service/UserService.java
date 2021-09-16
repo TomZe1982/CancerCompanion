@@ -6,7 +6,12 @@ import de.tomze.backend.repository.UserRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+
+import static org.springframework.util.StringUtils.hasText;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,13 +34,21 @@ public class UserService {
     }
 
     public UserEntity createUser(UserFromAppDto userFromAppDto) {
-
+        if(!hasText(userFromAppDto.getUserName())){
+            throw new IllegalArgumentException("Username must not be empty!");
+        }
+        if(!hasText(userFromAppDto.getEmail())) {
+            throw new IllegalArgumentException("Email must not be empty!");
+        }
+        if(!hasText(userFromAppDto.getPassword())){
+            throw new IllegalArgumentException("Password must not be empty!");
+        }
         UserEntity createdUserEntity = map(userFromAppDto);
 
         String userName = createdUserEntity.getUserName();
         Optional<UserEntity> existingUserEntityOptional = getUser(userName);
         if(existingUserEntityOptional.isPresent()){
-            throw new IllegalArgumentException("This username is not available");
+            throw new IllegalArgumentException("Username is already in use");
         }
         userRepository.save(createdUserEntity);
         return createdUserEntity;
@@ -48,16 +61,40 @@ public class UserService {
     public UserEntity updateUser(String userName, UserFromAppDto userFromAppDto) {
         Optional<UserEntity> userEntityOptional = getUser(userName);
         if (userEntityOptional.isEmpty()) {
-            throw new IllegalArgumentException("NotFound");
+            throw new EntityNotFoundException("NotFound");
         }
         UserEntity userEntityToUpdate = userEntityOptional.get();
-        if (userEntityToUpdate.equals(userFromAppDto)) {
-            throw new IllegalArgumentException("Nothing to Change");
+
+        if(!userFromAppDto.getUserName().equals(userName)){
+            throw new IllegalArgumentException("Username cannot be changed");
         }
-        deleteUser(userEntityToUpdate.getUserName());
-        UserEntity updatedUserEntity = map(userFromAppDto);
-        userRepository.save(updatedUserEntity);
-        return updatedUserEntity;
+        if(userEntityToUpdate.getEmail().equals(userFromAppDto.getEmail())){
+            throw new IllegalArgumentException("Nothing to change");
+        }
+        if(userFromAppDto.getPassword() == null) {
+            userEntityToUpdate.setEmail(userFromAppDto.getEmail());
+        }
+        if(userFromAppDto.getEmail().equals("")) {
+            userEntityToUpdate = resetPassword(userFromAppDto.getUserName(), userFromAppDto);
+        }
+        userRepository.save(userEntityToUpdate);
+
+        return userEntityToUpdate;
+    }
+
+    public UserEntity resetPassword(String userName, UserFromAppDto userFromAppDto) {
+
+        Optional<UserEntity> fetchedUserEntityOptional = userRepository.findByUserName(userName);
+
+        if(fetchedUserEntityOptional.isEmpty()){
+            throw new EntityNotFoundException("User not found");
+        }
+        UserEntity resetPasswordUserEntity = fetchedUserEntityOptional.get();
+
+        String newHashedPassword = new BCryptPasswordEncoder().encode(userFromAppDto.getPassword());
+        resetPasswordUserEntity.setPassword(newHashedPassword);
+        userRepository.save(resetPasswordUserEntity);
+        return resetPasswordUserEntity;
     }
 
     public UserEntity deleteUser(String userName) {
@@ -71,20 +108,15 @@ public class UserService {
     }
 
     public UserEntity map(UserFromAppDto userFromAppDto){
-
+        String hashedPassword = new BCryptPasswordEncoder().encode(userFromAppDto.getPassword());
         return  UserEntity.builder()
                 .role("user")
                 .userName(userFromAppDto.getUserName())
-                .password(userFromAppDto.getPassword())
-                .secondName(userFromAppDto.getSecondName())
-                .firstName(userFromAppDto.getFirstName())
+                .password(hashedPassword)
                 .email(userFromAppDto.getEmail())
-                .street(userFromAppDto.getStreet())
-                .number(userFromAppDto.getNumber())
-                .city(userFromAppDto.getCity())
-                .zipCode(userFromAppDto.getZipCode())
                 .build();
-
-
     }
+
+
+
 }

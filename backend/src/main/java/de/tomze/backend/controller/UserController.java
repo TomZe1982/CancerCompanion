@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -19,11 +20,11 @@ import static org.springframework.http.ResponseEntity.notFound;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/tomze")
 @CrossOrigin
 @Getter
 @Setter
 public class UserController extends UserControllerMapper {
+
 
     private final UserService userService;
 
@@ -32,15 +33,16 @@ public class UserController extends UserControllerMapper {
         this.userService = userService;
     }
 
-    @GetMapping("/user")
-    public ResponseEntity<List<UserToAppDto>> getAllUsers (){
+
+    @GetMapping("/api/tomze/user")
+    public ResponseEntity<List<UserToAppDto>> getAllUsers() {
         List<UserEntity> listOfAllUserEntities = new ArrayList<>(userService.getAllUsers());
         List<UserToAppDto> listOfAllUsersToApp = map(listOfAllUserEntities);
 
         return ok(listOfAllUsersToApp);
     }
 
-    @GetMapping("/user/{userName}")
+    @GetMapping("/api/tomze/user/{userName}")
     public ResponseEntity<UserToAppDto> getUser(@PathVariable String userName) {
         Optional<UserEntity> foundUserEntity = userService.getUser(userName);
         if (foundUserEntity.isPresent()) {
@@ -51,29 +53,37 @@ public class UserController extends UserControllerMapper {
         return notFound().build();
     }
 
-    @PostMapping()
+    @PostMapping("/api/tomze/register")
     public ResponseEntity<UserFromAppDto> createUser(@RequestBody UserFromAppDto userFromAppDto) {
-
         UserEntity createdUserEntity = userService.createUser(userFromAppDto);
         UserFromAppDto createdUserFromAppDto = mapUserFromAppDto(createdUserEntity);
         return ok(createdUserFromAppDto);
 
     }
 
-    @PutMapping("/user/{userName}")
-    public ResponseEntity<UserFromAppDto> updateUser(@PathVariable String userName, @RequestBody UserFromAppDto userFromAppDto){
+    @PutMapping("/api/tomze/user/update/{userName}")
+    public ResponseEntity<UserFromAppDto> updateUser(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName, @RequestBody UserFromAppDto userFromAppDto) {
+        if (authUser.getRole().equals("user") && !authUser.getUserName().equals(userName) && !userFromAppDto.getUserName().equals(userName)){
+            throw new IllegalArgumentException("User must not update other user");
+        }
         UserEntity updatedUserEntity = userService.updateUser(userName, userFromAppDto);
         UserFromAppDto updatedUserFromAppDto = mapUserFromAppDto(updatedUserEntity);
         return ok(updatedUserFromAppDto);
     }
 
-    @DeleteMapping("/user/{userName}")
-    public ResponseEntity<UserFromAppDto> deleteUser(@PathVariable String userName) {
+
+    @DeleteMapping("/api/tomze/user/delete/{userName}")
+    public ResponseEntity<UserFromAppDto> deleteUser(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName) {
+        if (authUser.getRole().equals("admin") && authUser.getUserName().equals(userName)) {
+            throw new IllegalArgumentException("Admin is not allowed to delete himself");
+        }
+        if (authUser.getRole().equals("user") && !authUser.getUserName().equals(userName)) {
+            throw new IllegalArgumentException("User must not delete other User");
+        }
         UserEntity userEntityToDelete = userService.deleteUser(userName);
         UserFromAppDto deletedUserFromAppDto = mapUserFromAppDto(userEntityToDelete);
-        return  ok(deletedUserFromAppDto);
+        return ok(deletedUserFromAppDto);
     }
-
 
 
 

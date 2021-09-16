@@ -18,7 +18,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @CrossOrigin
-public class AuthController {
+public class AuthController{
 
     public static final String ACCESS_TOKEN_URL = "/auth/access_token";
 
@@ -37,8 +37,10 @@ public class AuthController {
     @GetMapping("/auth/me")
     public ResponseEntity<UserToAppDto> getLoggedInUser(@AuthenticationPrincipal UserEntity userEntity){
         return ok(
-                UserToAppDto.builder().userName(userEntity.getUserName())
-                        .role(userEntity.getRole()).build()
+                UserToAppDto.builder()
+                        .role(userEntity.getRole())
+                        .userName(userEntity.getUserName())
+                        .build()
                 );
     }
 

@@ -3,7 +3,8 @@ import styled from 'styled-components/macro'
 import Page from "../components/Page";
 import NavBar from "../components/NavBar";
 import Main from "../components/Main";
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
+import Button from "../components/Button";
 
 export default function StartScreen() {
 
@@ -13,9 +14,9 @@ export default function StartScreen() {
             <Main>
                 <Header title="CancerCompanion"></Header>
                 <div>
-                <Img src="CC.png" alt="fb"/>
+                <Img src="CC1.png" alt="fb"/>
                 </div>
-                <NavLink to ="/login">Community</NavLink>
+                <Button as={Link} to ="/login">Community</Button>
             </Main>
         </Page>
     )

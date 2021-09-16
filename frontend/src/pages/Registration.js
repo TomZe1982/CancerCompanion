@@ -6,11 +6,20 @@ import Button from "../components/Button";
 import {useState} from "react";
 import {createUser} from "../service/apiService";
 import Header from "../components/Header";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
+import {Redirect} from "react-router-dom";
+
+
+
 
 
 
 export default function Registration() {
-    const [credentials, setCredentials] = useState({});
+    const [credentials, setCredentials] = useState("");
+    const [loading, setLoading] = useState(false)
+    const [registeredUser, setRegisteredUser] = useState()
+    const [error, setError] = useState()
 
 
     const handleOnChange = event => {
@@ -19,67 +28,45 @@ export default function Registration() {
 
     const handleSubmit = event => {
         event.preventDefault()
+        setError()
         createUser(credentials)
-            .catch(error => console.error(error))
+            .then(registeredUser => setRegisteredUser(registeredUser))
+            .catch(error => {setError(error)
+            setLoading(false)})
             .finally(() => setCredentials({credentials: ""}))
-
     }
 
-
+    if(registeredUser){
+        return <Redirect to = "/login"/>
+    }
 
 return (
     <Page>
         <NavBar/>
+        {loading && <Loading/>}
+        {!loading && (
         <Main as="form" onSubmit={handleSubmit}>
             <Header title="Registrieren"/>
             <TextField
                 title="Benutzername"
                 name="userName"
                 value={credentials.userName || ""}
-                onChange={handleOnChange}
-            />
-            <TextField
-                title="Vorname"
-                name="firstName"
-                value={credentials.firstName || ""}
                 onChange={handleOnChange}/>
             <TextField
-                title="Nachname"
-                name="secondName"
-                value={credentials.secondName || ""}
-                onChange={handleOnChange}/>
-            <TextField
-                title="E-Mail"
+                title="Email"
                 name="email"
                 value={credentials.email || ""}
-                onChange={handleOnChange}/>
-            <TextField
-                title="Straße"
-                name="street"
-                value={credentials.street || ""}
-                onChange={handleOnChange}/>
-            <TextField
-                title="Hausnummer"
-                name="number"
-                value={credentials.number || ""}
-                onChange={handleOnChange}/>
-            <TextField
-                title="Postleitzahl"
-                name="zipCode"
-                value={credentials.zipCode || ""}
-                onChange={handleOnChange}/>
-            <TextField
-                title="Stadt"
-                name="city"
-                value={credentials.city || ""}
                 onChange={handleOnChange}/>
             <TextField
                 title="Passwort"
                 name="password"
                 value={credentials.password || ""}
                 onChange={handleOnChange}/>
-            <Button>Bestätigen</Button>
+            {(credentials.userName !== "" && credentials.email !== "" && credentials.password !== "") ?
+            <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
         </Main>
+        )}
+        {error && <Error>{error.message}</Error>}
     </Page>
 
 )

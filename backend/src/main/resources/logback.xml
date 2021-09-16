@@ -12,6 +12,7 @@
     <!-- Set level = DEBUG to get feign http output -->
 
     <logger name="de.tomze.backend" level="INFO"/>
+    <logger name="de.tomze.backend.youtube" level="DEBUG"/>
 
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
