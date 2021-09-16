@@ -68,15 +68,16 @@ public class UserService {
         if(!userFromAppDto.getUserName().equals(userName)){
             throw new IllegalArgumentException("Username cannot be changed");
         }
-        if(userEntityToUpdate.getEmail().equals(userFromAppDto.getEmail())){
+        if(userEntityToUpdate.getEmail().equals(userFromAppDto.getEmail()) && userEntityToUpdate.getPassword().equals(userFromAppDto.getPassword())){
             throw new IllegalArgumentException("Nothing to change");
         }
-        if(userFromAppDto.getPassword() == null) {
-            userEntityToUpdate.setEmail(userFromAppDto.getEmail());
-        }
-        if(userFromAppDto.getEmail().equals("")) {
+        if(userFromAppDto.getEmail().equals(userEntityToUpdate.getEmail())) {
             userEntityToUpdate = resetPassword(userFromAppDto.getUserName(), userFromAppDto);
         }
+        if(userFromAppDto.getPassword() == null && !userFromAppDto.getEmail().equals(userEntityToUpdate.getEmail()))  {
+            userEntityToUpdate.setEmail(userFromAppDto.getEmail());
+        }
+
         userRepository.save(userEntityToUpdate);
 
         return userEntityToUpdate;

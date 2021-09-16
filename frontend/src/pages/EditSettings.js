@@ -11,7 +11,7 @@ import {Redirect} from "react-router-dom";
 import {getUser} from "../service/apiService";
 
 
-export default function EditProfile() {
+export default function EditSettings() {
     const {user, token, updateUser} = useAuth()
     const [userToChange, setUserToChange] = useState({})
     const [credentials, setCredentials] = useState({})
@@ -61,12 +61,7 @@ export default function EditProfile() {
                     name="email"
                     value={credentials.email || ""}
                     onChange={handleOnChange}/>
-                <TextField
-                    title="Passwort"
-                    name="password"
-                    value={credentials.password || ""}
-                    onChange={handleOnChange}/>
-                {(credentials.email !== "" || credentials.password !== "") ?
+                {credentials.email !== "" ?
                     <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
             </Main>
         </Page>
