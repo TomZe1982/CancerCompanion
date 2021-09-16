@@ -6,7 +6,7 @@ import {useAuth} from "../auth/AuthProvider";
 import TextField from "../components/TextField";
 import Button from "../components/Button";
 import Error from "../components/Error";
-import {useEffect, useState} from "react";
+import {useLayoutEffect, useState} from "react";
 import {Redirect} from "react-router-dom";
 import {getUser} from "../service/apiService";
 
@@ -17,10 +17,10 @@ export default function EditProfile() {
     const [credentials, setCredentials] = useState({})
     const [changedCredentials, setChangedCredentials] = useState()
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         getUser(user.userName, token)
             .then(setUserToChange)
-    }, [])
+    }, [user.userName, token])
 
 
     const handleOnChange = (event) => {
