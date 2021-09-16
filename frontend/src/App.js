@@ -10,6 +10,7 @@ import Logout from "./pages/Logout";
 import Delete from "./pages/Delete";
 import EditProfile from "./pages/EditProfile";
 import MakeUpTutorials from "./pages/MakeUpTutorials";
+import ProtectedRoute from "./auth/ProtectedRoute";
 
 
 
@@ -22,12 +23,12 @@ export default function App() {
                 <Switch>
                     <Route exact path="/" component={StartScreen}/>
                     <Route path="/login" component={Login}/>
-                    <Route path="/logout" component={Logout}/>
-                    <Route path="/register" component={Registration}/>
-                    <Route path="/edit" component ={EditProfile}/>
-                    <Route path="/profile" component={Profile}/>
-                    <Route path="/delete" component={Delete}/>
-                    <Route path="/tutorials" component={MakeUpTutorials}/>
+                    <ProtectedRoute path="/logout" component={Logout}/>
+                    <ProtectedRoute path="/register" component={Registration}/>
+                    <ProtectedRoute path="/edit" component ={EditProfile}/>
+                    <ProtectedRoute path="/profile" component={Profile}/>
+                    <ProtectedRoute path="/delete" component={Delete}/>
+                    <ProtectedRoute path="/tutorials" component={MakeUpTutorials}/>
                 </Switch>
             </Router>
         </AuthProvider>

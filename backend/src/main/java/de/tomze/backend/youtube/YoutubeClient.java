@@ -22,10 +22,8 @@ public class YoutubeClient {
     }
 
     public YoutubeApiDto getVideo(String id) {
-    return youtubeApi.getVideo("AIzaSyBn0MUBtxKvqbeXLMu_iv7my_1l_Alut0A", id);
+    return youtubeApi.getVideo("AIzaSyBJkxzMggCb85I7KbrjJfPCANiDLzWx6MA", id);
 
-       // "AIzaSyBn0MUBtxKvqbeXLMu_iv7my_1l_Alut0A"
-        //youtubeClientConfigProperties.getAccessToken()
 
     }
 
