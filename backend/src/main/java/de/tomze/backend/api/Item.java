@@ -7,8 +7,10 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class YoutubeToApiDto {
+public class Item {
 
+    private String kind;
+    private String etag;
     private String id;
 
 }

@@ -1,6 +1,6 @@
 package de.tomze.backend.youtube;
 
-import de.tomze.backend.api.YoutubeToApiDto;
+import de.tomze.backend.api.YoutubeApiDto;
 import de.tomze.backend.config.YoutubeClientConfigProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +21,11 @@ public class YoutubeClient {
         this.youtubeApi = youtubeApi;
     }
 
-    public YoutubeToApiDto getVideo(String id) {
-    return youtubeApi.getVideo(youtubeClientConfigProperties.getAccessToken(), id);
+    public YoutubeApiDto getVideo(String id) {
+    return youtubeApi.getVideo("AIzaSyBn0MUBtxKvqbeXLMu_iv7my_1l_Alut0A", id);
 
        // "AIzaSyBn0MUBtxKvqbeXLMu_iv7my_1l_Alut0A"
+        //youtubeClientConfigProperties.getAccessToken()
 
     }
 
