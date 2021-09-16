@@ -4,25 +4,26 @@ import Main from "../components/Main";
 import {useAuth} from "../auth/AuthProvider";
 import {Link, NavLink, Redirect} from "react-router-dom";
 import Button from "../components/Button";
+import NavBar from "../components/NavBar";
 
 
 
 
 export default function Profile(){
-    const {user, token} = useAuth()
+    const {user} = useAuth()
 
-    if(!token){
+    if(!user){
    return  <Redirect to = "/login"/>
     }
 
     return(
         <Page>
-            <NavLink to="/">Home</NavLink>
+            <NavBar user = {user}/>
             <Main>
                 <Header title = "Profile von " />
                 <h1>{user.userName}</h1>
                 <Button as = {Link} to = "/edit">Profil bearbeiten</Button>
-                <Button as = {Link} to = "/logout" >Logout</Button>
+
                 <Button as = {Link} to = "/delete" >Profil löschen</Button>
                 <Button as = {Link} to = "/tutorials">Schmink Tutorials</Button>
             </Main>

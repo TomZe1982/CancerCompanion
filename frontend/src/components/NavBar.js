@@ -1,12 +1,27 @@
-import {NavLink} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 import styled from "styled-components/macro";
+import * as PropTypes from "prop-types";
+import StartScreen from "../pages/StartScreen";
 
-export default function NavBar(){
 
+function Button(props) {
+    return null;
+}
+
+Button.propTypes = {
+    onClick: PropTypes.any,
+    children: PropTypes.node
+};
+export default function NavBar({ user, ...props }){
+
+    const history = useHistory()
     return(
-        <Wrapper>
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/login">Login</NavLink>
+        <Wrapper {...props}>
+            <NavLink exact to="/">Home</NavLink>
+            <button onClick={history.goBack}>Back</button>
+            {user && <NavLink to = "/logout">Logout</NavLink>}
+            {!user && <NavLink to="/login">Login</NavLink>}
+            {user && user.role === "admin" && <NavLink to = "/admin">Admin</NavLink>}
         </Wrapper>
     )
 

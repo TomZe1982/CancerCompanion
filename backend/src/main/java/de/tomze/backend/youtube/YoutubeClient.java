@@ -22,7 +22,7 @@ public class YoutubeClient {
     }
 
     public YoutubeApiDto getVideo(String id) {
-    return youtubeApi.getVideo("AIzaSyBJkxzMggCb85I7KbrjJfPCANiDLzWx6MA", id);
+    return youtubeApi.getVideo(youtubeClientConfigProperties.getAccessToken(), id);
 
 
     }

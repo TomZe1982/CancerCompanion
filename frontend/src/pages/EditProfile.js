@@ -52,7 +52,7 @@ export default function EditProfile() {
     }
 
     return (<Page>
-            <NavBar/>
+            <NavBar user = {user}/>
             <Main as="form" onSubmit={handleSubmit}>
                 <Header title="Profil bearbeiten"/>
                 <p>{userToChange.email}</p>

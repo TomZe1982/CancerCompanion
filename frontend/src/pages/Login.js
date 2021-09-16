@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import Page from "../components/Page";
 import NavBar from "../components/NavBar";
-import {Link, Redirect} from "react-router-dom";
+import {Link, Redirect, useParams} from "react-router-dom";
 import Main from "../components/Main";
 import TextField from "../components/TextField";
 import Button from "../components/Button";
@@ -40,7 +40,7 @@ export default function Login() {
 
     return (
         <Page>
-            <NavBar/>
+            <NavBar user = {user}/>
             <Header title="Login"/>
             {loading && <Loading/>}
             {!loading && (

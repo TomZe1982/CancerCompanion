@@ -12,12 +12,12 @@ export default function Logout () {
 
 
     if(!user){
-        return <Redirect to = "/login"/>
+        return <Redirect to = "/"/>
     }
 
     return(
         <Page>
-            <NavBar/>
+            <NavBar user = {user}/>
                 <Header title = "Logout"/>
             <p>{user.userName}, möchtest Du Dich wirklich ausloggen?</p>
             <Button onClick = {logout}>Logout</Button>

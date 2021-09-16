@@ -20,3 +20,7 @@ security:
   jwt:
     secret: "super-secret"
     expire-after-minutes: 120
+
+tomze:
+  youtube-client:
+    access-token: "AIzaSyBJkxzMggCb85I7KbrjJfPCANiDLzWx6MA"

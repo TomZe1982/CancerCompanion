@@ -5,6 +5,7 @@ import {useAuth} from "../auth/AuthProvider";
 import {Link, Redirect} from "react-router-dom";
 import Button from "../components/Button";
 import {useState} from "react";
+import NavBar from "../components/NavBar";
 
 
 export default function Delete() {
@@ -25,6 +26,7 @@ export default function Delete() {
 
     return (
         <Page>
+            <NavBar user = {user}/>
             <Main>
                 <Header title="Löschen"/>
                 <p>{user.userName}, möchtest Du Dein Profil wirklich löschen?</p>

@@ -11,6 +11,7 @@ import Delete from "./pages/Delete";
 import EditProfile from "./pages/EditProfile";
 import MakeUpTutorials from "./pages/MakeUpTutorials";
 import ProtectedRoute from "./auth/ProtectedRoute";
+import Admin from "./pages/Admin";
 
 
 
@@ -29,6 +30,7 @@ export default function App() {
                     <ProtectedRoute path="/profile" component={Profile}/>
                     <ProtectedRoute path="/delete" component={Delete}/>
                     <ProtectedRoute path="/tutorials" component={MakeUpTutorials}/>
+                    <ProtectedRoute adminOnly path="/admin" component={Admin}/>
                 </Switch>
             </Router>
         </AuthProvider>

@@ -5,12 +5,14 @@ import NavBar from "../components/NavBar";
 import Main from "../components/Main";
 import {Link} from "react-router-dom";
 import Button from "../components/Button";
+import {useAuth} from "../auth/AuthProvider";
 
 export default function StartScreen() {
+    const {user} = useAuth()
 
     return (
         <Page>
-            <NavBar/>
+            <NavBar user = {user}/>
             <Main>
                 <Header title="CancerCompanion"></Header>
                 <div>
