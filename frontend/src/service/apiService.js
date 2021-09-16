@@ -6,6 +6,20 @@ const headers = token => ({
     },
 })
 
+//Route without token needed
+
+export const getToken = credentials =>
+    axios
+        .post('/auth/access_token', credentials)
+        .then(response => response.data)
+        .then(dto => dto.token)
+
+
+export const createUser = credentials =>
+    axios.post("/api/tomze/register", credentials)
+        .then(response => response.data)
+
+
 
 //Routes with token needed
 
@@ -23,17 +37,8 @@ export const deleteUser = (userName, token) =>
 export const updateUser = (credentials, token) =>
     axios.put("api/tomze/user/update/"+credentials.userName, credentials, headers(token))
 
-//Route without token needed
-
-export const getToken = credentials =>
-    axios
-        .post('/auth/access_token', credentials)
-        .then(response => response.data)
-        .then(dto => dto.token)
-
-
-export const createUser = credentials =>
-    axios.post("/api/tomze/register", credentials)
+export const getVideoList = (token) =>
+    axios.get("api/tomze/videolist", headers(token))
         .then(response => response.data)
 
 

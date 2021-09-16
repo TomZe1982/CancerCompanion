@@ -18,7 +18,7 @@ public class VideoEntity {
     @Column(name="id", nullable = false)
     private Long id;
 
-    @Column(name="vid_id", nullable = false)
+    @Column(name="vid_id", nullable = false, unique = true)
     private String vid_id;
 
 }

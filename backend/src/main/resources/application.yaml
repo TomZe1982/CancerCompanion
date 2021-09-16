@@ -19,4 +19,4 @@ spring:
 security:
   jwt:
     secret: "super-secret"
-    expire-after-minutes: 30
+    expire-after-minutes: 120
