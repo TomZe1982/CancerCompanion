@@ -24,7 +24,7 @@ const Wrapper = styled.div`
     height: 64px;
     margin: 8px;
     border-radius: 50%;
-    background: #fff;
+    background: (var--accent);
     animation: lds-circle 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
   }
   @keyframes lds-circle {

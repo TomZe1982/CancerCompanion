@@ -22,10 +22,16 @@ export default function MakeUpTutorials() {
             .then(setVideoList)
     }, [token])
 
+    const reloadPage = () =>{
+        getVideoList(token)
+            .then(setVideoList)
+    }
+
 
 
     const newVideoList = videoList.map(video => (
         <VideoGallery videoId = {video.vid_id} key = {video.id}
+                      reloadPage = {reloadPage}
         />)
     )
 

@@ -6,21 +6,25 @@ import {Link, Redirect} from "react-router-dom";
 import Button from "../components/Button";
 import {useState} from "react";
 import NavBar from "../components/NavBar";
+import Loading from "../components/Loading";
 
 
 
 export default function Delete() {
     const {user, logout, deleteUser} = useAuth()
     const [deletedUser, setDeletedUser] = useState()
+    const [loading, setLoading] = useState(false)
 
     if(user.role === "admin"){
         return <Redirect to = "/adminerror"/>
     }
 
     const handleDelete = () => {
+        setLoading(true)
         deleteUser(user.userName)
             .then(deletedUser => setDeletedUser(deletedUser))
             .then(logout)
+            .catch(error => console.error(error), setLoading(false))
     }
 
 
@@ -32,12 +36,14 @@ export default function Delete() {
     return (
         <Page>
             <NavBar user = {user}/>
-            <Main>
-                <Header title="Löschen"/>
+            <Header title="Löschen"/>
+            {loading && <Loading/>}
+            {!loading && ( <Main>
                 <p>{user.userName}, möchtest Du Dein Profil wirklich löschen?</p>
                 <Button as = {Link} to = "/profile">Nein, natürlich nicht</Button>
                 <Button as = {Link} to = "/" onClick = {handleDelete}>Ja</Button>
             </Main>
+                )}
         </Page>
     )
 }

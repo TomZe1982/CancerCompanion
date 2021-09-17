@@ -12,7 +12,7 @@ import MakeUpTutorials from "./pages/MakeUpTutorials";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import Admin from "./pages/Admin";
 import EditPassword from "./pages/EditPassword";
-import AdminError from "./pages/AdminError";
+import AdminError from "./components/AdminError";
 
 
 

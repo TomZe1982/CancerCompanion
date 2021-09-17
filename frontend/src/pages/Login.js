@@ -41,10 +41,10 @@ export default function Login() {
     return (
         <Page>
             <NavBar user = {user}/>
-            <Header title="Login"/>
             {loading && <Loading/>}
             {!loading && (
             <Main as="form" onSubmit={submitHandler}>
+                <Header title="Login"/>
                 <TextField
                     title="Benutzername"
                     name="userName"
