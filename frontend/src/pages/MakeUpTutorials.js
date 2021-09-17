@@ -20,7 +20,7 @@ export default function MakeUpTutorials() {
     useEffect(()=>{
         getVideoList(token)
             .then(setVideoList)
-    }, [token])
+    }, [videoList, token])
 
     const reloadPage = () =>{
         getVideoList(token)

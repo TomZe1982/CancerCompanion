@@ -40,7 +40,6 @@ export default function EditSettings() {
         return <Redirect to = "/profile"/>
     }
 
-    console.log(credentials)
 
     const handleSubmit = (event) => {
         event.preventDefault()
