@@ -31,12 +31,12 @@ public class YoutubeApiController {
     }
 
 
-    @GetMapping("/api/tomze/videos/{id}")
-    public  ResponseEntity<YoutubeApiDto> getVideo (@PathVariable String id){
-        YoutubeApiDto youtubeToApiDto = youtubeService.getVideo(id);
+    @GetMapping("/api/tomze/videos/{vid_id}")
+    public  ResponseEntity<YoutubeApiDto> getVideo (@PathVariable String vid_id){
+        YoutubeApiDto youtubeToApiDto = youtubeService.getVideo(vid_id);
 
         VideoEntity videoEntity = VideoEntity.builder()
-                .vid_id(id).build();
+                .vid_id(vid_id).build();
         videoRepository.save(videoEntity);
 
         return ok(youtubeToApiDto);
@@ -49,9 +49,9 @@ public class YoutubeApiController {
         return ok(videoList);
     }
 
-   @DeleteMapping("/api/tomze/videos/{id}")
-    public ResponseEntity<VideoEntity> deleteVideo (@PathVariable String id){
-        VideoEntity videoEntityToDelete = youtubeService.deleteVideo(id);
+   @DeleteMapping("/api/tomze/videos/{vid_id}")
+    public ResponseEntity<VideoEntity> deleteVideo (@PathVariable String vid_id){
+        VideoEntity videoEntityToDelete = youtubeService.deleteVideo(vid_id);
 
         return ok(videoEntityToDelete);
     }

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class YoutubeService {
@@ -24,25 +23,25 @@ public class YoutubeService {
     }
 
 
-    public YoutubeApiDto getVideo(String id) {
+    public YoutubeApiDto getVideo(String vid_id) {
 
-     return youtubeClient.getVideo(id);
+     return youtubeClient.getVideo(vid_id);
     }
 
     public List<VideoEntity> getVideoList() {
         return videoRepository.findAll();
     }
 
-    public VideoEntity deleteVideo(String id) {
+    public VideoEntity deleteVideo(String vid_id) {
         List<VideoEntity> videoEntityList = videoRepository.findAll();
         VideoEntity videoEntityDelete = new VideoEntity();
+
        for(VideoEntity fetchedVideoEntity : videoEntityList){
           String videoId = fetchedVideoEntity.getVid_id();
-           if(videoId.equals(id)){
-               videoEntityDelete.setVid_id(videoId);
+          videoEntityDelete.setVid_id(vid_id);
+           if(videoId.equals(vid_id)) {
                videoRepository.delete(fetchedVideoEntity);
-           }else{
-               throw new EntityNotFoundException("No Entity with videoId found");
+               return fetchedVideoEntity;
            }
        }
        return videoEntityDelete;
