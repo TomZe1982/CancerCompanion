@@ -2,7 +2,7 @@ import {useAuth} from "../auth/AuthProvider";
 import Button from "../components/Button";
 
 
-export default function VideoCard({videoId}) {
+export default function VideoCard({videoId, reloadPage}) {
     const {user, deleteVideo} = useAuth()
 
 
@@ -11,8 +11,8 @@ export default function VideoCard({videoId}) {
 
     const handleDelete = () => {
         deleteVideo(videoId)
+            .then(reloadPage)
             .catch(error => console.error(error))
-
     }
 
     return (

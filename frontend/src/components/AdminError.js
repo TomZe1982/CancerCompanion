@@ -1,8 +1,9 @@
-import Page from "../components/Page";
-import NavBar from "../components/NavBar";
-import Main from "../components/Main";
-import Header from "../components/Header";
+import Page from "./Page";
+import NavBar from "./NavBar";
+import Main from "./Main";
+import Header from "./Header";
 import {useAuth} from "../auth/AuthProvider";
+
 
 
 export default function AdminError(){
@@ -11,8 +12,8 @@ export default function AdminError(){
     return(
         <Page>
             <NavBar user = {user}/>
+            <Header> title = "Oh oh" </Header>
             <Main>
-                <Header> title = "Oh oh" </Header>
                 <h1>{user.userName}, you are fucking admin !!!</h1>
             </Main>
         </Page>

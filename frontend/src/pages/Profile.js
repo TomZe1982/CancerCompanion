@@ -5,6 +5,7 @@ import {useAuth} from "../auth/AuthProvider";
 import {Link, Redirect} from "react-router-dom";
 import Button from "../components/Button";
 import NavBar from "../components/NavBar";
+import UserImage from "../components/UserImage";
 
 
 
@@ -21,10 +22,10 @@ export default function Profile(){
             <NavBar user = {user}/>
             <Main>
                 <Header title = "Profile von " />
+                <UserImage src = "https://thispersondoesnotexist.com/image" alt = "userImage"/>
                 <h1>{user.userName}</h1>
                 <Button as = {Link} to = "/editsettings">Email ändern</Button>
                 <Button as = {Link} to = "/editpassword">Passwort ändern</Button>
-
                 <Button as = {Link} to = "/delete" >Profil löschen</Button>
                 <Button as = {Link} to = "/tutorials">Schmink Tutorials</Button>
             </Main>

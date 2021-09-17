@@ -9,6 +9,7 @@ import Error from "../components/Error";
 import {useLayoutEffect, useState} from "react";
 import {Redirect} from "react-router-dom";
 import {getUser} from "../service/apiService";
+import Loading from "../components/Loading";
 
 
 export default function EditSettings() {
@@ -16,6 +17,7 @@ export default function EditSettings() {
     const [userToChange, setUserToChange] = useState({})
     const [credentials, setCredentials] = useState({})
     const [changedCredentials, setChangedCredentials] = useState()
+    const [loading, setLoading] = useState(false)
 
     useLayoutEffect(() => {
         getUser(user.userName, token)
@@ -42,6 +44,7 @@ export default function EditSettings() {
 
     const handleSubmit = (event) => {
         event.preventDefault()
+        setLoading(true)
         updateUser(credentials)
             .then(changedCredentials => setChangedCredentials(changedCredentials))
 
@@ -53,6 +56,8 @@ export default function EditSettings() {
 
     return (<Page>
             <NavBar user = {user}/>
+            {loading && <Loading/>}
+            {!loading && (
             <Main as="form" onSubmit={handleSubmit}>
                 <Header title="Profil bearbeiten"/>
                 <p>{userToChange.email}</p>
@@ -64,6 +69,7 @@ export default function EditSettings() {
                 {credentials.email !== "" ?
                     <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
             </Main>
+            )}
         </Page>
 
     )

@@ -4,13 +4,13 @@ import styled from "styled-components/macro";
 
 
 export default function NavBar({ user}){
-
-
     const history = useHistory()
+
+
     return(
         <Wrapper>
+            <NavBarButton onClick={history.goBack} >Back</NavBarButton>
             <NavLink exact to = "/" >Home</NavLink>
-            {<button onClick={history.goBack} >Back</button>}
             {user && <NavLink to = "/logout" >Logout</NavLink>}
             {user && <NavLink to = "/profile" >Profil</NavLink>}
             {!user && <NavLink to = "/login" >Login</NavLink>}
@@ -38,4 +38,18 @@ const Wrapper = styled.nav`
   a.active {
     color: var(--accent);
   }
+`
+const NavBarButton = styled.button`
+  flex-grow: 1;
+  box-sizing: border-box;
+  margin: 0 var(--size-l);
+  background-color: var(--background);
+  border: none;
+  color: var(--neutral-dark);
+  padding: 0;
+  text-align: center;
+  font-family: Verdana,serif;
+  text-decoration: none;
+  display: flex;
+  font-size: 16px;
 `
