@@ -40,7 +40,7 @@ export default function Login() {
 
     return (
         <Page>
-            <NavBar/>
+            <NavBar user = {user}/>
             <Header title="Login"/>
             {loading && <Loading/>}
             {!loading && (

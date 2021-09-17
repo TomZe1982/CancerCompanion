@@ -9,6 +9,7 @@ import Header from "../components/Header";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
 import {Redirect} from "react-router-dom";
+import {useAuth} from "../auth/AuthProvider";
 
 
 
@@ -16,6 +17,7 @@ import {Redirect} from "react-router-dom";
 
 
 export default function Registration() {
+    const{user} = useAuth()
     const [credentials, setCredentials] = useState("");
     const [loading, setLoading] = useState(false)
     const [registeredUser, setRegisteredUser] = useState()
@@ -42,7 +44,7 @@ export default function Registration() {
 
 return (
     <Page>
-        <NavBar/>
+        <NavBar user = {user}/>
         {loading && <Loading/>}
         {!loading && (
         <Main as="form" onSubmit={handleSubmit}>

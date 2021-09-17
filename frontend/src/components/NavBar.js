@@ -1,12 +1,19 @@
-import {NavLink} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 import styled from "styled-components/macro";
 
-export default function NavBar(){
 
+
+export default function NavBar({ user}){
+
+
+    const history = useHistory()
     return(
         <Wrapper>
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/login">Login</NavLink>
+            <NavLink exact to="/">Home</NavLink>
+            {<button onClick={history.goBack}>Back</button>}
+            {user && <NavLink to = "/logout">Logout</NavLink>}
+            {!user && <NavLink to="/login">Login</NavLink>}
+            {user && user.role === "admin" && <NavLink to = "/admin">Admin</NavLink>}
         </Wrapper>
     )
 

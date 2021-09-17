@@ -5,11 +5,17 @@ import {useAuth} from "../auth/AuthProvider";
 import {Link, Redirect} from "react-router-dom";
 import Button from "../components/Button";
 import {useState} from "react";
+import NavBar from "../components/NavBar";
+
 
 
 export default function Delete() {
     const {user, logout, deleteUser} = useAuth()
     const [deletedUser, setDeletedUser] = useState()
+
+    if(user.role === "admin"){
+        return <Redirect to = "/adminerror"/>
+    }
 
     const handleDelete = () => {
         deleteUser(user.userName)
@@ -25,6 +31,7 @@ export default function Delete() {
 
     return (
         <Page>
+            <NavBar user = {user}/>
             <Main>
                 <Header title="Löschen"/>
                 <p>{user.userName}, möchtest Du Dein Profil wirklich löschen?</p>

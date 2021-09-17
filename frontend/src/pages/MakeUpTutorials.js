@@ -37,7 +37,7 @@ export default function MakeUpTutorials() {
 
     return (
         <Page>
-            <NavBar/>
+            <NavBar user = {user}/>
             <Main>
                 <Header title="Schmink - Turorials"/>
                 <ul>
