@@ -82,10 +82,11 @@ public class UserController extends UserControllerMapper {
         if(authUser.getRole().equals("user")){
             throw new IllegalArgumentException("only admin can reset users password");
         }
+        if(authUser.getRole().equals("admin") && authUser.getUserName().equals(userName)){
+            throw new IllegalArgumentException(("Admin must not reset own password"));
+        }
         UserToAppDto userToAppDtoToResetPassword = userService.resetUserPassword(userName);
         return ok(userToAppDtoToResetPassword);
-
-
     }
 
 

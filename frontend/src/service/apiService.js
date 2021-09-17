@@ -31,9 +31,6 @@ export const getUser =(userName, token) =>
     axios.get("api/tomze/user/"+userName, headers(token))
         .then(response => response.data)
 
-export const deleteUser = (userName, token) =>
-    axios.delete("api/tomze/user/delete/"+userName, headers(token) )
-
 export const updateUser = (credentials, token) =>
     axios.put("api/tomze/user/update/"+credentials.userName, credentials, headers(token))
 
@@ -46,6 +43,14 @@ export const getNewVideo = (videoId, token) =>
 
 export const deleteVideo = (videoId, token) =>
     axios.delete("api/tomze/videos/"+videoId, headers(token))
+
+export const deleteUser = (userName, token) =>
+    axios.delete("api/tomze/user/delete/"+userName, headers(token) )
+
+export const resetPassword = (userName, token) =>
+    axios.put("/api/tomze/user/resetpassword/"+userName, userName, headers(token) )
+        .then(response => console.log(response))
+
 
 
 

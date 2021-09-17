@@ -30,10 +30,10 @@ export default function Admin() {
     }
 
     const eachUserList = allUser.map(fetchedUser => (
-        <UserGallery fetchedUserName = {fetchedUser.userName} key = {fetchedUser.id} reloadUserPage = {reloadUserPage}
+        <UserGallery fetchedUserName = {fetchedUser.userName} key = {fetchedUser.id}
+                     reloadUserPage = {reloadUserPage}
         />))
 
-    console.log(eachUserList)
 
     const handleSubmitUpload = (event) => {
         event.preventDefault()
@@ -53,9 +53,9 @@ export default function Admin() {
     return (
         <Page>
             <NavBar user={user}/>
-            <Header title="Admin´s Page"/>
             {loading && <Loading/>}
             {!loading && (<Main>
+                    <Header title="Admin´s Page"/>
                     <form onSubmit={handleSubmitUpload}>
                     <Header title={user.userName}/>
                     <p>Neue Videos hochladen</p>
@@ -68,9 +68,6 @@ export default function Admin() {
                         <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
                     </form>
                     <section>{eachUserList}</section>
-                    <select id="language">
-                        <option value="user" selected>{user.userName}</option>
-                    </select>
                 </Main>
             )}
 

@@ -9,7 +9,6 @@ import Error from "../components/Error";
 import {useLayoutEffect, useState} from "react";
 import {Redirect} from "react-router-dom";
 import {getUser} from "../service/apiService";
-import Loading from "../components/Loading";
 
 
 export default function EditPassword() {
@@ -17,10 +16,8 @@ export default function EditPassword() {
     const [userToChange, setUserToChange] = useState({})
     const [credentials, setCredentials] = useState({})
     const [changedCredentials, setChangedCredentials] = useState()
-    const [loading, setLoading] = useState(false)
 
     useLayoutEffect(() => {
-        setLoading(true)
         getUser(user.userName, token)
             .then(setUserToChange)
     }, [user.userName, token])
@@ -41,10 +38,9 @@ export default function EditPassword() {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        setLoading(true)
         updateUser(credentials)
             .then(changedCredentials => setChangedCredentials(changedCredentials))
-            .catch(error => console.error(error), setLoading(false))
+            .catch(error => console.error(error))
 
     }
 
@@ -54,8 +50,6 @@ export default function EditPassword() {
 
     return (<Page>
             <NavBar user={user}/>
-            {loading && <Loading/>}
-            {!loading && (
             <Main as="form" onSubmit={handleSubmit}>
                 <Header title="Neues Passwort erstellen"/>
                 <TextField
@@ -66,7 +60,6 @@ export default function EditPassword() {
                 {(credentials.password !== "") ?
                     <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
             </Main>
-            )}
         </Page>
 
     )
