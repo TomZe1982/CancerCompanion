@@ -41,6 +41,9 @@ export const getVideoList = (token) =>
     axios.get("api/tomze/videolist", headers(token))
         .then(response => response.data)
 
+export const getNewVideo = (videoId, token) =>
+    axios.get("api/tomze/videos/"+videoId, headers(token))
+
 
 
 
