@@ -9,11 +9,12 @@ export default function NavBar({ user}){
     const history = useHistory()
     return(
         <Wrapper>
-            <NavLink exact to="/">Home</NavLink>
-            {<button onClick={history.goBack}>Back</button>}
-            {user && <NavLink to = "/logout">Logout</NavLink>}
-            {!user && <NavLink to="/login">Login</NavLink>}
-            {user && user.role === "admin" && <NavLink to = "/admin">Admin</NavLink>}
+            <NavLink exact to = "/" >Home</NavLink>
+            {<button onClick={history.goBack} >Back</button>}
+            {user && <NavLink to = "/logout" >Logout</NavLink>}
+            {user && <NavLink to = "/profile" >Profil</NavLink>}
+            {!user && <NavLink to = "/login" >Login</NavLink>}
+            {user && user.role === "admin" && <NavLink to = "/admin" >Admin</NavLink>}
         </Wrapper>
     )
 

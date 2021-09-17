@@ -10,26 +10,19 @@ import Error from "../components/Error";
 
 
 export default function Admin() {
-    const {user, getNewVideo, deleteVideo} = useAuth()
+    const {user, getNewVideo} = useAuth()
     const [newVideoId, setNewVideoId] = useState()
-    const [videoToDelete, setVideoToDelete] = useState()
 
     const handleSubmitUpload = (event) => {
         event.preventDefault()
         getNewVideo(newVideoId)
+            .catch(error => console.error(error))
+            .finally(() => setNewVideoId({newVideoId: ""}))
     }
 
-    const handleSubmitDelete = (event) => {
-        event.preventDefault()
-        deleteVideo(videoToDelete)
-    }
 
     const handleOnChangeUpload = (event) => {
         setNewVideoId(event.target.value)
-    }
-
-    const handleOnChangeDelete = (event) => {
-        setVideoToDelete(event.target.value)
     }
 
 
@@ -45,16 +38,6 @@ export default function Admin() {
                     value={newVideoId || ""}
                     onChange={handleOnChangeUpload}/>
                 {newVideoId !== "" ?
-                    <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
-            </Main>
-            <Main as="form" onSubmit={handleSubmitDelete}>
-                <p>Videos entfernen</p>
-                <TextField
-                    title="Video"
-                    name="video"
-                    value={videoToDelete || ""}
-                    onChange={handleOnChangeDelete}/>
-                {videoToDelete !== "" ?
                     <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
             </Main>
         </Page>
