@@ -77,6 +77,17 @@ public class UserController extends UserControllerMapper {
         return ok(updatedUserFromAppDto);
     }
 
+    @PutMapping("/api/tomze/user/resetpassword/{userName}")
+    public ResponseEntity<UserToAppDto> resetUserPassword(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName){
+        if(authUser.getRole().equals("user")){
+            throw new IllegalArgumentException("only admin can reset users password");
+        }
+        UserToAppDto userToAppDtoToResetPassword = userService.resetUserPassword(userName);
+        return ok(userToAppDtoToResetPassword);
+
+
+    }
+
 
     @DeleteMapping("/api/tomze/user/delete/{userName}")
     public ResponseEntity<UserFromAppDto> deleteUser(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName) {
