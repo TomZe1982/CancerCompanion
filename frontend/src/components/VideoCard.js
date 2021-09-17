@@ -1,14 +1,30 @@
+import {useAuth} from "../auth/AuthProvider";
+import Button from "../components/Button";
 
 
+export default function VideoCard({videoId}) {
+    const {user, deleteVideo} = useAuth()
 
-export default function VideoCard( { videoId }){
+
+    const source = "https://www.youtube.com/embed/" + videoId
 
 
+    const handleDelete = () => {
+        deleteVideo(videoId)
+            .catch(error => console.error(error))
 
-    return(
+    }
+
+    return (
         <section>
-            <h2 className="video_card__id">{videoId}</h2>
-            <img src="ytpic.png" alt="pic"/>
+            <iframe width="350" height="210" src={source}
+                    title="YouTube video player" frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen></iframe>
+            <div>
+                {user.role === "admin" && <Button onClick={handleDelete}>Löschen</Button>}
+            </div>
         </section>
+
     )
 }

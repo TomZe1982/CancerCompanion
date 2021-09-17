@@ -6,87 +6,41 @@ export default function Loading ( { props }) {
     return(
 
     <Wrapper {...props}>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <div className="lds-circle">
+            <div></div>
+        </div>
     </Wrapper>
 )
 }
 
 const Wrapper = styled.div`
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-
-  div {
-    position: absolute;
-    width: 16px;
-    height: 16px;
+  .lds-circle {
+    display: inline-block;
+    transform: translateZ(1px);
+  }
+  .lds-circle > div {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
     border-radius: 50%;
-    background: var(--accent);
-    animation: lds-grid 1.2s linear infinite;
+    background: #fff;
+    animation: lds-circle 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
   }
-
-  div:nth-child(1) {
-    top: 8px;
-    left: 8px;
-    animation-delay: 0s;
-  }
-
-  div:nth-child(2) {
-    top: 8px;
-    left: 32px;
-    animation-delay: -0.4s;
-  }
-  div:nth-child(3) {
-    top: 8px;
-    left: 56px;
-    animation-delay: -0.8s;
-  }
-  div:nth-child(4) {
-    top: 32px;
-    left: 8px;
-    animation-delay: -0.4s;
-  }
-  div:nth-child(5) {
-    top: 32px;
-    left: 32px;
-    animation-delay: -0.8s;
-  }
-  div:nth-child(6) {
-    top: 32px;
-    left: 56px;
-    animation-delay: -1.2s;
-  }
-  div:nth-child(7) {
-    top: 56px;
-    left: 8px;
-    animation-delay: -0.8s;
-  }
-  div:nth-child(8) {
-    top: 56px;
-    left: 32px;
-    animation-delay: -1.2s;
-  }
-  div:nth-child(9) {
-    top: 56px;
-    left: 56px;
-    animation-delay: -1.6s;
-  }
-  @keyframes lds-grid {
-    0%,
-    100% {
-      opacity: 1;
+  @keyframes lds-circle {
+    0%, 100% {
+      animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+    }
+    0% {
+      transform: rotateY(0deg);
     }
     50% {
-      opacity: 0.5;
+      transform: rotateY(1800deg);
+      animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+    }
+    100% {
+      transform: rotateY(3600deg);
     }
   }
+
 `

@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface VideoRepository extends JpaRepository<VideoEntity, Long> {
 
+
     @Override
     List<VideoEntity> findAll();
 
