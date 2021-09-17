@@ -1,6 +1,6 @@
 import {useContext, useState} from "react";
 import jwt from 'jsonwebtoken'
-import {getToken, deleteUser as deleteAPI, updateUser as updateAPI, getNewVideo as getNewVideoApi} from "../service/apiService";
+import {getToken, deleteUser as deleteAPI, updateUser as updateAPI, getNewVideo as getNewVideoApi, deleteVideo as deleteVideoApi} from "../service/apiService";
 import AuthContext from "./AuthContext";
 
 export default function AuthProvider ({children}) {
@@ -24,8 +24,10 @@ export default function AuthProvider ({children}) {
 
     const getNewVideo = (videoId) => getNewVideoApi(videoId, token)
 
+    const deleteVideo = (videoId) => deleteVideoApi(videoId, token)
+
     return(
-        <AuthContext.Provider value={{ token, user, login, logout, deleteUser, updateUser, getNewVideo }}>
+        <AuthContext.Provider value={{ token, user, login, logout, deleteUser, updateUser, getNewVideo, deleteVideo }}>
             {children}
         </AuthContext.Provider>
     )

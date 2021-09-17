@@ -3,17 +3,13 @@ package de.tomze.backend.controller;
 import de.tomze.backend.api.YoutubeApiDto;
 
 import de.tomze.backend.model.VideoEntity;
-import de.tomze.backend.model.VideoList;
 import de.tomze.backend.repository.VideoRepository;
 import de.tomze.backend.service.YoutubeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
@@ -51,5 +47,12 @@ public class YoutubeApiController {
         List<VideoEntity> videoList = youtubeService.getVideoList();
 
         return ok(videoList);
+    }
+
+   @DeleteMapping("/api/tomze/videos/{id}")
+    public ResponseEntity<VideoEntity> deleteVideo (@PathVariable String id){
+        VideoEntity videoEntityToDelete = youtubeService.deleteVideo(id);
+
+        return ok(videoEntityToDelete);
     }
 }
