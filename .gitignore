@@ -2,4 +2,6 @@
 *.iml
 .DS_Store
 target
-resources
+.application.yaml
+.application-h2.yaml
+.application-local.yaml
