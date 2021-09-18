@@ -39,7 +39,7 @@ public class UserController extends UserControllerMapper {
         if(authUser.getRole().equals("user")){
             throw new IllegalArgumentException("User must not get all users");
         }
-        List<UserEntity> listOfAllUserEntities = new ArrayList<>(userService.getAllUsers());
+        List<UserEntity> listOfAllUserEntities = userService.getAllUsers();
         List<UserToAppDto> listOfAllUsersToApp = map(listOfAllUserEntities);
 
         return ok(listOfAllUsersToApp);

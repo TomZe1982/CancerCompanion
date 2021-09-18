@@ -1,6 +1,15 @@
 import {useContext, useState} from "react";
 import jwt from 'jsonwebtoken'
+<<<<<<< HEAD
 import {getToken, deleteUser as deleteAPI, updateUser as updateAPI, getNewVideo as getNewVideoApi, deleteVideo as deleteVideoApi, getAllUser as getAllUserApi, resetPassword as resetPasswordApi} from "../service/apiService";
+=======
+import {
+    deleteUser as deleteAPI, deleteVideo as deleteVideoApi, getAllUser as getAllUserApi,
+    getNewVideo as getNewVideoApi,
+    getToken,
+    updateUser as updateAPI
+} from "../service/apiService";
+>>>>>>> development
 import AuthContext from "./AuthContext";
 
 export default function AuthProvider ( { children } ) {
@@ -30,9 +39,14 @@ export default function AuthProvider ( { children } ) {
 
     const resetPassword = (userName) => resetPasswordApi(userName, token)
 
+
     return(
         <AuthContext.Provider value={{ token, user, login, logout, deleteUser, updateUser,
+<<<<<<< HEAD
                                         getNewVideo, deleteVideo, getAllUser, resetPassword }}>
+=======
+        getNewVideo, getAllUser, deleteVideo}}>
+>>>>>>> development
             {children}
         </AuthContext.Provider>
     )

@@ -3,21 +3,21 @@ import {useAuth} from "../auth/AuthProvider";
 import Main from "../components/Main";
 import Header from "../components/Header";
 import Page from "../components/Page";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import TextField from "../components/TextField";
 import Button from "../components/Button";
 import Error from "../components/Error";
 import Loading from "../components/Loading";
-import UserGallery from "../components/UserGallery";
+import EachUserMapper from "../components/EachUserMapper";
 
 
 
 export default function Admin() {
-    const {user, getNewVideo, getAllUser, token} = useAuth()
+    const {user, getNewVideo} = useAuth()
     const [newVideoId, setNewVideoId] = useState("")
     const [loading, setLoading] = useState(false)
-    const [allUser, setAllUser] = useState([])
 
+<<<<<<< HEAD
     useEffect(() => {
         getAllUser(token).then(setAllUser)
             .catch(error => console.error(error))
@@ -34,6 +34,8 @@ export default function Admin() {
                      reloadUserPage = {reloadUserPage}
         />))
 
+=======
+>>>>>>> development
 
     const handleSubmitUpload = (event) => {
         event.preventDefault()
@@ -67,7 +69,14 @@ export default function Admin() {
                     {newVideoId !== "" ?
                         <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
                     </form>
+<<<<<<< HEAD
                     <section>{eachUserList}</section>
+=======
+                    <section><EachUserMapper/></section>
+                    <select id="language">
+                        <option value="user" selected>{user.userName}</option>
+                    </select>
+>>>>>>> development
                 </Main>
             )}
 
