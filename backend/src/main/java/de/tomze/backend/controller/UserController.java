@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,6 +74,18 @@ public class UserController extends UserControllerMapper {
         UserEntity updatedUserEntity = userService.updateUser(userName, userFromAppDto);
         UserFromAppDto updatedUserFromAppDto = mapUserFromAppDto(updatedUserEntity);
         return ok(updatedUserFromAppDto);
+    }
+
+    @PutMapping("/api/tomze/user/resetpassword/{userName}")
+    public ResponseEntity<UserToAppDto> resetUserPassword(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName){
+        if(authUser.getRole().equals("user")){
+            throw new IllegalArgumentException("only admin can reset users password");
+        }
+        if(authUser.getRole().equals("admin") && authUser.getUserName().equals(userName)){
+            throw new IllegalArgumentException(("Admin must not reset own password"));
+        }
+        UserToAppDto userToAppDtoToResetPassword = userService.resetUserPassword(userName);
+        return ok(userToAppDtoToResetPassword);
     }
 
 

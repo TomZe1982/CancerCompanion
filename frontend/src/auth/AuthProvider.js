@@ -4,11 +4,13 @@ import {
     deleteUser as deleteAPI, deleteVideo as deleteVideoApi, getAllUser as getAllUserApi,
     getNewVideo as getNewVideoApi,
     getToken,
-    updateUser as updateAPI
-} from "../service/apiService";
+    updateUser as updateAPI,
+    resetPassword as resetPasswordApi
+}
+from "../service/apiService";
 import AuthContext from "./AuthContext";
 
-export default function AuthProvider ({children}) {
+export default function AuthProvider ( { children } ) {
 
     const [token, setToken] = useState();
 
@@ -31,12 +33,15 @@ export default function AuthProvider ({children}) {
 
     const deleteVideo = (videoId) => deleteVideoApi(videoId, token)
 
-    const getAllUser = (token) => getAllUserApi(token)
+    const getAllUser = () => getAllUserApi(token)
+
+    const resetPassword = (userName) => resetPasswordApi(userName, token)
 
 
     return(
         <AuthContext.Provider value={{ token, user, login, logout, deleteUser, updateUser,
-        getNewVideo, getAllUser, deleteVideo}}>
+                                        getNewVideo, deleteVideo, getAllUser, resetPassword }}>
+
             {children}
         </AuthContext.Provider>
     )

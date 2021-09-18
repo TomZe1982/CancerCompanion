@@ -1,8 +1,10 @@
 package de.tomze.backend.service;
 
 import de.tomze.backend.api.UserFromAppDto;
+import de.tomze.backend.api.UserToAppDto;
 import de.tomze.backend.model.UserEntity;
 import de.tomze.backend.repository.UserRepository;
+import de.tomze.backend.security.PasswordService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,13 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordService passwordService;
 
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordService passwordService) {
         this.userRepository = userRepository;
+        this.passwordService = passwordService;
     }
 
     public Optional<UserEntity> getUser(String userName) {
@@ -98,6 +102,32 @@ public class UserService {
         return resetPasswordUserEntity;
     }
 
+        public UserToAppDto resetUserPassword(String userName) {
+        Optional<UserEntity> fetchedUserEntityOptional = userRepository.findByUserName(userName);
+
+        if(fetchedUserEntityOptional.isEmpty()){
+            throw new EntityNotFoundException("User not found");
+        }
+
+        UserEntity userEntityResetPassword = fetchedUserEntityOptional.get();
+
+        UserToAppDto userToAppDtoResetPassword = mapUserToAppDto(userEntityResetPassword);
+
+        String unhashedPassword = passwordService.getNewPassword();
+        String hashedPassword = new BCryptPasswordEncoder().encode(unhashedPassword);
+
+        userEntityResetPassword.setPassword(hashedPassword);
+        userRepository.save(userEntityResetPassword);
+
+        userToAppDtoResetPassword.setPassword(unhashedPassword);
+
+        return userToAppDtoResetPassword;
+
+
+
+
+    }
+
     public UserEntity deleteUser(String userName) {
         Optional<UserEntity> userEntityOptionalToDelete = getUser(userName);
         if(userEntityOptionalToDelete.isEmpty()){
@@ -115,6 +145,16 @@ public class UserService {
                 .userName(userFromAppDto.getUserName())
                 .password(hashedPassword)
                 .email(userFromAppDto.getEmail())
+                .build();
+    }
+
+    public UserToAppDto mapUserToAppDto(UserEntity userEntity){
+
+        return  UserToAppDto.builder()
+                .role("user")
+                .userName(userEntity.getUserName())
+                .password(userEntity.getPassword())
+                .email(userEntity.getEmail())
                 .build();
     }
 
