@@ -102,7 +102,7 @@ public class UserService {
         return resetPasswordUserEntity;
     }
 
-    public UserToAppDto resetUserPassword(String userName) {
+        public UserToAppDto resetUserPassword(String userName) {
         Optional<UserEntity> fetchedUserEntityOptional = userRepository.findByUserName(userName);
 
         if(fetchedUserEntityOptional.isEmpty()){

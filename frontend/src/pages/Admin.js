@@ -17,25 +17,6 @@ export default function Admin() {
     const [newVideoId, setNewVideoId] = useState("")
     const [loading, setLoading] = useState(false)
 
-<<<<<<< HEAD
-    useEffect(() => {
-        getAllUser(token).then(setAllUser)
-            .catch(error => console.error(error))
-    }, [getAllUser, token])
-
-
-    const reloadUserPage = () =>{
-        getAllUser(token)
-            .then(setAllUser)
-    }
-
-    const eachUserList = allUser.map(fetchedUser => (
-        <UserGallery fetchedUserName = {fetchedUser.userName} key = {fetchedUser.id}
-                     reloadUserPage = {reloadUserPage}
-        />))
-
-=======
->>>>>>> development
 
     const handleSubmitUpload = (event) => {
         event.preventDefault()
@@ -69,14 +50,10 @@ export default function Admin() {
                     {newVideoId !== "" ?
                         <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
                     </form>
-<<<<<<< HEAD
-                    <section>{eachUserList}</section>
-=======
                     <section><EachUserMapper/></section>
                     <select id="language">
                         <option value="user" selected>{user.userName}</option>
                     </select>
->>>>>>> development
                 </Main>
             )}
 
