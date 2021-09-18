@@ -8,6 +8,8 @@ import TextField from "../components/TextField";
 import Button from "../components/Button";
 import Error from "../components/Error";
 import Loading from "../components/Loading";
+import EachUserMapper from "../components/EachUserMapper";
+
 
 
 export default function Admin() {
@@ -15,13 +17,14 @@ export default function Admin() {
     const [newVideoId, setNewVideoId] = useState("")
     const [loading, setLoading] = useState(false)
 
+
     const handleSubmitUpload = (event) => {
         event.preventDefault()
         setLoading(true)
         getNewVideo(newVideoId)
             .catch(error => console.error(error),
-            setLoading(false))
-            .finally(() => setNewVideoId( ""))
+                setLoading(false))
+            .finally(() => setNewVideoId(""))
     }
 
 
@@ -33,20 +36,27 @@ export default function Admin() {
     return (
         <Page>
             <NavBar user={user}/>
-            <Header title = "Admin´s Page"/>
             {loading && <Loading/>}
-            {!loading && (<Main as="form" onSubmit={handleSubmitUpload}>
-                <Header title={user.userName}/>
-                <p>Neue Videos hochladen</p>
-                <TextField
-                    title="Video"
-                    name="video"
-                    value={newVideoId || ""}
-                    onChange={handleOnChangeUpload}/>
-                {newVideoId !== "" ?
-                    <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
-            </Main>
+            {!loading && (<Main>
+                    <Header title="Admin´s Page"/>
+                    <form onSubmit={handleSubmitUpload}>
+                    <Header title={user.userName}/>
+                    <p>Neue Videos hochladen</p>
+                    <TextField
+                        title="Video"
+                        name="video"
+                        value={newVideoId || ""}
+                        onChange={handleOnChangeUpload}/>
+                    {newVideoId !== "" ?
+                        <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
+                    </form>
+                    <section><EachUserMapper/></section>
+                    <select id="language">
+                        <option value="user" selected>{user.userName}</option>
+                    </select>
+                </Main>
             )}
+
         </Page>
     )
 

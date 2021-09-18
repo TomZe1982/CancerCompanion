@@ -8,6 +8,7 @@ export default function VideoCard({videoId, reloadPage}) {
 
     const source = "https://www.youtube.com/embed/" + videoId
 
+    console.log(videoId)
 
     const handleDelete = () => {
         deleteVideo(videoId)

@@ -35,15 +35,21 @@ public class UserController extends UserControllerMapper {
 
 
     @GetMapping("/api/tomze/user")
-    public ResponseEntity<List<UserToAppDto>> getAllUsers() {
-        List<UserEntity> listOfAllUserEntities = new ArrayList<>(userService.getAllUsers());
+    public ResponseEntity<List<UserToAppDto>> getAllUsers(@AuthenticationPrincipal UserEntity authUser) {
+        if(authUser.getRole().equals("user")){
+            throw new IllegalArgumentException("User must not get all users");
+        }
+        List<UserEntity> listOfAllUserEntities = userService.getAllUsers();
         List<UserToAppDto> listOfAllUsersToApp = map(listOfAllUserEntities);
 
         return ok(listOfAllUsersToApp);
     }
 
     @GetMapping("/api/tomze/user/{userName}")
-    public ResponseEntity<UserToAppDto> getUser(@PathVariable String userName) {
+    public ResponseEntity<UserToAppDto> getUser(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName) {
+        if(authUser.getRole().equals("user") && !authUser.getUserName().equals(userName)){
+            throw new IllegalArgumentException("User must not get another User");
+        }
         Optional<UserEntity> foundUserEntity = userService.getUser(userName);
         if (foundUserEntity.isPresent()) {
             UserEntity userEntity = foundUserEntity.get();
