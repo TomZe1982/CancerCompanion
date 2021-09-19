@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
+
 
 
 @Service
@@ -29,12 +29,8 @@ public class BlogService {
     }
 
     public BlogEntity getBlogEntry(String userName, Long blogId) {
-        Optional<UserEntity> userEntityBlogEntryOptional = userService.getUser(userName);
-        if(userEntityBlogEntryOptional.isEmpty()){
-            throw new EntityNotFoundException("User not found");
-        }
 
-        UserEntity userEntityBlogEntry = userEntityBlogEntryOptional.get();
+        UserEntity userEntityBlogEntry = userService.getUser(userName);
 
         List<BlogEntity> blogEntityList = userEntityBlogEntry.getBlogEntries();
 
@@ -51,11 +47,8 @@ public class BlogService {
     }
 
     public BlogEntity createBlog(UserEntity authUser, BlogFromAppDto blogFromAppDto) {
-        Optional<UserEntity> userEntityOptional = userService.getUser(authUser.getUserName());
-        if (userEntityOptional.isEmpty()) {
-            throw new EntityNotFoundException("User not found");
-        }
-        UserEntity userEntityBlog = userEntityOptional.get();
+
+        UserEntity userEntityBlog = userService.getUser(authUser.getUserName());
         BlogEntity newBlogEntity = mapBlogEntity(blogFromAppDto);
 
         newBlogEntity.setId(userEntityBlog);
@@ -79,7 +72,7 @@ public class BlogService {
 
     @Transactional
     public BlogEntity deleteBlogEntry(UserEntity authUser, Long blogId) {
-        var user = userService.getUser(authUser.getUserName()).get();
+        var user = userService.getUser(authUser.getUserName());
 
         BlogEntity blogEntityDelete = getBlogEntry(authUser.getUserName(), blogId);
 

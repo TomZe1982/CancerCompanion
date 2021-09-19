@@ -13,9 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
-import static org.springframework.http.ResponseEntity.notFound;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -49,13 +47,11 @@ public class UserController extends UserControllerMapper {
         if(authUser.getRole().equals("user") && !authUser.getUserName().equals(userName)){
             throw new IllegalArgumentException("User must not get another User");
         }
-        Optional<UserEntity> foundUserEntity = userService.getUser(userName);
-        if (foundUserEntity.isPresent()) {
-            UserEntity userEntity = foundUserEntity.get();
+
+            UserEntity userEntity = userService.getUser(userName);
             UserToAppDto foundUserToAppDto = mapUserToAppDto(userEntity);
             return ok(foundUserToAppDto);
-        }
-        return notFound().build();
+
     }
 
     @PostMapping("/api/tomze/register")

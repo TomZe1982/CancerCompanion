@@ -52,12 +52,8 @@ public class BlogController extends BlogControllerMapper {
 
     @GetMapping("/{userName}")
     public ResponseEntity<List<BlogToAppDto>> getUserBlog(@PathVariable String userName) {
-        Optional<UserEntity> fetchedUserEntity = userService.getUser(userName);
 
-        if (fetchedUserEntity.isEmpty()) {
-            throw new EntityNotFoundException("User not found");
-        }
-        UserEntity userEntityBlog = fetchedUserEntity.get();
+        UserEntity userEntityBlog = userService.getUser(userName);
 
         List<BlogEntity> blogEntityList = userEntityBlog.getBlogEntries();
 
