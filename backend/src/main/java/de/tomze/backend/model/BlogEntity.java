@@ -15,6 +15,7 @@ import java.util.Objects;
 @Builder
 public class BlogEntity {
 
+
     @ManyToOne
     @JoinColumn(name = "id")
     private UserEntity id;

@@ -1,17 +1,17 @@
 package de.tomze.backend.controller;
 
 
+import de.tomze.backend.api.BlogFromAppDto;
 import de.tomze.backend.api.BlogToAppDto;
 import de.tomze.backend.model.BlogEntity;
 import de.tomze.backend.model.UserEntity;
 import de.tomze.backend.service.BlogService;
 import de.tomze.backend.service.UserService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +54,15 @@ public class BlogController extends BlogControllerMapper {
 
         List<BlogToAppDto> blogToAppDtoList = mapBlogToAppDtoList(blogEntityList);
         return ok(blogToAppDtoList);
+
+    }
+
+    @PostMapping("/newblog")
+    public ResponseEntity<BlogEntity> createBlog(@AuthenticationPrincipal UserEntity authUser, @RequestBody BlogFromAppDto blogFromAppDto) {
+
+        BlogEntity newBlogEntry = blogService.createBlog(authUser, blogFromAppDto);
+
+        return ok(newBlogEntry);
 
     }
 

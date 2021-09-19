@@ -1,5 +1,6 @@
 package de.tomze.backend.controller;
 
+import de.tomze.backend.api.BlogFromAppDto;
 import de.tomze.backend.api.BlogToAppDto;
 import de.tomze.backend.model.BlogEntity;
 
@@ -24,5 +25,11 @@ abstract class BlogControllerMapper {
         return BlogToAppDto.builder()
                 .entry(blogEntity.getEntry())
                 .date(blogEntity.getDate()).build();
+    }
+
+    protected BlogEntity mapBlogEntity (BlogFromAppDto blogFromAppDto){
+        return BlogEntity.builder()
+                .entry(blogFromAppDto.getEntry())
+                .date("heute").build();
     }
 }
