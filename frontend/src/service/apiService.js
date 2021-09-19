@@ -1,5 +1,14 @@
 import axios from 'axios'
 
+export const createInbox = (email) =>
+    axios.post("https://api.mailslurp.com/createInbox?apiKey=65a0ad567085d3c08b04d159789ee0b8c185df4d0e7aaa42b9fb7ef514a8a656", email)
+        .then((response) => response.data)
+
+
+export const sendEmail = (email) =>
+    axios.post("https://api.mailslurp.com/sendEmail?apiKey=65a0ad567085d3c08b04d159789ee0b8c185df4d0e7aaa42b9fb7ef514a8a656", email)
+        .then((response) => response.data)
+
 const headers = token => ({
     headers: {
         Authorization: `Bearer ${token}`,
@@ -49,7 +58,8 @@ export const deleteUser = (userName, token) =>
 
 export const resetPassword = (userName, token) =>
     axios.put("/api/tomze/user/resetpassword/"+userName, userName, headers(token) )
-        .then(response => console.log(response))
+        .then(response => response.data)
+
 
 
 

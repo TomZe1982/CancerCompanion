@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {useAuth} from "../auth/AuthProvider";
 
 
-export default function EachUserMapper(){
+export default function EachUserMapper() {
     const {token, getAllUser} = useAuth()
     const [allUser, setAllUser] = useState([])
 
@@ -12,16 +12,20 @@ export default function EachUserMapper(){
             .catch(error => console.error(error))
     }, [getAllUser, token])
 
-    const reloadUserPage = () =>{
+    const reloadUserPage = () => {
         getAllUser(token)
             .then(setAllUser)
     }
 
     const eachUserList = allUser.map(fetchedUser => (
-        <UserGallery fetchedUserName = {fetchedUser.userName} key = {fetchedUser.id} reloadUserPage = {reloadUserPage}
-        />))
+        <UserGallery fetchedUserPassword={fetchedUser.password} fetchedUserName={fetchedUser.userName}
+                     key={fetchedUser.id} reloadUserPage={reloadUserPage}
+        />)
+    )
 
-    return(
+
+
+    return (
         <div>{eachUserList}</div>
     )
 

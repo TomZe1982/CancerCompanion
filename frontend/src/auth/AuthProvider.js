@@ -7,7 +7,7 @@ import {
     updateUser as updateAPI,
     resetPassword as resetPasswordApi
 }
-from "../service/apiService";
+    from "../service/apiService";
 import AuthContext from "./AuthContext";
 
 export default function AuthProvider ( { children } ) {
@@ -36,6 +36,7 @@ export default function AuthProvider ( { children } ) {
     const getAllUser = () => getAllUserApi(token)
 
     const resetPassword = (userName) => resetPasswordApi(userName, token)
+
 
 
     return(

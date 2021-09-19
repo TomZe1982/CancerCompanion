@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 import { css } from 'styled-components'
 
 export default styled.button`
-  padding: var(--size-s);
+  padding: var(--size-xs);
   background: var(--accent);
   border: 1px solid var(--accent);
   color: var(--neutral-light);
