@@ -40,6 +40,16 @@ public class BlogController extends BlogControllerMapper {
         return ok(blogToAppDtoList);
     }
 
+    @GetMapping("/{userName}/{blogId}")
+    public ResponseEntity<BlogToAppDto> getBlogEntry (@PathVariable String userName, @PathVariable Long blogId){
+
+        BlogEntity blogEntityFound = blogService.getBlogEntry(userName, blogId);
+
+        BlogToAppDto blogToAppDtoFound = mapBlogToAppDto(blogEntityFound);
+
+        return ok(blogToAppDtoFound);
+    }
+
     @GetMapping("/{userName}")
     public ResponseEntity<List<BlogToAppDto>> getUserBlog(@PathVariable String userName) {
         Optional<UserEntity> fetchedUserEntity = userService.getUser(userName);
@@ -66,6 +76,26 @@ public class BlogController extends BlogControllerMapper {
 
         return ok(newBlogToAppDto);
 
+    }
+
+/*    @DeleteMapping("/delete")
+    public ResponseEntity<List<BlogToAppDto>> deleteBlog(@AuthenticationPrincipal UserEntity authUser){
+
+        List<BlogEntity> blogEntityListDelete = blogService.deleteBlog(authUser);
+
+        List<BlogToAppDto> blogToAppDtoListDelete = mapBlogToAppDtoList(blogEntityListDelete);
+
+        return ok(blogToAppDtoListDelete);
+    }*/
+
+    @DeleteMapping("/delete/{blogId}")
+    public ResponseEntity<BlogToAppDto> deleteBlogEntry(@AuthenticationPrincipal UserEntity authUser, @PathVariable Long blogId){
+
+        BlogEntity blogEntityDelete = blogService.deleteBlogEntry(authUser, blogId);
+
+        BlogToAppDto blogToAppDtoDelete = mapBlogToAppDto(blogEntityDelete);
+
+        return ok(blogToAppDtoDelete);
     }
 
 }
