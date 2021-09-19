@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name="video_db")
+@Table(name="video_table")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
