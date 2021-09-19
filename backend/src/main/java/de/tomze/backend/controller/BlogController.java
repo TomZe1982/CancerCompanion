@@ -58,13 +58,14 @@ public class BlogController extends BlogControllerMapper {
     }
 
     @PostMapping("/newblog")
-    public ResponseEntity<BlogEntity> createBlog(@AuthenticationPrincipal UserEntity authUser, @RequestBody BlogFromAppDto blogFromAppDto) {
+    public ResponseEntity<BlogToAppDto> createBlog(@AuthenticationPrincipal UserEntity authUser, @RequestBody BlogFromAppDto blogFromAppDto) {
 
         BlogEntity newBlogEntry = blogService.createBlog(authUser, blogFromAppDto);
 
-        return ok(newBlogEntry);
+        BlogToAppDto newBlogToAppDto = mapBlogToAppDto(newBlogEntry);
+
+        return ok(newBlogToAppDto);
 
     }
-
 
 }

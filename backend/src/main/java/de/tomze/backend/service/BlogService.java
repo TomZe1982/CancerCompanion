@@ -31,14 +31,23 @@ public class BlogService {
             throw new EntityNotFoundException("User not found");
         }
         UserEntity userEntityBlog = userEntityOptional.get();
-        BlogEntity newBlogEntity = BlogEntity.builder()
-                .entry(blogFromAppDto.getEntry())
-                .date("heute")
-                .id(userEntityBlog).build();
+        BlogEntity newBlogEntity = mapBlogEntity(blogFromAppDto);
+
+        newBlogEntity.setId(userEntityBlog);
+        userEntityBlog.addBlog(newBlogEntity);
 
         blogRepository.save(newBlogEntity);
 
         return newBlogEntity;
+    }
+
+
+    public BlogEntity mapBlogEntity (BlogFromAppDto blogFromAppDto) {
+        BlogEntity blogEntity = new BlogEntity();
+        blogEntity.setEntry(blogFromAppDto.getEntry());
+        blogEntity.setDate("today");
+
+        return blogEntity;
     }
 
 }

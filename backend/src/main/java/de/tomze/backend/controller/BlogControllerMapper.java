@@ -27,9 +27,4 @@ abstract class BlogControllerMapper {
                 .date(blogEntity.getDate()).build();
     }
 
-    protected BlogEntity mapBlogEntity (BlogFromAppDto blogFromAppDto){
-        return BlogEntity.builder()
-                .entry(blogFromAppDto.getEntry())
-                .date("heute").build();
-    }
 }
