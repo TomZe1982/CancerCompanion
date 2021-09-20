@@ -1,14 +1,15 @@
 package de.tomze.backend.service;
 
+import de.tomze.backend.api.BlogFromAppDto;
 import de.tomze.backend.api.UserFromAppDto;
 import de.tomze.backend.api.UserToAppDto;
+import de.tomze.backend.model.BlogEntity;
 import de.tomze.backend.model.UserEntity;
 import de.tomze.backend.repository.UserRepository;
 import de.tomze.backend.security.PasswordService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -127,10 +128,6 @@ public class UserService {
         userToAppDtoResetPassword.setPassword(unhashedPassword);
 
         return userToAppDtoResetPassword;
-
-
-
-
     }
 
     public UserEntity deleteUser(String userName) {
@@ -158,6 +155,5 @@ public class UserService {
                 .email(userEntity.getEmail())
                 .build();
     }
-
 
 }

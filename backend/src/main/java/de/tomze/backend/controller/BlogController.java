@@ -74,7 +74,17 @@ public class BlogController extends BlogControllerMapper {
 
     }
 
-/*    @DeleteMapping("/delete")
+    @PutMapping("/update/{blogId}")
+    public ResponseEntity<BlogToAppDto> updateBlog(@AuthenticationPrincipal UserEntity authUser, @PathVariable Long blogId, @RequestBody BlogFromAppDto blogFromAppDto){
+
+        BlogEntity blogEntityUpdate = blogService.updateBlog(authUser, blogFromAppDto, blogId);
+
+        BlogToAppDto blogToAppDtoUpdate = mapBlogToAppDto(blogEntityUpdate);
+
+        return ok(blogToAppDtoUpdate);
+    }
+
+    @DeleteMapping("/delete")
     public ResponseEntity<List<BlogToAppDto>> deleteBlog(@AuthenticationPrincipal UserEntity authUser){
 
         List<BlogEntity> blogEntityListDelete = blogService.deleteBlog(authUser);
@@ -82,7 +92,7 @@ public class BlogController extends BlogControllerMapper {
         List<BlogToAppDto> blogToAppDtoListDelete = mapBlogToAppDtoList(blogEntityListDelete);
 
         return ok(blogToAppDtoListDelete);
-    }*/
+    }
 
     @DeleteMapping("/delete/{blogId}")
     public ResponseEntity<BlogToAppDto> deleteBlogEntry(@AuthenticationPrincipal UserEntity authUser, @PathVariable Long blogId){

@@ -1,6 +1,5 @@
 package de.tomze.backend.controller;
 
-import de.tomze.backend.api.BlogFromAppDto;
 import de.tomze.backend.api.BlogToAppDto;
 import de.tomze.backend.model.BlogEntity;
 

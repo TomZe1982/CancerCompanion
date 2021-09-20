@@ -10,8 +10,6 @@ import java.util.List;
 public interface BlogRepository extends JpaRepository<BlogEntity, Long> {
 
 
-
-
     @Override
     List<BlogEntity> findAll();
 
