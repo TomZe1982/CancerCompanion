@@ -51,9 +51,6 @@ export default function Admin() {
                         <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
                     </form>
                     <section><EachUserMapper/></section>
-                    <select id="language">
-                        <option value="user" selected>{user.userName}</option>
-                    </select>
                 </Main>
             )}
 

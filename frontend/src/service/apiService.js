@@ -51,7 +51,3 @@ export const resetPassword = (userName, token) =>
     axios.put("/api/tomze/user/resetpassword/"+userName, userName, headers(token) )
         .then(response => console.log(response))
 
-
-
-
-

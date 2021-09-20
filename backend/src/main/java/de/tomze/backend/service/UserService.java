@@ -1,7 +1,9 @@
 package de.tomze.backend.service;
 
+import de.tomze.backend.api.BlogFromAppDto;
 import de.tomze.backend.api.UserFromAppDto;
 import de.tomze.backend.api.UserToAppDto;
+import de.tomze.backend.model.BlogEntity;
 import de.tomze.backend.model.UserEntity;
 import de.tomze.backend.repository.UserRepository;
 import de.tomze.backend.security.PasswordService;
@@ -33,8 +35,13 @@ public class UserService {
         this.passwordService = passwordService;
     }
 
-    public Optional<UserEntity> getUser(String userName) {
-        return userRepository.findByUserName(userName);
+    public UserEntity getUser(String userName) {
+        Optional<UserEntity> userEntityOptional = userRepository.findByUserName(userName);
+        if(userEntityOptional.isEmpty()){
+            throw new EntityNotFoundException("User not found");
+        }
+
+        return userEntityOptional.get();
     }
 
     public UserEntity createUser(UserFromAppDto userFromAppDto) {
@@ -50,10 +57,13 @@ public class UserService {
         UserEntity createdUserEntity = map(userFromAppDto);
 
         String userName = createdUserEntity.getUserName();
-        Optional<UserEntity> existingUserEntityOptional = getUser(userName);
-        if(existingUserEntityOptional.isPresent()){
+
+        Optional<UserEntity> userEntityOptional = userRepository.findByUserName(userName);
+
+        if(userEntityOptional.isPresent()){
             throw new IllegalArgumentException("Username is already in use");
         }
+
         userRepository.save(createdUserEntity);
         return createdUserEntity;
     }
@@ -63,11 +73,7 @@ public class UserService {
     }
 
     public UserEntity updateUser(String userName, UserFromAppDto userFromAppDto) {
-        Optional<UserEntity> userEntityOptional = getUser(userName);
-        if (userEntityOptional.isEmpty()) {
-            throw new EntityNotFoundException("NotFound");
-        }
-        UserEntity userEntityToUpdate = userEntityOptional.get();
+        UserEntity userEntityToUpdate = getUser(userName);
 
         if(!userFromAppDto.getUserName().equals(userName)){
             throw new IllegalArgumentException("Username cannot be changed");
@@ -122,18 +128,10 @@ public class UserService {
         userToAppDtoResetPassword.setPassword(unhashedPassword);
 
         return userToAppDtoResetPassword;
-
-
-
-
     }
 
     public UserEntity deleteUser(String userName) {
-        Optional<UserEntity> userEntityOptionalToDelete = getUser(userName);
-        if(userEntityOptionalToDelete.isEmpty()){
-            throw new IllegalArgumentException("No user found to delete");
-        }
-        UserEntity userEntityToDelete = userEntityOptionalToDelete.get();
+        UserEntity userEntityToDelete = getUser(userName);
         userRepository.delete(userEntityToDelete);
         return userEntityToDelete;
     }
@@ -157,7 +155,5 @@ public class UserService {
                 .email(userEntity.getEmail())
                 .build();
     }
-
-
 
 }

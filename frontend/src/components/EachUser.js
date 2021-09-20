@@ -1,6 +1,9 @@
 
 import Button from "../components/Button";
 import {useAuth} from "../auth/AuthProvider";
+import { useState} from "react";
+
+
 
 
 
@@ -8,14 +11,15 @@ import {useAuth} from "../auth/AuthProvider";
 
 export default function EachUser( { fetchedUserName, reloadUserPage } ) {
     const { deleteUser, resetPassword } = useAuth()
+    const [resetUserPassword, setResetUserPassword] = useState("")
 
 
     const handleResetPassword = () => {
         resetPassword(fetchedUserName)
+            .then(response => setResetUserPassword(response))
             .then(reloadUserPage)
             .catch(error => console.error(error))
     }
-
     const handleDeleteUser = () => {
         deleteUser(fetchedUserName)
             .then(reloadUserPage)
@@ -28,6 +32,7 @@ export default function EachUser( { fetchedUserName, reloadUserPage } ) {
             </section>
             <Button onClick={handleDeleteUser}>User löschen</Button>
             <Button onClick={handleResetPassword}>Passwort zurücksetzen</Button>
+            <h1>{resetUserPassword.password}</h1>
         </div>
     )
 }

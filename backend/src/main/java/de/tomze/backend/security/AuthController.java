@@ -56,7 +56,7 @@ public class AuthController{
         try {
             authenticationManager.authenticate(authToken);
 
-            UserEntity userEntity = userService.getUser(userName).orElseThrow();
+            UserEntity userEntity = userService.getUser(userName);
             String token = jwtService.createJwtToken(userEntity);
 
             AccessToken accessToken = new AccessToken(token);

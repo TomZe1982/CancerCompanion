@@ -7,7 +7,7 @@ import {Redirect} from "react-router-dom";
 import List from "../components/List";
 import VideoGallery from "../components/VideoGallery";
 import {getVideoList} from "../service/apiService";
-import {useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 
 
 
@@ -20,12 +20,14 @@ export default function MakeUpTutorials() {
     useEffect(()=>{
         getVideoList(token)
             .then(setVideoList)
-    }, [videoList, token])
+    }, [user, token])
+
 
     const reloadPage = () =>{
         getVideoList(token)
             .then(setVideoList)
     }
+
 
 
 
