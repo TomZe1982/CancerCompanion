@@ -14,6 +14,7 @@ export default function NavBar({ user}){
             {user && <NavLink to = "/logout" >Logout</NavLink>}
             {user && <NavLink to = "/profile" >Profil</NavLink>}
             {!user && <NavLink to = "/login" >Login</NavLink>}
+            {user && <NavLink to = "/blogs" >Blogs</NavLink>}
             {user && user.role === "admin" && <NavLink to = "/admin" >Admin</NavLink>}
         </Wrapper>
     )

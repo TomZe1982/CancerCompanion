@@ -1,10 +1,10 @@
-import UserGallery from "./UserGallery";
 import {useEffect, useState} from "react";
 import {useAuth} from "../auth/AuthProvider";
+import BlogGallery from "./BlogGallery";
 
 
 
-export default function EachUserMapper() {
+export default function EachUserMapperBlog() {
     const {token, getAllUser} = useAuth()
     const [allUser, setAllUser] = useState([])
 
@@ -13,20 +13,20 @@ export default function EachUserMapper() {
             .catch(error => console.error(error))
     }, [getAllUser, token])
 
-    const reloadUserPage = () => {
+    const reloadBlogPage = () => {
         getAllUser(token)
             .then(setAllUser)
     }
 
-    const eachUserListToUpdate = allUser.map(fetchedUser => (
-        <UserGallery fetchedUserPassword={fetchedUser.password} fetchedUserName={fetchedUser.userName}
-                     key={fetchedUser.id} reloadUserPage={reloadUserPage}
+    const eachUserListForBlog = allUser.map(fetchedUser => (
+        <BlogGallery fetchedUserNameForBlog = {fetchedUser.userName}
+                     key = {fetchedUser.id} reloadBlogPage={reloadBlogPage}
         />)
     )
 
     return (
         <div>
-          <section>{eachUserListToUpdate}</section>
+            <section>{eachUserListForBlog}</section>
         </div>
 
     )

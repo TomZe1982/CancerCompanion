@@ -22,6 +22,7 @@ abstract class BlogControllerMapper {
 
     protected BlogToAppDto mapBlogToAppDto (BlogEntity blogEntity){
         return BlogToAppDto.builder()
+                .blogId(blogEntity.getBlogId())
                 .entry(blogEntity.getEntry())
                 .date(blogEntity.getDate()).build();
     }

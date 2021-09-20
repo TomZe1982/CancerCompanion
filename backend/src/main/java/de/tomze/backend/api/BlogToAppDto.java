@@ -11,6 +11,8 @@ import lombok.*;
 @NoArgsConstructor
 public class BlogToAppDto {
 
+    private Long blogId;
+
     private String date;
 
     private String entry;

@@ -5,14 +5,11 @@ import { useState} from "react";
 
 
 
-
-
-
-
-export default function EachUser( { fetchedUserName, reloadUserPage } ) {
+export default function EachUser( {key,  fetchedUserName, reloadUserPage } ) {
     const { deleteUser, resetPassword } = useAuth()
     const [resetUserPassword, setResetUserPassword] = useState("")
 
+    console.log(fetchedUserName)
 
     const handleResetPassword = () => {
         resetPassword(fetchedUserName)

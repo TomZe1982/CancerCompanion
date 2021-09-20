@@ -25,8 +25,10 @@ public class BlogService {
         this.userService = userService;
     }
 
-    public List<BlogEntity> getAllBlogs() {
-        return blogRepository.findAll();
+    public List<BlogEntity> getAllBlogs(String userName) {
+        UserEntity userEntity = userService.getUser(userName);
+
+        return userEntity.getBlogEntries();
     }
 
     public BlogEntity getBlogEntry(String userName, Long blogId) {
@@ -71,7 +73,7 @@ public class BlogService {
 
     @Transactional
     public List<BlogEntity> deleteBlog(UserEntity authUser) {
-        List<BlogEntity> blogEntityListDelete = getAllBlogs();
+        List<BlogEntity> blogEntityListDelete = getAllBlogs(authUser.getUserName());
 
         for(BlogEntity blogEntityDelete : blogEntityListDelete){
             var user = userService.getUser(authUser.getUserName());

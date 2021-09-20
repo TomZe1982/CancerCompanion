@@ -29,10 +29,10 @@ public class BlogController extends BlogControllerMapper {
         this.userService = userService;
     }
 
-    @GetMapping()
-    public ResponseEntity<List<BlogToAppDto>> getAllBlogs() {
+    @GetMapping("/allblogs/{userName}")
+    public ResponseEntity<List<BlogToAppDto>> getAllBlogs(@PathVariable String userName) {
 
-        List<BlogEntity> blogEntityList = blogService.getAllBlogs();
+        List<BlogEntity> blogEntityList = blogService.getAllBlogs(userName);
 
         List<BlogToAppDto> blogToAppDtoList = mapBlogToAppDtoList(blogEntityList);
 
