@@ -5,8 +5,6 @@ import Box from "../styled/Box";
 
 export default function BlogGallery({ fetchedUserNameForBlog, reloadBlogPage}) {
 
-    console.log(fetchedUserNameForBlog)
-
     return (
         <div>
             <Section className="blog-gallery">

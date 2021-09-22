@@ -11,8 +11,6 @@ export default function EachUser( { fetchedUserName, reloadUserPage } ) {
     )
     const [resetUserPassword, setResetUserPassword] = useState("")
 
-    console.log(resetUserPassword)
-
     const handleResetPassword = () => {
         resetPassword(fetchedUserName, token)
             .then(response => setResetUserPassword(response))
