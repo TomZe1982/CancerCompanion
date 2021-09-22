@@ -1,10 +1,13 @@
 import {useAuth} from "../../auth/AuthProvider";
-import { getBlogList, postBlogEntry} from "../../service/apiService";
+import {deleteBlogEntry, getBlogList, postBlogEntry} from "../../service/apiService";
 import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
-import Box from "../Box";
+import {Link, useParams} from "react-router-dom";
+import Box from "../styled/Box";
 import TextField from "../TextField";
 import Button from "../Button";
+import InnerBox from "../styled/InnerBox";
+import BlogSection from "../styled/BlogSection";
+
 
 
 export default function BlogEntries ( ){
@@ -14,7 +17,7 @@ export default function BlogEntries ( ){
     const [allBlogs, setAllBlogs] = useState([])
     const [blogEntry, setBlogEntry] = useState({})
 
-    console.log(blogEntry)
+    console.log(allBlogs)
 
     useEffect(() => {
         getBlogList(fetchedUserNameForBlog, token)
@@ -39,23 +42,29 @@ export default function BlogEntries ( ){
         setBlogEntry({[event.target.name] : event.target.value})
     }
 
-    const blog = allBlogs.map(blog =>   <Box><section>{blog.date} {blog.entry}</section> </Box>)
+    const blog = allBlogs.map(blog =>
+        <Box><InnerBox><BlogSection>{blog.date} {blog.entry}</BlogSection></InnerBox>
+            <section>
+        {(user.role === "admin" || user.userName === fetchedUserNameForBlog) && <Button onClick = {() => deleteBlogEntry(blog.blogId, token)
+            .then(reloadBlogPage)} >Blog löschen</Button>}
+        </section> </Box>)
 
     return (
         <div>
             <section>
                 <p>{blog}</p>
+
             </section>
             {user.userName === fetchedUserNameForBlog &&
-            <div>
+            <section>
                 <TextField
-                    title = "entry"
+                    title = "Neuer Blog Eintrag"
                     name = "entry"
                     value = {blogEntry.entry || ""}
                     onChange = {handleOnChange}
                 />
                 <Button onClick={handleSubmit}>Abschicken</Button>
-            </div>
+            </section>
                 }
         </div>
     )

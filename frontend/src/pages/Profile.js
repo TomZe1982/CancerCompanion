@@ -27,7 +27,6 @@ export default function Profile(){
                 <ProfileButton as = {Link} to = "/editpassword">Passwort ändern</ProfileButton>
                 <ProfileButton as = {Link} to = "/delete" >Profil löschen</ProfileButton>
                 <ProfileButton as = {Link} to = "/tutorials">Schmink Tutorials</ProfileButton>
-                <ProfileButton as = {Link} to = "/userblogs">Blog</ProfileButton>
                 <ProfileButton as = {Link} to = "/logout">Logout</ProfileButton>
             </Main>
         </Page>

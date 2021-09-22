@@ -60,3 +60,7 @@ export const getBlogEntry = (userName,blogId, token) =>
 export const postBlogEntry = (blogEntry, token) =>
     axios.post("/api/tomze/blog/newblog", blogEntry, headers(token))
         .then(response => response.data)
+
+export const deleteBlogEntry = (blogId, token) =>
+    axios.delete("/api/tomze/blog/delete/" + blogId, headers(token))
+

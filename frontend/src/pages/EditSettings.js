@@ -9,7 +9,7 @@ import Error from "../components/Error";
 import {useEffect, useState} from "react";
 import {Redirect} from "react-router-dom";
 import {getUser, updateUser} from "../service/apiService";
-import Box from "../components/Box";
+import Box from "../components/styled/Box";
 
 
 export default function EditSettings() {

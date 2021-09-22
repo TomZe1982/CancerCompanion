@@ -1,6 +1,6 @@
 import BlogCard from "./BlogCard";
-import Section from "../Section";
-import Box from "../Box";
+import Section from "../styled/Section";
+import Box from "../styled/Box";
 
 
 export default function BlogGallery({ fetchedUserNameForBlog, reloadBlogPage}) {
