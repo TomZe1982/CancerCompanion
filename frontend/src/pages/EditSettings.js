@@ -8,11 +8,12 @@ import Button from "../components/Button";
 import Error from "../components/Error";
 import {useEffect, useState} from "react";
 import {Redirect} from "react-router-dom";
-import {getUser} from "../service/apiService";
+import {getUser, updateUser} from "../service/apiService";
+import Box from "../components/Box";
 
 
 export default function EditSettings() {
-    const {user, token, updateUser} = useAuth()
+    const {user, token} = useAuth()
     const [userToChange, setUserToChange] = useState({})
     const [credentials, setCredentials] = useState({})
     const [changedCredentials, setChangedCredentials] = useState()
@@ -42,7 +43,7 @@ export default function EditSettings() {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        updateUser(credentials)
+        updateUser(credentials, token)
             .then(changedCredentials => setChangedCredentials(changedCredentials))
 
     }
@@ -55,7 +56,9 @@ export default function EditSettings() {
             <NavBar user = {user}/>
             <Main as="form" onSubmit={handleSubmit}>
                 <Header title="Profil bearbeiten"/>
-                <p>{userToChange.email}</p>
+                <Box>
+                <p>Aktuelle Email-Adresse : {userToChange.email}</p>
+                </Box>
                 <TextField
                     title="Email"
                     name="email"

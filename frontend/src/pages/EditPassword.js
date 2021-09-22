@@ -8,11 +8,11 @@ import Button from "../components/Button";
 import Error from "../components/Error";
 import {useLayoutEffect, useState} from "react";
 import {Redirect} from "react-router-dom";
-import {getUser} from "../service/apiService";
+import {getUser, updateUser} from "../service/apiService";
 
 
 export default function EditPassword() {
-    const {user, token, updateUser} = useAuth()
+    const {user, token} = useAuth()
     const [userToChange, setUserToChange] = useState({})
     const [credentials, setCredentials] = useState({})
     const [changedCredentials, setChangedCredentials] = useState()
@@ -38,7 +38,7 @@ export default function EditPassword() {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        updateUser(credentials)
+        updateUser(credentials, token)
             .then(changedCredentials => setChangedCredentials(changedCredentials))
             .catch(error => console.error(error))
 

@@ -47,7 +47,7 @@ export const deleteUser = (userName, token) =>
 
 export const resetPassword = (userName, token) =>
     axios.put("/api/tomze/user/resetpassword/"+userName, userName, headers(token) )
-        .then(response => console.log(response))
+        .then(response => response.data)
 
 export const getBlogList = (userName, token) =>
     axios.get("/api/tomze/blog/allblogs/"+userName, headers(token))
@@ -57,4 +57,6 @@ export const getBlogEntry = (userName,blogId, token) =>
     axios.get("/api/tomze/blog/allblogs/" + userName + "/" + blogId, headers(token))
         .then(response => response.data)
 
-
+export const postBlogEntry = (blogEntry, token) =>
+    axios.post("/api/tomze/blog/newblog", blogEntry, headers(token))
+        .then(response => response.data)

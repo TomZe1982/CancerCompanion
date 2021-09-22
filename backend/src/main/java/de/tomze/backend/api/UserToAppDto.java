@@ -10,6 +10,8 @@ import lombok.*;
 @NoArgsConstructor
 public class UserToAppDto {
 
+    private Long id;
+
     private String role;
 
     private String userName;

@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,7 +100,7 @@ public class BlogService {
     public BlogEntity mapBlogEntity(BlogFromAppDto blogFromAppDto) {
         BlogEntity blogEntity = new BlogEntity();
         blogEntity.setEntry(blogFromAppDto.getEntry());
-        blogEntity.setDate("today");
+        blogEntity.setDate(LocalDateTime.now().toString());
 
         return blogEntity;
     }

@@ -3,6 +3,8 @@ import styled from 'styled-components/macro'
 export default styled.main`
   display: grid;
   place-items: center;
+  place-content: start;
+  justify-content: center;
   grid-gap: var(--size-xxl);
   padding: var(--size-xl);
   height: 100%;

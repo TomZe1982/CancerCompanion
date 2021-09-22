@@ -1,7 +1,8 @@
 import EachUser from "./EachUser";
 
 
-export default function userGallery( {key,  fetchedUserName, reloadUserPage }) {
+export default function userGallery( {key, fetchedUserName, reloadUserPage}) {
+
 
     return (
         <div>

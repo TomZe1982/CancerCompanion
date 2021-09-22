@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import NavBar from "../components/NavBar";
 import Page from "../components/Page";
 import {useAuth} from "../auth/AuthProvider";
-import EachUserMapperBlog from "../components/EachUserMapperBlog";
+import EachUserMapperBlog from "../components/blog/EachUserMapperBlog";
 
 
 

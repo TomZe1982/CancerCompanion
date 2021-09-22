@@ -33,9 +33,9 @@ public class UserController extends UserControllerMapper {
 
     @GetMapping("/api/tomze/user")
     public ResponseEntity<List<UserToAppDto>> getAllUsers(@AuthenticationPrincipal UserEntity authUser) {
-        if(authUser.getRole().equals("user")){
+      /*  if(authUser.getRole().equals("user")){
             throw new IllegalArgumentException("User must not get all users");
-        }
+        }*/
         List<UserEntity> listOfAllUserEntities = userService.getAllUsers();
         List<UserToAppDto> listOfAllUsersToApp = map(listOfAllUserEntities);
 
