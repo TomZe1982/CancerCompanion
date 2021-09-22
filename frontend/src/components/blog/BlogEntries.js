@@ -1,7 +1,7 @@
 import {useAuth} from "../../auth/AuthProvider";
 import {deleteBlogEntry, getBlogList, postBlogEntry} from "../../service/apiService";
 import {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import Box from "../styled/Box";
 import TextField from "../TextField";
 import Button from "../Button";

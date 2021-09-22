@@ -7,4 +7,5 @@ export default styled.section`
   align-items: center;
   justify-content: center;
   justify-items: center;
+  padding: 5px;
 `
