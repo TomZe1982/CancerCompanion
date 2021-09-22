@@ -61,6 +61,6 @@ export const postBlogEntry = (blogEntry, token) =>
     axios.post("/api/tomze/blog/newblog", blogEntry, headers(token))
         .then(response => response.data)
 
-export const deleteBlogEntry = (blogId, token) =>
-    axios.delete("/api/tomze/blog/delete/" + blogId, headers(token))
+export const deleteBlogEntry = (userName, blogId, token) =>
+    axios.delete("/api/tomze/blog/delete/" +userName + "/" + blogId, headers(token))
 

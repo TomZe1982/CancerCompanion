@@ -9,8 +9,7 @@ import InnerBox from "../styled/InnerBox";
 import BlogSection from "../styled/BlogSection";
 
 
-
-export default function BlogEntries ( ){
+export default function BlogEntries() {
 
     const {token, user} = useAuth()
     const {fetchedUserNameForBlog} = useParams()
@@ -39,33 +38,40 @@ export default function BlogEntries ( ){
     }
 
     const handleOnChange = (event) => {
-        setBlogEntry({[event.target.name] : event.target.value})
+        setBlogEntry({[event.target.name]: event.target.value})
     }
 
+    console.log(allBlogs)
+
     const blog = allBlogs.map(blog =>
-        <Box><InnerBox><BlogSection>{blog.date} {blog.entry}</BlogSection></InnerBox>
+        <Box>
+            <InnerBox>
+                <BlogSection>{blog.date}</BlogSection>
+                <BlogSection> {blog.entry}</BlogSection>
+            </InnerBox>
             <section>
-        {(user.role === "admin" || user.userName === fetchedUserNameForBlog) && <Button onClick = {() => deleteBlogEntry(blog.blogId, token)
-            .then(reloadBlogPage)} >Blog löschen</Button>}
-        </section> </Box>)
+                {(user.role === "admin" ||user.userName === fetchedUserNameForBlog)  &&
+                <Button onClick={() => deleteBlogEntry(fetchedUserNameForBlog, blog.blogId, token)
+                    .then(reloadBlogPage)}>Blog löschen</Button>}
+            </section>
+        </Box>)
 
     return (
         <div>
             <section>
                 <p>{blog}</p>
-
             </section>
             {user.userName === fetchedUserNameForBlog &&
             <section>
                 <TextField
-                    title = "Neuer Blog Eintrag"
-                    name = "entry"
-                    value = {blogEntry.entry || ""}
-                    onChange = {handleOnChange}
+                    title="Neuer Blog Eintrag"
+                    name="entry"
+                    value={blogEntry.entry || ""}
+                    onChange={handleOnChange}
                 />
                 <Button onClick={handleSubmit}>Abschicken</Button>
             </section>
-                }
+            }
         </div>
     )
 

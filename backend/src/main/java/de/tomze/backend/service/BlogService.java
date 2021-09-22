@@ -9,9 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,10 +85,10 @@ public class BlogService {
     }
 
     @Transactional
-    public BlogEntity deleteBlogEntry(UserEntity authUser, Long blogId) {
-        var user = userService.getUser(authUser.getUserName());
+    public BlogEntity deleteBlogEntry(String userName, Long blogId) {
+        var user = userService.getUser(userName);
 
-        BlogEntity blogEntityDelete = getBlogEntry(authUser.getUserName(), blogId);
+        BlogEntity blogEntityDelete = getBlogEntry(userName, blogId);
 
         user.getBlogEntries().remove(blogEntityDelete);
 
