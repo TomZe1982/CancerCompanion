@@ -12,6 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -40,6 +43,17 @@ public class InformationController {
 
         return ok(informationToAppDto);
     }
+
+    @GetMapping()
+    public ResponseEntity<List<InformationToAppDto>> getAllInfos(@AuthenticationPrincipal UserEntity authUser){
+
+        List<InformationEntity> informationEntityList = informationService.getAllInfos();
+
+        List<InformationToAppDto> informationToAppDtoList = mapList(informationEntityList);
+
+        return ok(informationToAppDtoList);
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<InformationToAppDto> getInfo(@AuthenticationPrincipal UserEntity authUser, @PathVariable Long id){
@@ -72,6 +86,18 @@ public class InformationController {
         return InformationToAppDto.builder()
                 .id(informationEntity.getId())
                 .info(informationEntity.getInfo()).build();
+    }
+
+    private List<InformationToAppDto> mapList(List<InformationEntity> informationEntityList) {
+
+        List<InformationToAppDto> informationToAppDtoList = new ArrayList<>();
+
+        for(InformationEntity informationEntity : informationEntityList){
+            InformationToAppDto informationToAppDto = map(informationEntity);
+            informationToAppDtoList.add(informationToAppDto);
+        }
+
+        return informationToAppDtoList;
     }
 
 

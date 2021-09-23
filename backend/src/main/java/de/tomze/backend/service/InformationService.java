@@ -6,6 +6,7 @@ import de.tomze.backend.repository.InformationRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,12 +38,6 @@ public class InformationService {
     }
 
 
-    private InformationEntity map(InformationFromAppDto informationFromAppDto) {
-        return InformationEntity.builder()
-                .info(informationFromAppDto.getInfo()).build();
-    }
-
-
     public InformationEntity updateInfo(Long id, InformationFromAppDto informationFromAppDto) {
         InformationEntity informationEntityToUpdate = getInfo(id);
 
@@ -51,5 +46,16 @@ public class InformationService {
         informationRepository.save(informationEntityToUpdate);
 
         return informationEntityToUpdate;
+    }
+
+    public List<InformationEntity> getAllInfos() {
+
+        return informationRepository.findAll();
+    }
+
+
+    private InformationEntity map(InformationFromAppDto informationFromAppDto) {
+        return InformationEntity.builder()
+                .info(informationFromAppDto.getInfo()).build();
     }
 }
