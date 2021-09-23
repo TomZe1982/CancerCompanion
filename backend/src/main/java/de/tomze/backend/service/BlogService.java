@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,9 +97,15 @@ public class BlogService {
     }
 
     public BlogEntity mapBlogEntity(BlogFromAppDto blogFromAppDto) {
+        LocalDateTime now = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+        String formatDateTime = now.format(formatter);
+
         BlogEntity blogEntity = new BlogEntity();
         blogEntity.setEntry(blogFromAppDto.getEntry());
-        blogEntity.setDate(LocalDateTime.now().toString());
+        blogEntity.setDate(formatDateTime);
 
         return blogEntity;
     }

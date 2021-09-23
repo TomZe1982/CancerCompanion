@@ -3,7 +3,7 @@ import {deleteBlogEntry, getBlogList, postBlogEntry} from "../../service/apiServ
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import Box from "../styled/Box";
-import TextField from "../TextField";
+import TextArea from "../TextArea";
 import Button from "../Button";
 import InnerBox from "../styled/InnerBox";
 import BlogSection from "../styled/BlogSection";
@@ -44,7 +44,7 @@ export default function BlogEntries() {
     console.log(allBlogs)
 
     const blog = allBlogs.map(blog =>
-        <Box>
+        <Box key = {blog.blogId}>
             <InnerBox>
                 <BlogSection>{blog.date}</BlogSection>
                 <BlogSection> {blog.entry}</BlogSection>
@@ -56,14 +56,15 @@ export default function BlogEntries() {
             </section>
         </Box>)
 
+
     return (
         <div>
             <section>
-                <p>{blog}</p>
+                {blog}
             </section>
             {user.userName === fetchedUserNameForBlog &&
             <section>
-                <TextField
+                <TextArea
                     title="Neuer Blog Eintrag"
                     name="entry"
                     value={blogEntry.entry || ""}

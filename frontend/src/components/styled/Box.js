@@ -10,5 +10,4 @@ export default styled.div`
   box-shadow: 1px 2px 8px #666;
   margin: 5px;
   text-align: center;
-
 `

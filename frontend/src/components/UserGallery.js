@@ -12,5 +12,3 @@ export default function userGallery( { fetchedUserName, reloadUserPage}) {
     </div>
 )
 }
-
-//key = {key}
