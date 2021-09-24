@@ -1,5 +1,5 @@
 
-import Button from "../components/Button";
+import Button from "./styled/Button";
 import { useState} from "react";
 import {deleteUser, resetPassword} from "../service/apiService";
 import {useAuth} from "../auth/AuthProvider";

@@ -19,6 +19,9 @@ public class InformationEntity {
     @Column(name = "id", nullable = false)
     Long id;
 
+    @Column(name = "title", nullable = false)
+    String title;
+
     @Column(name = "info", nullable = false)
     String info;
 
@@ -27,11 +30,11 @@ public class InformationEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         InformationEntity that = (InformationEntity) o;
-        return id.equals(that.id) && info.equals(that.info);
+        return id.equals(that.id) && info.equals(that.info) && title.equals(that.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, info);
+        return Objects.hash(id, info, title);
     }
 }

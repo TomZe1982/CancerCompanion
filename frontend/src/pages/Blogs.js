@@ -1,6 +1,6 @@
 
 import Main from "../components/Main";
-import Header from "../components/Header";
+import Header from "../components/styled/Header";
 import NavBar from "../components/NavBar";
 import Page from "../components/Page";
 import {useAuth} from "../auth/AuthProvider";
@@ -18,7 +18,9 @@ export default function Blogs(){
             <NavBar user = {user}/>
             <Main>
                 <Header title ="Blogs"/>
+                <section>
                 <EachUserMapperBlog />
+                </section>
             </Main>
         </Page>
     )

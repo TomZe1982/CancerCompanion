@@ -26,12 +26,9 @@ export default function EachUserMapperBlog() {
     )
 
     return (
-        <div>
             <section>
                 {eachUserListForBlog}
             </section>
-        </div>
-
     )
 
 }

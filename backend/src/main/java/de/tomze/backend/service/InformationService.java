@@ -42,6 +42,7 @@ public class InformationService {
         InformationEntity informationEntityToUpdate = getInfo(id);
 
         informationEntityToUpdate.setInfo(informationFromAppDto.getInfo());
+        informationEntityToUpdate.setTitle(informationFromAppDto.getTitle());
 
         informationRepository.save(informationEntityToUpdate);
 
@@ -56,6 +57,7 @@ public class InformationService {
 
     private InformationEntity map(InformationFromAppDto informationFromAppDto) {
         return InformationEntity.builder()
-                .info(informationFromAppDto.getInfo()).build();
+                .info(informationFromAppDto.getInfo())
+                .title(informationFromAppDto.getTitle()).build();
     }
 }

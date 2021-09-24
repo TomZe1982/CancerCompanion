@@ -1,18 +1,15 @@
 import BlogCard from "./BlogCard";
-import Section from "../styled/Section";
 import Box from "../styled/Box";
 
 
-export default function BlogGallery({ fetchedUserNameForBlog, reloadBlogPage}) {
+export default function BlogGallery({fetchedUserNameForBlog, reloadBlogPage}) {
 
     return (
-        <div>
-            <Section className="blog-gallery">
-                <Box>
-                <BlogCard fetchedUserNameForBlog={fetchedUserNameForBlog} reloadBlogPage={reloadBlogPage} />
-                </Box>
-            </Section>
-        </div>
+        <section>
+            <Box>
+                <BlogCard fetchedUserNameForBlog={fetchedUserNameForBlog} reloadBlogPage={reloadBlogPage}/>
+            </Box>
+        </section>
     )
 
 }

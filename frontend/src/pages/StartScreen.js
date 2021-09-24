@@ -1,10 +1,10 @@
-import Header from "../components/Header";
+import Header from "../components/styled/Header";
 import styled from 'styled-components/macro'
 import Page from "../components/Page";
 import NavBar from "../components/NavBar";
 import Main from "../components/Main";
 import {Link} from "react-router-dom";
-import Button from "../components/Button";
+import Button from "../components/styled/Button";
 import {useAuth} from "../auth/AuthProvider";
 
 export default function StartScreen() {
@@ -19,6 +19,7 @@ export default function StartScreen() {
                 <Img src="CC1.png" alt="fb"/>
                 </div>
                 <Button as={Link} to ="/login">Community</Button>
+                <Button as={Link} to ="/info">Informationen</Button>
             </Main>
         </Page>
     )

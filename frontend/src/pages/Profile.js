@@ -1,5 +1,5 @@
 import Page from "../components/Page";
-import Header from "../components/Header";
+import Header from "../components/styled/Header";
 import Main from "../components/Main";
 import {useAuth} from "../auth/AuthProvider";
 import {Link, Redirect} from "react-router-dom";

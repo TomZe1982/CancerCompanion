@@ -10,6 +10,8 @@ import lombok.*;
 @NoArgsConstructor
 public class InformationFromAppDto {
 
+   private String title;
+
    private String info;
 
 }

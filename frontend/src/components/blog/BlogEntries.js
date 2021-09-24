@@ -4,9 +4,10 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import Box from "../styled/Box";
 import TextArea from "../TextArea";
-import Button from "../Button";
+import Button from "../styled/Button";
 import InnerBox from "../styled/InnerBox";
 import BlogSection from "../styled/BlogSection";
+import Section from "../styled/Section";
 
 
 export default function BlogEntries() {
@@ -43,16 +44,18 @@ export default function BlogEntries() {
 
     console.log(allBlogs)
 
+
     const blog = allBlogs.map(blog =>
-        <Box key = {blog.blogId}>
+        <Box key={blog.blogId}>
             <InnerBox>
                 <BlogSection>{blog.date}</BlogSection>
                 <BlogSection> {blog.entry}</BlogSection>
             </InnerBox>
             <section>
-                {(user.role === "admin" ||user.userName === fetchedUserNameForBlog)  &&
-                <Button onClick={() => deleteBlogEntry(fetchedUserNameForBlog, blog.blogId, token)
-                    .then(reloadBlogPage)}>Blog löschen</Button>}
+                {(user.role === "admin" || user.userName === fetchedUserNameForBlog) &&
+                <Button
+                    onClick={blog.blogId ? (() => deleteBlogEntry(fetchedUserNameForBlog, blog.blogId, token).then(reloadBlogPage))
+                        : console.error("error")}>Blog löschen</Button>}
             </section>
         </Box>)
 

@@ -12,6 +12,8 @@ public class InformationToAppDto {
 
     private Long id;
 
+    private String title;
+
     private String info;
 
 }

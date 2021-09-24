@@ -1,9 +1,9 @@
-import Header from "../components/Header";
+import Header from "../components/styled/Header";
 import Page from "../components/Page";
 import Main from "../components/Main";
 import {useAuth} from "../auth/AuthProvider";
 import {Link, Redirect} from "react-router-dom";
-import Button from "../components/Button";
+import Button from "../components/styled/Button";
 import {useState} from "react";
 import NavBar from "../components/NavBar";
 import Loading from "../components/Loading";

@@ -1,5 +1,5 @@
 import {useAuth} from "../auth/AuthProvider";
-import Button from "../components/Button";
+import Button from "./styled/Button";
 import {deleteVideo} from "../service/apiService";
 
 

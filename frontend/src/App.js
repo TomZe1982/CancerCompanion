@@ -15,6 +15,8 @@ import EditPassword from "./pages/EditPassword";
 import AdminError from "./components/AdminError";
 import Blogs from "./pages/Blogs";
 import BlogDetails from "./pages/BlogDetails";
+import InfoPage from "./pages/InfoPage";
+import EachInformationPage from "./pages/EachInformationPage";
 
 
 
@@ -26,6 +28,8 @@ export default function App() {
             <Router>
                 <Switch>
                     <Route exact path="/" component={StartScreen}/>
+                    <Route path="/info" component={InfoPage}/>
+                    <Route path="/infodetails/:infoDetails" component={EachInformationPage}/>
                     <Route path="/login" component={Login}/>
                     <Route path="/register" component={Registration}/>
                     <ProtectedRoute path="/logout" component={Logout}/>

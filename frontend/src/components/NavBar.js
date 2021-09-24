@@ -11,6 +11,7 @@ export default function NavBar({ user}){
         <Wrapper>
             <NavBarButton onClick={history.goBack} >Back</NavBarButton>
             <NavLink exact to = "/" >Home</NavLink>
+            <NavLink to = "/info" >Infos</NavLink>
             {user && <NavLink to = "/logout" >Logout</NavLink>}
             {user && <NavLink to = "/profile" >Profil</NavLink>}
             {!user && <NavLink to = "/login" >Login</NavLink>}

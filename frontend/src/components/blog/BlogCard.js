@@ -1,15 +1,14 @@
-import { useHistory } from "react-router-dom";
-import Button from "../Button";
 import BlogImage from "./BlogImage";
-import Section from "../styled/Section";
 import {useEffect, useState} from "react";
 import {getBlogList} from "../../service/apiService";
 import {useAuth} from "../../auth/AuthProvider";
+import StyledLink from "../styled/StyledLink";
+import InnerBox from "../styled/InnerBox";
+import Box from "../styled/Box";
 
 
-export default function BlogCard( { fetchedUserNameForBlog } ) {
-    const{ token } = useAuth()
-    const history = useHistory()
+export default function BlogCard({fetchedUserNameForBlog}) {
+    const {token} = useAuth()
     const [allBlogs, setAllBlogs] = useState([])
 
     useEffect(() => {
@@ -18,20 +17,14 @@ export default function BlogCard( { fetchedUserNameForBlog } ) {
             .catch(error => console.error(error))
     }, [fetchedUserNameForBlog, token])
 
-    function handleClickReadBlog() {
-        history.push(`/userblogs/${fetchedUserNameForBlog}`)
-    }
 
-
-        return (
-            <div>
-                {( allBlogs !== [] ) ?
-                    ( <Section>
+    return (<div>
+            {(allBlogs.length > 0) ?
+                (<StyledLink to={`/userblogs/${fetchedUserNameForBlog}`}>
                     <BlogImage className="user__image" src="https://thispersondoesnotexist.com/image" alt="userImage"/>
                     <h4 className="user__name">{fetchedUserNameForBlog}</h4>
-                    <Button className="button" onClick={handleClickReadBlog}>Blog lesen</Button>
-                </Section>)
-                   : null}
-            </div>
-        )
+                </StyledLink>)
+                : null}
+        </div>
+    )
 }

@@ -3,7 +3,6 @@ package de.tomze.backend.controller;
 
 import de.tomze.backend.api.InformationFromAppDto;
 import de.tomze.backend.api.InformationToAppDto;
-import de.tomze.backend.api.UserToAppDto;
 import de.tomze.backend.model.InformationEntity;
 import de.tomze.backend.model.UserEntity;
 import de.tomze.backend.service.InformationService;
@@ -44,8 +43,8 @@ public class InformationController {
         return ok(informationToAppDto);
     }
 
-    @GetMapping()
-    public ResponseEntity<List<InformationToAppDto>> getAllInfos(@AuthenticationPrincipal UserEntity authUser){
+    @GetMapping("/all")
+    public ResponseEntity<List<InformationToAppDto>> getAllInfos(){
 
         List<InformationEntity> informationEntityList = informationService.getAllInfos();
 
@@ -55,8 +54,8 @@ public class InformationController {
     }
 
 
-    @GetMapping("/{id}")
-    public ResponseEntity<InformationToAppDto> getInfo(@AuthenticationPrincipal UserEntity authUser, @PathVariable Long id){
+    @GetMapping("/all/{id}")
+    public ResponseEntity<InformationToAppDto> getInfo(@PathVariable Long id){
 
         InformationEntity informationEntity = informationService.getInfo(id);
 
@@ -85,6 +84,7 @@ public class InformationController {
     private InformationToAppDto map(InformationEntity informationEntity){
         return InformationToAppDto.builder()
                 .id(informationEntity.getId())
+                .title(informationEntity.getTitle())
                 .info(informationEntity.getInfo()).build();
     }
 

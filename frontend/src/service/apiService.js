@@ -18,6 +18,14 @@ export const createUser = credentials =>
     axios.post("/api/tomze/register", credentials)
         .then(response => response.data)
 
+export const getInfos = () =>
+    axios.get("/api/tomze/info/all")
+        .then(response => response.data)
+
+export const getInfoById = (infoId) =>
+    axios.get("/api/tomze/info/all/"+infoId)
+        .then(response => response.data)
+
 
 //Routes with token needed
 
