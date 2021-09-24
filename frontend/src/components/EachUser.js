@@ -1,27 +1,26 @@
 
 import Button from "../components/Button";
-import {useAuth} from "../auth/AuthProvider";
 import { useState} from "react";
-
-
-
-
+import {deleteUser, resetPassword} from "../service/apiService";
+import {useAuth} from "../auth/AuthProvider";
 
 
 
 export default function EachUser( { fetchedUserName, reloadUserPage } ) {
-    const { deleteUser, resetPassword } = useAuth()
+    const {token} = useAuth(
+    )
     const [resetUserPassword, setResetUserPassword] = useState("")
 
+    console.log(resetUserPassword)
 
     const handleResetPassword = () => {
-        resetPassword(fetchedUserName)
+        resetPassword(fetchedUserName, token)
             .then(response => setResetUserPassword(response))
             .then(reloadUserPage)
             .catch(error => console.error(error))
     }
     const handleDeleteUser = () => {
-        deleteUser(fetchedUserName)
+        deleteUser(fetchedUserName, token)
             .then(reloadUserPage)
             .catch(error => console.error(error))
     }

@@ -23,4 +23,5 @@ const Input = styled.input`
   padding: var(--size-s);
   margin-top: var(--size-s);
   border-radius: var(--size-s);
+  line-break: auto;
 `

@@ -3,9 +3,9 @@ import Header from "../components/Header";
 import Main from "../components/Main";
 import {useAuth} from "../auth/AuthProvider";
 import {Link, Redirect} from "react-router-dom";
-import Button from "../components/Button";
 import NavBar from "../components/NavBar";
 import UserImage from "../components/UserImage";
+import ProfileButton from "../components/ProfileButton";
 
 
 
@@ -21,13 +21,14 @@ export default function Profile(){
         <Page>
             <NavBar user = {user}/>
             <Main>
-                <Header title = "Profile von " />
+                <Header title ={user.userName} />
                 <UserImage src = "https://thispersondoesnotexist.com/image" alt = "userImage"/>
-                <h1>{user.userName}</h1>
-                <Button as = {Link} to = "/editsettings">Email ändern</Button>
-                <Button as = {Link} to = "/editpassword">Passwort ändern</Button>
-                <Button as = {Link} to = "/delete" >Profil löschen</Button>
-                <Button as = {Link} to = "/tutorials">Schmink Tutorials</Button>
+                <ProfileButton as = {Link} to = "/editsettings">Email ändern</ProfileButton>
+                <ProfileButton as = {Link} to = "/editpassword">Passwort ändern</ProfileButton>
+                <ProfileButton as = {Link} to = "/delete" >Profil löschen</ProfileButton>
+                <ProfileButton as = {Link} to = "/tutorials">Schmink Tutorials</ProfileButton>
+                <ProfileButton as = {Link} to = "/userblogs">Blog</ProfileButton>
+                <ProfileButton as = {Link} to = "/logout">Logout</ProfileButton>
             </Main>
         </Page>
     )

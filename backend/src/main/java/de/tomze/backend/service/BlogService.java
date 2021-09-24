@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +28,10 @@ public class BlogService {
         this.userService = userService;
     }
 
-    public List<BlogEntity> getAllBlogs() {
-        return blogRepository.findAll();
+    public List<BlogEntity> getAllBlogs(String userName) {
+        UserEntity userEntity = userService.getUser(userName);
+
+        return userEntity.getBlogEntries();
     }
 
     public BlogEntity getBlogEntry(String userName, Long blogId) {
@@ -71,7 +76,7 @@ public class BlogService {
 
     @Transactional
     public List<BlogEntity> deleteBlog(UserEntity authUser) {
-        List<BlogEntity> blogEntityListDelete = getAllBlogs();
+        List<BlogEntity> blogEntityListDelete = getAllBlogs(authUser.getUserName());
 
         for(BlogEntity blogEntityDelete : blogEntityListDelete){
             var user = userService.getUser(authUser.getUserName());
@@ -95,7 +100,7 @@ public class BlogService {
     public BlogEntity mapBlogEntity(BlogFromAppDto blogFromAppDto) {
         BlogEntity blogEntity = new BlogEntity();
         blogEntity.setEntry(blogFromAppDto.getEntry());
-        blogEntity.setDate("today");
+        blogEntity.setDate(LocalDateTime.now().toString());
 
         return blogEntity;
     }

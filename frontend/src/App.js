@@ -13,6 +13,8 @@ import ProtectedRoute from "./auth/ProtectedRoute";
 import Admin from "./pages/Admin";
 import EditPassword from "./pages/EditPassword";
 import AdminError from "./components/AdminError";
+import Blogs from "./pages/Blogs";
+import BlogDetails from "./pages/BlogDetails";
 
 
 
@@ -32,6 +34,8 @@ export default function App() {
                     <ProtectedRoute path="/profile" component={Profile}/>
                     <ProtectedRoute path="/delete" component={Delete}/>
                     <ProtectedRoute path="/tutorials" component={MakeUpTutorials}/>
+                    <ProtectedRoute path="/blogs" component={Blogs}/>
+                    <ProtectedRoute path="/userblogs/:fetchedUserNameForBlog" component={BlogDetails}/>
                     <ProtectedRoute adminOnly path="/admin" component={Admin}/>
                     <ProtectedRoute adminOnly path="/adminerror" component={AdminError}/>
                 </Switch>

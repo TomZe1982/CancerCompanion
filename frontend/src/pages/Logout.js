@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import {useAuth} from "../auth/AuthProvider";
 import Button from "../components/Button";
 import {Redirect} from "react-router-dom";
+import Main from "../components/Main";
 
 
 
@@ -18,9 +19,11 @@ export default function Logout () {
     return(
         <Page>
             <NavBar user = {user}/>
+            <Main>
                 <Header title = "Logout"/>
             <p>{user.userName}, möchtest Du Dich wirklich ausloggen?</p>
             <Button onClick = {logout}>Logout</Button>
+            </Main>
         </Page>
     )
 

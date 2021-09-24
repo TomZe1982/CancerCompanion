@@ -2,6 +2,7 @@ package de.tomze.backend.api;
 
 import lombok.*;
 
+import java.time.LocalDate;
 
 
 @Getter
@@ -10,6 +11,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BlogToAppDto {
+
+    private Long blogId;
 
     private String date;
 

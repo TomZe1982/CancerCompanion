@@ -9,11 +9,12 @@ import Button from "../components/Button";
 import Error from "../components/Error";
 import Loading from "../components/Loading";
 import EachUserMapper from "../components/EachUserMapper";
+import {getNewVideo} from "../service/apiService";
 
 
 
 export default function Admin() {
-    const {user, getNewVideo} = useAuth()
+    const {user, token} = useAuth()
     const [newVideoId, setNewVideoId] = useState("")
     const [loading, setLoading] = useState(false)
 
@@ -21,7 +22,7 @@ export default function Admin() {
     const handleSubmitUpload = (event) => {
         event.preventDefault()
         setLoading(true)
-        getNewVideo(newVideoId)
+        getNewVideo(newVideoId, token)
             .catch(error => console.error(error),
                 setLoading(false))
             .finally(() => setNewVideoId(""))

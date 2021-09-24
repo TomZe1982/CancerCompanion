@@ -7,11 +7,12 @@ import Button from "../components/Button";
 import {useState} from "react";
 import NavBar from "../components/NavBar";
 import Loading from "../components/Loading";
+import {deleteUser} from "../service/apiService";
 
 
 
 export default function Delete() {
-    const {user, logout, deleteUser} = useAuth()
+    const {user, token, logout} = useAuth()
     const [deletedUser, setDeletedUser] = useState()
     const [loading, setLoading] = useState(false)
 
@@ -21,7 +22,7 @@ export default function Delete() {
 
     const handleDelete = () => {
         setLoading(true)
-        deleteUser(user.userName)
+        deleteUser(user.userName, token)
             .then(deletedUser => setDeletedUser(deletedUser))
             .then(logout)
             .catch(error => console.error(error), setLoading(false))
