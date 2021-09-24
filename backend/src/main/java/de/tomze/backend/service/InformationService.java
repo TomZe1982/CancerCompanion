@@ -55,9 +55,18 @@ public class InformationService {
     }
 
 
+    public InformationEntity deleteInfo(Long id) {
+
+        informationRepository.deleteById(id);
+
+        return new InformationEntity();
+    }
+
+
     private InformationEntity map(InformationFromAppDto informationFromAppDto) {
         return InformationEntity.builder()
                 .info(informationFromAppDto.getInfo())
                 .title(informationFromAppDto.getTitle()).build();
     }
+
 }

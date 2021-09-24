@@ -80,6 +80,20 @@ public class InformationController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<InformationToAppDto> deleteInfo(@AuthenticationPrincipal UserEntity authUser, @PathVariable Long id) throws IllegalAccessException {
+
+        if(authUser.getRole().equals("user")){
+            throw new IllegalAccessException("User must not delete Information");
+        }
+
+        InformationEntity deleteInformationEntity = informationService.deleteInfo(id);
+
+        InformationToAppDto deleteInformationToAppDto = map(deleteInformationEntity);
+
+        return ok(deleteInformationToAppDto);
+    }
+
 
     private InformationToAppDto map(InformationEntity informationEntity){
         return InformationToAppDto.builder()
