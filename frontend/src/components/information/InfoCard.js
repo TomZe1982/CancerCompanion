@@ -1,13 +1,10 @@
-import {deleteInfo, getInfos} from "../../service/apiService";
+import {getInfos} from "../../service/apiService";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import StyledLink from "../styled/StyledLink";
-import {useAuth} from "../../auth/AuthProvider";
-import Button from "../styled/Button";
 
 
 export default function InfoCard() {
-    const {user, token} = useAuth()
     const [infos, setInfos] = useState([])
 
     useEffect(() => {
