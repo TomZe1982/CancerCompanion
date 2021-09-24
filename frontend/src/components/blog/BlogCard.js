@@ -3,8 +3,7 @@ import {useEffect, useState} from "react";
 import {getBlogList} from "../../service/apiService";
 import {useAuth} from "../../auth/AuthProvider";
 import StyledLink from "../styled/StyledLink";
-import InnerBox from "../styled/InnerBox";
-import Box from "../styled/Box";
+
 
 
 export default function BlogCard({fetchedUserNameForBlog}) {

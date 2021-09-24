@@ -72,3 +72,6 @@ export const postBlogEntry = (blogEntry, token) =>
 export const deleteBlogEntry = (userName, blogId, token) =>
     axios.delete("/api/tomze/blog/delete/" +userName + "/" + blogId, headers(token))
 
+export const postInfo = (credentials, token) =>
+    axios.post("/api/tomze/info" , credentials, headers(token))
+

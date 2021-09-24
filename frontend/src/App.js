@@ -17,6 +17,7 @@ import Blogs from "./pages/Blogs";
 import BlogDetails from "./pages/BlogDetails";
 import InfoPage from "./pages/InfoPage";
 import EachInformationPage from "./pages/EachInformationPage";
+import AddInformation from "./pages/AddInformation";
 
 
 
@@ -42,6 +43,7 @@ export default function App() {
                     <ProtectedRoute path="/userblogs/:fetchedUserNameForBlog" component={BlogDetails}/>
                     <ProtectedRoute adminOnly path="/admin" component={Admin}/>
                     <ProtectedRoute adminOnly path="/adminerror" component={AdminError}/>
+                    <ProtectedRoute adminOnly path="/addinfos" component={AddInformation}/>
                 </Switch>
             </Router>
         </AuthProvider>
