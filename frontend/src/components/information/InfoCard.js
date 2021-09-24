@@ -1,12 +1,13 @@
-import {getInfos} from "../../service/apiService";
+import {deleteInfo, getInfos} from "../../service/apiService";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import styled from "styled-components/macro";
 import StyledLink from "../styled/StyledLink";
+import {useAuth} from "../../auth/AuthProvider";
+import Button from "../styled/Button";
 
 
 export default function InfoCard() {
-
+    const {user, token} = useAuth()
     const [infos, setInfos] = useState([])
 
     useEffect(() => {
@@ -16,8 +17,14 @@ export default function InfoCard() {
     }, [])
 
 
+
     const infoMap = infos.map(infoDetails => <StyledLink key={infoDetails.id} as={Link}
-                                                         to={`/infodetails/${infoDetails.id}`}>{infoDetails.title}</StyledLink>)
+                                                         to={`/infodetails/${infoDetails.id}`}>{infoDetails.title}
+        <section>
+    {user.role === "admin" && <Button onClick={() => deleteInfo(infoDetails.id, token)}>Info löschen</Button>}
+        </section>
+        </StyledLink>
+    )
 
 
     return (

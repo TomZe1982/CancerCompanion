@@ -1,7 +1,8 @@
-/*
-package de.tomze.backend.image;
+package de.tomze.backend.controller;
 
 
+
+import de.tomze.backend.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,4 +21,3 @@ public class ImageController {
       this.imageRepository = imageRepository;
    }
 }
-*/

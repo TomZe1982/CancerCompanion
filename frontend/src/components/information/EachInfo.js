@@ -1,6 +1,6 @@
 
 import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
 import {getInfoById} from "../../service/apiService";
 
 
@@ -14,6 +14,10 @@ export default function EachInfo(){
             .then(setInfo)
             .catch(error => console.error(error))
     }, [infoDetails])
+
+    if(!infoDetails){
+        return <Redirect to = "/info" />
+    }
 
 
     return (

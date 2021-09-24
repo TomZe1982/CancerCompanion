@@ -1,6 +1,5 @@
-package de.tomze.backend.image;
+package de.tomze.backend.model;
 
-import de.tomze.backend.model.UserEntity;
 import lombok.*;
 
 import javax.persistence.*;
