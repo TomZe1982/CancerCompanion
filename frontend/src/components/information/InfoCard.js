@@ -20,12 +20,9 @@ export default function InfoCard() {
 
     const infoMap = infos.map(infoDetails => <StyledLink key={infoDetails.id} as={Link}
                                                          to={`/infodetails/${infoDetails.id}`}>{infoDetails.title}
-        <section>
-    {user.role === "admin" && <Button onClick={() => deleteInfo(infoDetails.id, token)}>Info löschen</Button>}
-        </section>
+
         </StyledLink>
     )
-
 
     return (
         <div>
@@ -35,3 +32,5 @@ export default function InfoCard() {
 
 }
 
+
+//{ user.role === "admin" && <section><Button onClick={() => deleteInfo(infoDetails.id, token)}>Info löschen</Button></section>}

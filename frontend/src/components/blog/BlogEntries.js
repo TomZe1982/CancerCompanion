@@ -7,7 +7,7 @@ import TextArea from "../TextArea";
 import Button from "../styled/Button";
 import InnerBox from "../styled/InnerBox";
 import BlogSection from "../styled/BlogSection";
-import Section from "../styled/Section";
+
 
 
 export default function BlogEntries() {
