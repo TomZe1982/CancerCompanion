@@ -1,23 +1,24 @@
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import './App.css';
 import StartScreen from "./pages/StartScreen";
-import Login from "./pages/Login";
-import Registration from "./pages/Registration";
-import Profile from "./pages/Profile";
+import Login from "./pages/private/Login";
+import Registration from "./pages/public/Registration";
+import Profile from "./pages/private/Profile";
 import AuthProvider from "./auth/AuthProvider";
-import Logout from "./pages/Logout";
-import Delete from "./pages/Delete";
-import EditSettings from "./pages/EditSettings";
-import MakeUpTutorials from "./pages/MakeUpTutorials";
+import Logout from "./pages/private/Logout";
+import Delete from "./pages/private/Delete";
+import EditSettings from "./pages/private/EditSettings";
+import MakeUpTutorials from "./pages/private/MakeUpTutorials";
 import ProtectedRoute from "./auth/ProtectedRoute";
-import Admin from "./pages/Admin";
-import EditPassword from "./pages/EditPassword";
+import Admin from "./pages/private/Admin";
+import EditPassword from "./pages/private/EditPassword";
 import AdminError from "./components/AdminError";
-import Blogs from "./pages/Blogs";
-import BlogDetails from "./pages/BlogDetails";
-import InfoPage from "./pages/InfoPage";
-import EachInformationPage from "./pages/EachInformationPage";
-import AddInformation from "./pages/AddInformation";
+import Blogs from "./pages/private/blog/Blogs";
+import BlogDetails from "./pages/private/blog/BlogDetails";
+import InfoPage from "./pages/public/InfoPage";
+import EachInformationPage from "./pages/public/EachInformationPage";
+import AddInformation from "./pages/public/AddInformation";
+import NewBlog from "./pages/private/blog/NewBlog";
 
 
 
@@ -41,6 +42,7 @@ export default function App() {
                     <ProtectedRoute path="/tutorials" component={MakeUpTutorials}/>
                     <ProtectedRoute path="/blogs" component={Blogs}/>
                     <ProtectedRoute path="/userblogs/:fetchedUserNameForBlog" component={BlogDetails}/>
+                    <ProtectedRoute path="/newblog" component={NewBlog}/>
                     <ProtectedRoute adminOnly path="/admin" component={Admin}/>
                     <ProtectedRoute adminOnly path="/adminerror" component={AdminError}/>
                     <ProtectedRoute adminOnly path="/addinfos" component={AddInformation}/>

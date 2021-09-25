@@ -6,6 +6,8 @@ import StyledLink from "../styled/StyledLink";
 
 
 
+
+
 export default function BlogCard({fetchedUserNameForBlog}) {
     const {token} = useAuth()
     const [allBlogs, setAllBlogs] = useState([])
@@ -17,13 +19,14 @@ export default function BlogCard({fetchedUserNameForBlog}) {
     }, [fetchedUserNameForBlog, token])
 
 
-    return (<div>
-            {(allBlogs.length > 0) ?
+    return (
+        <section>
+            {(allBlogs.length > 0 ) ?
                 (<StyledLink to={`/userblogs/${fetchedUserNameForBlog}`}>
                     <BlogImage className="user__image" src="https://thispersondoesnotexist.com/image" alt="userImage"/>
                     <h4 className="user__name">{fetchedUserNameForBlog}</h4>
                 </StyledLink>)
                 : null}
-        </div>
+        </section>
     )
 }

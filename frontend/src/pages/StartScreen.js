@@ -15,9 +15,9 @@ export default function StartScreen() {
             <NavBar user = {user}/>
             <Main>
                 <Header title="CancerCompanion"></Header>
-                <div>
-                <Img src="CC1.png" alt="fb"/>
-                </div>
+
+                <Img src="CancerCompanion.png" alt="fb"/>
+
                 <Button as={Link} to ="/login">Community</Button>
                 <Button as={Link} to ="/info">Informationen</Button>
             </Main>
@@ -29,6 +29,8 @@ const Img = styled.img`
   display: grid;
   justify-content: center;
   align-content: center;
+  width: 80%;
+  height: 100%;
 `
 
 

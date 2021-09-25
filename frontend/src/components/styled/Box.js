@@ -1,6 +1,7 @@
 import styled from "styled-components/macro";
 
 export default styled.div`
+  display: block;
   width: 100%;
   height: 100%;
   padding: 2px;
@@ -12,4 +13,6 @@ export default styled.div`
   text-align: center;
   justify-content: center;
   align-content: center;
+  justify-items: center;
+  align-items: center;
 `

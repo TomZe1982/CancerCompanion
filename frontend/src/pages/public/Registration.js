@@ -1,15 +1,15 @@
-import Page from "../components/Page";
-import Main from "../components/Main";
-import NavBar from "../components/NavBar";
-import TextField from "../components/TextField";
-import Button from "../components/styled/Button";
+import Page from "../../components/Page";
+import Main from "../../components/Main";
+import NavBar from "../../components/NavBar";
+import TextField from "../../components/TextField";
+import Button from "../../components/styled/Button";
 import {useState} from "react";
-import {createUser} from "../service/apiService";
-import Header from "../components/styled/Header";
-import Loading from "../components/Loading";
-import Error from "../components/Error";
+import {createUser} from "../../service/apiService";
+import Header from "../../components/styled/Header";
+import Loading from "../../components/Loading";
+import Error from "../../components/Error";
 import {Redirect} from "react-router-dom";
-import {useAuth} from "../auth/AuthProvider";
+import {useAuth} from "../../auth/AuthProvider";
 
 
 

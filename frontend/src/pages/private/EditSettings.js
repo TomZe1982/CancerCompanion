@@ -1,15 +1,15 @@
-import Page from "../components/Page";
-import Main from "../components/Main";
-import Header from "../components/styled/Header";
-import NavBar from "../components/NavBar";
-import {useAuth} from "../auth/AuthProvider";
-import TextField from "../components/TextField";
-import Button from "../components/styled/Button";
-import Error from "../components/Error";
+import Page from "../../components/Page";
+import Main from "../../components/Main";
+import Header from "../../components/styled/Header";
+import NavBar from "../../components/NavBar";
+import {useAuth} from "../../auth/AuthProvider";
+import TextField from "../../components/TextField";
+import Button from "../../components/styled/Button";
+import Error from "../../components/Error";
 import {useEffect, useState} from "react";
 import {Redirect} from "react-router-dom";
-import {getUser, updateUser} from "../service/apiService";
-import Box from "../components/styled/Box";
+import {getUser, updateUser} from "../../service/apiService";
+import Box from "../../components/styled/Box";
 
 
 export default function EditSettings() {
