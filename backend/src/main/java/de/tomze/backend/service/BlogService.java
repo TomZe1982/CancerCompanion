@@ -56,7 +56,7 @@ public class BlogService {
         UserEntity userEntityBlog = userService.getUser(authUser.getUserName());
         BlogEntity newBlogEntity = mapBlogEntity(blogFromAppDto);
 
-        newBlogEntity.setId(userEntityBlog);
+        newBlogEntity.setUserId(userEntityBlog);
         userEntityBlog.addBlog(newBlogEntity);
 
         blogRepository.save(newBlogEntity);

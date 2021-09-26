@@ -21,7 +21,7 @@ abstract class UserControllerMapper {
 
     protected UserToAppDto mapUserToAppDto(UserEntity userEntity) {
         return UserToAppDto.builder()
-                .id(userEntity.getId())
+                .id(userEntity.getUserId())
                 .role(userEntity.getRole())
                 .userName(userEntity.getUserName())
                 .email(userEntity.getEmail())

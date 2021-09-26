@@ -2,11 +2,8 @@ package de.tomze.backend.model;
 
 
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -20,8 +17,8 @@ public class BlogEntity {
 
 
     @ManyToOne
-    @JoinColumn(name = "id")
-    private UserEntity id;
+    @JoinColumn(name = "user_id")
+    private UserEntity userId;
 
     @Id
     @GeneratedValue
@@ -39,11 +36,11 @@ public class BlogEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BlogEntity that = (BlogEntity) o;
-        return Objects.equals(id, that.id) && blogId.equals(that.blogId) && date.equals(that.date) && entry.equals(that.entry);
+        return Objects.equals(userId, that.userId) && blogId.equals(that.blogId) && date.equals(that.date) && entry.equals(that.entry);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, blogId, date, entry);
+        return Objects.hash(userId, blogId, date, entry);
     }
 }
