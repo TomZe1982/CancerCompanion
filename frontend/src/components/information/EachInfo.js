@@ -6,16 +6,16 @@ import {getInfoById} from "../../service/apiService";
 
 export default function EachInfo(){
 
-    const {infoDetails} = useParams()
+    const {infoId} = useParams()
     const [info, setInfo] = useState({})
 
     useEffect(() => {
-        getInfoById(infoDetails)
+        getInfoById(infoId)
             .then(setInfo)
             .catch(error => console.error(error))
-    }, [infoDetails])
+    }, [infoId])
 
-    if(!infoDetails){
+    if(!infoId){
         return <Redirect to = "/info" />
     }
 

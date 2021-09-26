@@ -19,6 +19,8 @@ import InfoPage from "./pages/public/InfoPage";
 import EachInformationPage from "./pages/public/EachInformationPage";
 import AddInformation from "./pages/public/AddInformation";
 import NewBlog from "./pages/private/blog/NewBlog";
+import UpdateInformation from "./pages/public/UpateInformation";
+import UpdateEachInformation from "./pages/public/UpdateEachInformation";
 
 
 
@@ -31,7 +33,7 @@ export default function App() {
                 <Switch>
                     <Route exact path="/" component={StartScreen}/>
                     <Route path="/info" component={InfoPage}/>
-                    <Route path="/infodetails/:infoDetails" component={EachInformationPage}/>
+                    <Route path="/infodetails/:infoId" component={EachInformationPage}/>
                     <Route path="/login" component={Login}/>
                     <Route path="/register" component={Registration}/>
                     <ProtectedRoute path="/logout" component={Logout}/>
@@ -46,6 +48,8 @@ export default function App() {
                     <ProtectedRoute adminOnly path="/admin" component={Admin}/>
                     <ProtectedRoute adminOnly path="/adminerror" component={AdminError}/>
                     <ProtectedRoute adminOnly path="/addinfos" component={AddInformation}/>
+                    <ProtectedRoute adminOnly path="/updateinfos" component={UpdateInformation}/>
+                    <ProtectedRoute adminOnly path="/updateeachinfo/:informationId" component={UpdateEachInformation}/>
                 </Switch>
             </Router>
         </AuthProvider>

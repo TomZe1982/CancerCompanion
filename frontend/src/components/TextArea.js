@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
 import Label from './Label'
 
-export default function TextField({
+export default function TextArea({
                                       type = 'text',
                                       value,
                                       onChange,
@@ -19,6 +19,7 @@ export default function TextField({
 
 const Input = styled.textarea`
   width: 100%;
+  height: 100%;
   font-size: 1em;
   padding: var(--size-s);
   margin-top: var(--size-s);

@@ -78,5 +78,8 @@ export const postInfo = (credentials, token) =>
 export const deleteInfo = (infoId, token) =>
     axios.delete("/api/tomze/info/"+ infoId, headers(token))
 
+export const updateInfo = (infoId, credentials, token) =>
+    axios.put("/api/tomze/info/"+infoId, credentials, headers(token))
+
 
 

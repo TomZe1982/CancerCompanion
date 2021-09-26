@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import StyledLink from "../styled/StyledLink";
 
 
+
 export default function InfoCard() {
     const [infos, setInfos] = useState([])
 
@@ -12,6 +13,7 @@ export default function InfoCard() {
             .then(setInfos)
             .catch(error => console.error(error))
     }, [])
+
 
 
 

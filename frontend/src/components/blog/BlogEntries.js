@@ -62,9 +62,8 @@ export default function BlogEntries() {
 
     return (
         <div>
-            <section>
                 {blog}
-            </section>
+
             {user.userName === fetchedUserNameForBlog &&
             <section>
                 <TextArea
