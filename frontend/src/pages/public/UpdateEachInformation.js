@@ -47,6 +47,12 @@ export default function UpdateEachInformation(){
             <Main>
                 <TextArea
                     title="Info bearbeiten"
+                    name="title"
+                    value={updatedInfo.title}
+                    onChange={handleChange}
+                />
+                <TextArea
+                    title="Info bearbeiten"
                     name="info"
                     value={updatedInfo.info}
                     onChange={handleChange}
