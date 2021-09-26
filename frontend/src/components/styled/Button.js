@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import { css } from 'styled-components'
+import {css} from 'styled-components'
 
 export default styled.button`
   display: inline-block;
@@ -17,16 +17,16 @@ export default styled.button`
   }
 
   ${props =>
-    props.secondary &&
-    css`
-      background: none;
-      color: var(--accent);
-      border: 1px solid var(--accent);
+          props.secondary &&
+          css`
+            background: none;
+            color: var(--accent);
+            border: 1px solid var(--accent);
 
-      :disabled {
-        border-color: var(--neutral-dark);
-        background: none;
-        color: var(--neutral-dark);
-      }
-    `}
+            :disabled {
+              border-color: var(--neutral-dark);
+              background: none;
+              color: var(--neutral-dark);
+            }
+          `}
 `

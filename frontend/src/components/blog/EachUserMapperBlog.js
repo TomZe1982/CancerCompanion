@@ -1,7 +1,8 @@
 import {useEffect, useState} from "react";
 import {useAuth} from "../../auth/AuthProvider";
-import BlogGallery from "./BlogGallery";
 import {getAllUser} from "../../service/apiService";
+import BlogCard from "./BlogCard";
+
 
 
 
@@ -20,18 +21,16 @@ export default function EachUserMapperBlog() {
     }
 
     const eachUserListForBlog = allUser.map(fetchedUser => (
-        <BlogGallery fetchedUserNameForBlog = {fetchedUser.userName}
+        <BlogCard fetchedUserNameForBlog = {fetchedUser.userName}
                      key = {fetchedUser.id} reloadBlogPage={reloadBlogPage}
         />)
     )
 
     return (
-        <div>
             <section>
                 {eachUserListForBlog}
             </section>
-        </div>
-
     )
 
 }
+

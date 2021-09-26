@@ -93,10 +93,14 @@ public class BlogController extends BlogControllerMapper {
         return ok(blogToAppDtoListDelete);
     }
 
-    @DeleteMapping("/delete/{blogId}")
-    public ResponseEntity<BlogToAppDto> deleteBlogEntry(@AuthenticationPrincipal UserEntity authUser, @PathVariable Long blogId){
+    @DeleteMapping("/delete/{userName}/{blogId}")
+    public ResponseEntity<BlogToAppDto> deleteBlogEntry(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName, @PathVariable Long blogId){
 
-        BlogEntity blogEntityDelete = blogService.deleteBlogEntry(authUser, blogId);
+        if(authUser.getRole().equals("user") && !authUser.getUserName().equals(userName)){
+            throw new IllegalArgumentException("User must not delete another user");
+        }
+
+        BlogEntity blogEntityDelete = blogService.deleteBlogEntry(userName, blogId);
 
         BlogToAppDto blogToAppDtoDelete = mapBlogToAppDto(blogEntityDelete);
 

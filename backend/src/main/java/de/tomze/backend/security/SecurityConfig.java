@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static de.tomze.backend.security.AuthController.ACCESS_TOKEN_URL;
+import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
 @EnableWebSecurity
@@ -48,6 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers(POST, ACCESS_TOKEN_URL).permitAll()
                 .antMatchers(POST, "/api/tomze/register").permitAll()
+                .antMatchers(GET, "/api/tomze/info/all").permitAll()
+                .antMatchers(GET, "/api/tomze/info/all/{id}").permitAll()
                 .antMatchers("/**").authenticated()
                 .and()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

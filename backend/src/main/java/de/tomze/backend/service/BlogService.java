@@ -9,9 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +56,7 @@ public class BlogService {
         UserEntity userEntityBlog = userService.getUser(authUser.getUserName());
         BlogEntity newBlogEntity = mapBlogEntity(blogFromAppDto);
 
-        newBlogEntity.setId(userEntityBlog);
+        newBlogEntity.setUserId(userEntityBlog);
         userEntityBlog.addBlog(newBlogEntity);
 
         blogRepository.save(newBlogEntity);
@@ -87,10 +86,10 @@ public class BlogService {
     }
 
     @Transactional
-    public BlogEntity deleteBlogEntry(UserEntity authUser, Long blogId) {
-        var user = userService.getUser(authUser.getUserName());
+    public BlogEntity deleteBlogEntry(String userName, Long blogId) {
+        var user = userService.getUser(userName);
 
-        BlogEntity blogEntityDelete = getBlogEntry(authUser.getUserName(), blogId);
+        BlogEntity blogEntityDelete = getBlogEntry(userName, blogId);
 
         user.getBlogEntries().remove(blogEntityDelete);
 
@@ -98,9 +97,15 @@ public class BlogService {
     }
 
     public BlogEntity mapBlogEntity(BlogFromAppDto blogFromAppDto) {
+        LocalDateTime now = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+        String formatDateTime = now.format(formatter);
+
         BlogEntity blogEntity = new BlogEntity();
         blogEntity.setEntry(blogFromAppDto.getEntry());
-        blogEntity.setDate(LocalDateTime.now().toString());
+        blogEntity.setDate(formatDateTime);
 
         return blogEntity;
     }

@@ -1,10 +1,10 @@
-import Page from "../components/Page";
-import NavBar from "../components/NavBar";
-import Header from "../components/Header";
-import {useAuth} from "../auth/AuthProvider";
-import Button from "../components/Button";
+import Page from "../../components/Page";
+import NavBar from "../../components/NavBar";
+import Header from "../../components/styled/Header";
+import {useAuth} from "../../auth/AuthProvider";
+import Button from "../../components/styled/Button";
 import {Redirect} from "react-router-dom";
-import Main from "../components/Main";
+import Main from "../../components/Main";
 
 
 

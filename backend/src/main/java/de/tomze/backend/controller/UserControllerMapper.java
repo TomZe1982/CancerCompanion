@@ -10,14 +10,6 @@ import java.util.List;
 
 abstract class UserControllerMapper {
 
-    protected UserToAppDto mapUserToAppDto(UserEntity userEntity) {
-        return UserToAppDto.builder()
-                .id(userEntity.getId())
-                .role(userEntity.getRole())
-                .userName(userEntity.getUserName())
-                .email(userEntity.getEmail())
-                .build();
-    }
 
     protected UserFromAppDto mapUserFromAppDto(UserEntity userEntity){
         return UserFromAppDto.builder()
@@ -27,8 +19,10 @@ abstract class UserControllerMapper {
                 .build();
     }
 
-    protected UserToUpdateDto mapUserToUpdateDto(UserEntity userEntity){
-        return UserToUpdateDto.builder()
+    protected UserToAppDto mapUserToAppDto(UserEntity userEntity) {
+        return UserToAppDto.builder()
+                .id(userEntity.getUserId())
+                .role(userEntity.getRole())
                 .userName(userEntity.getUserName())
                 .email(userEntity.getEmail())
                 .build();
@@ -44,5 +38,12 @@ abstract class UserControllerMapper {
 
         }
         return(userToAppDtoList);
+    }
+
+    protected UserToUpdateDto mapUserToUpdateDto(UserEntity userEntity){
+        return UserToUpdateDto.builder()
+                .userName(userEntity.getUserName())
+                .email(userEntity.getEmail())
+                .build();
     }
 }

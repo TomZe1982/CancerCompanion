@@ -1,15 +1,15 @@
-import NavBar from "../components/NavBar";
-import {useAuth} from "../auth/AuthProvider";
-import Main from "../components/Main";
-import Header from "../components/Header";
-import Page from "../components/Page";
+import NavBar from "../../components/NavBar";
+import {useAuth} from "../../auth/AuthProvider";
+import Main from "../../components/Main";
+import Header from "../../components/styled/Header";
+import Page from "../../components/Page";
 import {useState} from "react";
-import TextField from "../components/TextField";
-import Button from "../components/Button";
-import Error from "../components/Error";
-import Loading from "../components/Loading";
-import EachUserMapper from "../components/EachUserMapper";
-import {getNewVideo} from "../service/apiService";
+import TextField from "../../components/TextField";
+import Button from "../../components/styled/Button";
+import Error from "../../components/Error";
+import Loading from "../../components/Loading";
+import EachUserMapper from "../../components/EachUserMapper";
+import {getNewVideo} from "../../service/apiService";
 
 
 

@@ -4,9 +4,7 @@ package de.tomze.backend.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 @Entity
@@ -18,7 +16,7 @@ import java.util.Objects;
 @Builder
 public class UserEntity {
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "id")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "userId")
     private List<BlogEntity> blogEntries = new ArrayList<>();
 
     public void addBlog(BlogEntity blogEntity) {
@@ -27,8 +25,8 @@ public class UserEntity {
 
     @Id
     @GeneratedValue
-    @Column(name="id", nullable = false)
-    private Long id;
+    @Column(name="user_id", nullable = false)
+    private Long userId;
 
     @Column(name="role", nullable = false)
     private String role;
@@ -47,11 +45,11 @@ public class UserEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
-        return Objects.equals(blogEntries, that.blogEntries) && id.equals(that.id) && role.equals(that.role) && userName.equals(that.userName) && password.equals(that.password) && email.equals(that.email);
+        return Objects.equals(blogEntries, that.blogEntries)  && userId.equals(that.userId) && role.equals(that.role) && userName.equals(that.userName) && password.equals(that.password) && email.equals(that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(blogEntries, id, role, userName, password, email);
+        return Objects.hash(blogEntries, userId, role, userName, password, email);
     }
 }

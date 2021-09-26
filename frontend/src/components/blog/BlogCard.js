@@ -1,33 +1,32 @@
-import { useHistory } from "react-router-dom";
-import Button from "../Button";
 import BlogImage from "./BlogImage";
-import Section from "../Section";
+import {useEffect, useState} from "react";
+import {getBlogList} from "../../service/apiService";
 import {useAuth} from "../../auth/AuthProvider";
+import StyledLink from "../styled/StyledLink";
+
+
+
 
 
 export default function BlogCard({fetchedUserNameForBlog}) {
-    const { user } = useAuth()
-    const history = useHistory()
+    const {token} = useAuth()
+    const [allBlogs, setAllBlogs] = useState([])
 
-    function handleClickReadBlog() {
-        history.push(`/userblogs/${fetchedUserNameForBlog}`)
-    }
+    useEffect(() => {
+        getBlogList(fetchedUserNameForBlog, token)
+            .then(setAllBlogs)
+            .catch(error => console.error(error))
+    }, [fetchedUserNameForBlog, token])
 
-    function handleClickUpdateBlog() {
-            return null
-    }
 
-    return (<div>
-            <Section>
-                <BlogImage className="user__image" src="https://thispersondoesnotexist.com/image" alt="userImage"/>
-                <h4 className="user__name">{fetchedUserNameForBlog}</h4>
-                <Button className="button" onClick={handleClickReadBlog} >Blog lesen</Button>
-                {user.userName === fetchedUserNameForBlog && <Button className="button" onClick={handleClickUpdateBlog} >Update Blog</Button>}
-            </Section>
-
-        </div>
+    return (
+        <section>
+            {(allBlogs.length > 0 ) ?
+                (<StyledLink to={`/userblogs/${fetchedUserNameForBlog}`}>
+                    <BlogImage className="user__image" src="https://thispersondoesnotexist.com/image" alt="userImage"/>
+                    <h4 className="user__name">{fetchedUserNameForBlog}</h4>
+                </StyledLink>)
+                : null}
+        </section>
     )
-
 }
-
-//as={Link} to="/userblogs"

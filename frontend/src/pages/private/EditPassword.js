@@ -1,25 +1,23 @@
-import Page from "../components/Page";
-import Main from "../components/Main";
-import Header from "../components/Header";
-import NavBar from "../components/NavBar";
-import {useAuth} from "../auth/AuthProvider";
-import TextField from "../components/TextField";
-import Button from "../components/Button";
-import Error from "../components/Error";
-import {useEffect, useState} from "react";
+import Page from "../../components/Page";
+import Main from "../../components/Main";
+import Header from "../../components/styled/Header";
+import NavBar from "../../components/NavBar";
+import {useAuth} from "../../auth/AuthProvider";
+import TextField from "../../components/TextField";
+import Button from "../../components/styled/Button";
+import Error from "../../components/Error";
+import {useLayoutEffect, useState} from "react";
 import {Redirect} from "react-router-dom";
-import {getUser, updateUser} from "../service/apiService";
-import Box from "../components/Box";
+import {getUser, updateUser} from "../../service/apiService";
 
 
-export default function EditSettings() {
+export default function EditPassword() {
     const {user, token} = useAuth()
     const [userToChange, setUserToChange] = useState({})
     const [credentials, setCredentials] = useState({})
     const [changedCredentials, setChangedCredentials] = useState()
 
-
-    useEffect(() => {
+    useLayoutEffect(() => {
         getUser(user.userName, token)
             .then(setUserToChange)
     }, [user.userName, token])
@@ -28,23 +26,21 @@ export default function EditSettings() {
     const handleOnChange = (event) => {
         setCredentials({
             userName: userToChange.userName,
-            password: userToChange.password,
             email: userToChange.email, ...credentials,
             [event.target.name]: event.target.value
         })
-            setChangedCredentials(changedCredentials)
+        setChangedCredentials(changedCredentials)
     }
 
-    if(changedCredentials)
-    {
-        return <Redirect to = "/profile"/>
+    if (changedCredentials) {
+        return <Redirect to="/profile"/>
     }
-
 
     const handleSubmit = (event) => {
         event.preventDefault()
         updateUser(credentials, token)
             .then(changedCredentials => setChangedCredentials(changedCredentials))
+            .catch(error => console.error(error))
 
     }
 
@@ -53,18 +49,15 @@ export default function EditSettings() {
     }
 
     return (<Page>
-            <NavBar user = {user}/>
+            <NavBar user={user}/>
             <Main as="form" onSubmit={handleSubmit}>
-                <Header title="Profil bearbeiten"/>
-                <Box>
-                <p>Aktuelle Email-Adresse : {userToChange.email}</p>
-                </Box>
+                <Header title="Neues Passwort erstellen"/>
                 <TextField
-                    title="Email"
-                    name="email"
-                    value={credentials.email || ""}
+                    title="Passwort"
+                    name="password"
+                    value={credentials.password || ""}
                     onChange={handleOnChange}/>
-                {credentials.email !== "" ?
+                {(credentials.password !== "") ?
                     <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
             </Main>
         </Page>

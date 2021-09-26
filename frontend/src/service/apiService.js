@@ -18,6 +18,14 @@ export const createUser = credentials =>
     axios.post("/api/tomze/register", credentials)
         .then(response => response.data)
 
+export const getInfos = () =>
+    axios.get("/api/tomze/info/all")
+        .then(response => response.data)
+
+export const getInfoById = (infoId) =>
+    axios.get("/api/tomze/info/all/"+infoId)
+        .then(response => response.data)
+
 
 //Routes with token needed
 
@@ -60,3 +68,18 @@ export const getBlogEntry = (userName,blogId, token) =>
 export const postBlogEntry = (blogEntry, token) =>
     axios.post("/api/tomze/blog/newblog", blogEntry, headers(token))
         .then(response => response.data)
+
+export const deleteBlogEntry = (userName, blogId, token) =>
+    axios.delete("/api/tomze/blog/delete/" +userName + "/" + blogId, headers(token))
+
+export const postInfo = (credentials, token) =>
+    axios.post("/api/tomze/info" , credentials, headers(token))
+
+export const deleteInfo = (infoId, token) =>
+    axios.delete("/api/tomze/info/"+ infoId, headers(token))
+
+export const updateInfo = (infoId, credentials, token) =>
+    axios.put("/api/tomze/info/"+infoId, credentials, headers(token))
+
+
+

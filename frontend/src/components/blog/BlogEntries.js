@@ -1,20 +1,23 @@
 import {useAuth} from "../../auth/AuthProvider";
-import { getBlogList, postBlogEntry} from "../../service/apiService";
+import {deleteBlogEntry, getBlogList, postBlogEntry} from "../../service/apiService";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import Box from "../Box";
-import TextField from "../TextField";
-import Button from "../Button";
+import Box from "../styled/Box";
+import TextArea from "../TextArea";
+import Button from "../styled/Button";
+import InnerBox from "../styled/InnerBox";
+import BlogSection from "../styled/BlogSection";
 
 
-export default function BlogEntries ( ){
+
+export default function BlogEntries() {
 
     const {token, user} = useAuth()
     const {fetchedUserNameForBlog} = useParams()
     const [allBlogs, setAllBlogs] = useState([])
     const [blogEntry, setBlogEntry] = useState({})
 
-    console.log(blogEntry)
+    console.log(allBlogs)
 
     useEffect(() => {
         getBlogList(fetchedUserNameForBlog, token)
@@ -36,27 +39,42 @@ export default function BlogEntries ( ){
     }
 
     const handleOnChange = (event) => {
-        setBlogEntry({[event.target.name] : event.target.value})
+        setBlogEntry({[event.target.name]: event.target.value})
     }
 
-    const blog = allBlogs.map(blog =>   <Box><section>{blog.date} {blog.entry}</section> </Box>)
+    console.log(allBlogs)
+
+
+    const blog = allBlogs.map(blog =>
+        <Box key={blog.blogId}>
+            <InnerBox>
+                <BlogSection>{blog.date}</BlogSection>
+                <BlogSection> {blog.entry}</BlogSection>
+            </InnerBox>
+            <section>
+                {(user.role === "admin" || user.userName === fetchedUserNameForBlog) &&
+                <Button
+                    onClick={blog.blogId ? (() => deleteBlogEntry(fetchedUserNameForBlog, blog.blogId, token).then(reloadBlogPage))
+                        : console.error("error")}>Blog löschen</Button>}
+            </section>
+        </Box>)
+
 
     return (
         <div>
-            <section>
-                <p>{blog}</p>
-            </section>
+                {blog}
+
             {user.userName === fetchedUserNameForBlog &&
-            <div>
-                <TextField
-                    title = "entry"
-                    name = "entry"
-                    value = {blogEntry.entry || ""}
-                    onChange = {handleOnChange}
+            <section>
+                <TextArea
+                    title="Neuer Blog Eintrag"
+                    name="entry"
+                    value={blogEntry.entry || ""}
+                    onChange={handleOnChange}
                 />
                 <Button onClick={handleSubmit}>Abschicken</Button>
-            </div>
-                }
+            </section>
+            }
         </div>
     )
 

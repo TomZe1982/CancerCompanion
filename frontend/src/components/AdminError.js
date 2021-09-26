@@ -1,7 +1,7 @@
 import Page from "./Page";
 import NavBar from "./NavBar";
 import Main from "./Main";
-import Header from "./Header";
+import Header from "./styled/Header";
 import {useAuth} from "../auth/AuthProvider";
 
 
