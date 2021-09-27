@@ -7,7 +7,6 @@ import StyledLink from "../styled/StyledLink";
 
 
 
-
 export default function BlogCard({fetchedUserNameForBlog}) {
     const {token} = useAuth()
     const [allBlogs, setAllBlogs] = useState([])

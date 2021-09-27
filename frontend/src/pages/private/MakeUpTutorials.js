@@ -5,7 +5,7 @@ import Main from "../../components/Main";
 import {useAuth} from "../../auth/AuthProvider";
 import {Redirect} from "react-router-dom";
 import List from "../../components/List";
-import VideoGallery from "../../components/VideoGallery";
+import VideoGallery from "../../components/video/VideoGallery";
 import {getVideoList} from "../../service/apiService";
 import { useEffect, useState} from "react";
 
