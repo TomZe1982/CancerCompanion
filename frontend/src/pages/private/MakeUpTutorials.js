@@ -5,9 +5,9 @@ import Main from "../../components/Main";
 import {useAuth} from "../../auth/AuthProvider";
 import {Redirect} from "react-router-dom";
 import List from "../../components/List";
-import VideoGallery from "../../components/video/VideoGallery";
 import {getVideoList} from "../../service/apiService";
 import { useEffect, useState} from "react";
+import VideoCard from "../../components/video/VideoCard";
 
 
 
@@ -32,7 +32,7 @@ export default function MakeUpTutorials() {
 
 
     const newVideoList = videoList.map(video => (
-        <VideoGallery videoId = {video.vid_id} key = {video.id}
+        <VideoCard videoId = {video.vid_id} key = {video.id}
                       reloadPage = {reloadPage}
         />)
     )
@@ -47,7 +47,7 @@ export default function MakeUpTutorials() {
         <Page>
             <NavBar user = {user}/>
             <Main>
-                <Header title="Schmink - Turorials"/>
+                <Header title="Tutorials"/>
                 <ul>
                     <List>{newVideoList}</List>
                 </ul>

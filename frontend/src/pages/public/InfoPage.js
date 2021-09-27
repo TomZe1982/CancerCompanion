@@ -9,21 +9,10 @@ import {useAuth} from "../../auth/AuthProvider";
 
 export default function InfoPage () {
     const {user} = useAuth()
-
-    if(user){
+    
     return(
         <Page>
-            <NavBar user = {user}/>
-            <Main>
-                <Header title = "Allgemeine Informationen"/>
-                <InfoCard/>
-            </Main>
-        </Page>
-    )
-    }
-    return(
-        <Page>
-            <NavBar/>
+            {user ? <NavBar user={user}/> :  <NavBar/>}
             <Main>
                 <Header title = "Allgemeine Informationen"/>
                 <InfoCard/>

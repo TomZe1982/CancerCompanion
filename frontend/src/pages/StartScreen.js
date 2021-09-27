@@ -26,11 +26,11 @@ export default function StartScreen() {
 }
 
 const Img = styled.img`
-  display: grid;
+  display: block;
   justify-content: center;
   align-content: center;
-  width: 80%;
-  height: 100%;
+  width: 200px;
+  height: 250px;
 `
 
 
