@@ -5,6 +5,7 @@ import NavBar from "../components/NavBar";
 import Main from "../components/Main";
 import {Link} from "react-router-dom";
 import {useAuth} from "../auth/AuthProvider";
+import StartScreenButton from "../components/styled/StartScreenButton";
 
 export default function StartScreen() {
     const {user} = useAuth()
@@ -17,8 +18,8 @@ export default function StartScreen() {
 
                 <Img src="CancerCompanion.png" alt="fb"/>
 
-                <Button as={Link} to ="/login">Community</Button>
-                <Button as={Link} to ="/info">Informationen</Button>
+                <StartScreenButton as={Link} to ="/login">Community</StartScreenButton>
+                <StartScreenButton as={Link} to ="/info">Informationen</StartScreenButton>
             </Main>
         </Page>
     )
@@ -30,16 +31,6 @@ const Img = styled.img`
   align-content: center;
   width: 80%;
   height: 100%;
-`
-
-const Button = styled.button`
-  display: inline-block;
-  padding: var(--size-l);
-  background: var(--accent);
-  border: 1px solid var(--accent);
-  color: var(--neutral-light);
-  font-size: 1em;
-  border-radius: 50%;
 `
 
 

@@ -5,7 +5,7 @@ import {useAuth} from "../../auth/AuthProvider";
 import {Link, Redirect} from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import UserImage from "../../components/UserImage";
-import ProfileButton from "../../components/ProfileButton";
+import ProfileButton from "../../components/styled/ProfileButton";
 import {useEffect, useState} from "react";
 import {getBlogList} from "../../service/apiService";
 
