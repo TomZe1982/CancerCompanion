@@ -6,6 +6,8 @@ import NavBar from "../../components/NavBar";
 import Main from "../../components/Main";
 import Page from "../../components/Page";
 import {Link} from "react-router-dom";
+import Box from "../../components/styled/Box";
+import InnerBox from "../../components/styled/InnerBox";
 
 
 export default function UpdateInformation(){
@@ -27,10 +29,15 @@ export default function UpdateInformation(){
 
     const info = infos.map(infoDetails =>
         <section key = {infoDetails.id} >
+            <Box>
+                <InnerBox>
         <section>{infoDetails.title}</section>
+                </InnerBox>
             <Button onClick={() => deleteInfo(infoDetails.id, token).then(reloadPage)}>Info löschen</Button>
             <Link to = {`/updateeachinfo/${infoDetails.id}`} >Info bearbeiten</Link>
-        </section>)
+            </Box>
+        </section>
+   )
 
 
     return(

@@ -23,7 +23,10 @@ export default function EachInfo(){
     return (
         <div>
             <section>
-                {info.info}
+                <h2>{info.title}</h2>
+            </section>
+            <section>
+                <p>{info.info}</p>
             </section>
         </div>
     )

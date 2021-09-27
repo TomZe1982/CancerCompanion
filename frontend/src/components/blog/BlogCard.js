@@ -2,7 +2,7 @@ import BlogImage from "./BlogImage";
 import {useEffect, useState} from "react";
 import {getBlogList} from "../../service/apiService";
 import {useAuth} from "../../auth/AuthProvider";
-import StyledLink from "../styled/StyledLink";
+import StyledLinkBlog from "../styled/StyledLinkBlog";
 
 
 
@@ -19,13 +19,13 @@ export default function BlogCard({fetchedUserNameForBlog}) {
 
 
     return (
-        <section>
+        <div>
             {(allBlogs.length > 0 ) ?
-                (<StyledLink to={`/userblogs/${fetchedUserNameForBlog}`}>
+                (<StyledLinkBlog to={`/userblogs/${fetchedUserNameForBlog}`}>
                     <BlogImage className="user__image" src="https://thispersondoesnotexist.com/image" alt="userImage"/>
                     <h4 className="user__name">{fetchedUserNameForBlog}</h4>
-                </StyledLink>)
+                </StyledLinkBlog>)
                 : null}
-        </section>
+        </div>
     )
 }

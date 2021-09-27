@@ -5,8 +5,6 @@ import BlogCard from "./BlogCard";
 import TextField from "../TextField";
 
 
-
-
 export default function EachUserMapperBlog() {
     const {token} = useAuth()
     const [allUser, setAllUser] = useState([])
@@ -30,22 +28,21 @@ export default function EachUserMapperBlog() {
         fetchedUser.userName.toLowerCase().includes(foundUser.toLowerCase())))
 
 
-
     const eachUserListForBlog = filteredUser.map(fetchedUser => (
-        <BlogCard fetchedUserNameForBlog = {fetchedUser.userName}
-                     key = {fetchedUser.id} reloadBlogPage={reloadBlogPage}
+        <BlogCard fetchedUserNameForBlog={fetchedUser.userName}
+                  key={fetchedUser.id} reloadBlogPage={reloadBlogPage}
         />)
     )
 
-    return (        <div>
-        <TextField
-            name="userName"
-            value={foundUser}
-            onChange={handleChange}
-        />
-            <section>
-                {eachUserListForBlog}
-            </section>
+    return (
+        <div>
+            <TextField
+                title="Nach Bloggern suchen"
+                name="userName"
+                value={foundUser}
+                onChange={handleChange}
+            />
+            {eachUserListForBlog}
         </div>
     )
 

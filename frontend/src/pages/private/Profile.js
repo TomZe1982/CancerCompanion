@@ -33,7 +33,7 @@ export default function Profile(){
         <Page>
             <NavBar user = {user}/>
             <Main>
-                <Header title ={user.userName} />
+                <Header title = {user.userName} />
                 <UserImage src = "https://thispersondoesnotexist.com/image" alt = "userImage"/>
                 <ProfileButton as = {Link} to = "/editsettings">Email ändern</ProfileButton>
                 <ProfileButton as = {Link} to = "/editpassword">Passwort ändern</ProfileButton>

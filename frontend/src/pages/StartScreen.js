@@ -4,7 +4,6 @@ import Page from "../components/Page";
 import NavBar from "../components/NavBar";
 import Main from "../components/Main";
 import {Link} from "react-router-dom";
-import Button from "../components/styled/Button";
 import {useAuth} from "../auth/AuthProvider";
 
 export default function StartScreen() {
@@ -33,5 +32,14 @@ const Img = styled.img`
   height: 100%;
 `
 
+const Button = styled.button`
+  display: inline-block;
+  padding: var(--size-l);
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: var(--neutral-light);
+  font-size: 1em;
+  border-radius: 50%;
+`
 
 

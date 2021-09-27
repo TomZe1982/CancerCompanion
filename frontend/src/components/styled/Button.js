@@ -8,7 +8,7 @@ export default styled.button`
   border: 1px solid var(--accent);
   color: var(--neutral-light);
   font-size: 1em;
-  border-radius: var(--size-xs);
+  border-radius: var(--size-xl);
 
   :disabled {
     border-color: var(--neutral-dark);

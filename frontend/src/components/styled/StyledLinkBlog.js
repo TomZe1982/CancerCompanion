@@ -3,27 +3,20 @@ import {Link} from "react-router-dom";
 
 export default styled(Link)`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 100%;
   text-decoration: none;
+  color: var(--accent);
   width: 100%;
   height: 100%;
-  padding: 20px;
+  padding: 20px 0px;
   border: 1px solid var(--accent);
   box-sizing: content-box;
   border-radius: 12px;
   box-shadow: 1px 2px 8px #666;
-  margin: 20px;
+  margin: 20px 0px;
   align-content: center;
   align-items: center;
-  
-  .user__image{
-    grid-column: 1;
-    grid-row: 1;
-  }
-  
-  .user__name{
-    grid-column: 2;
-    grid-row: 1;
-  }
+  justify-items: center;
+
 `
