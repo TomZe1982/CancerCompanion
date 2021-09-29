@@ -1,0 +1,8 @@
+spring:
+  main:
+    banner-mode: off
+
+security:
+  jwt:
+    secret: "super-secret"
+    expire-after-minutes: 120

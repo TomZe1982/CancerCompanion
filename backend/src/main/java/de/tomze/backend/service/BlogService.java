@@ -64,32 +64,15 @@ public class BlogService {
         return newBlogEntity;
     }
 
-    public BlogEntity updateBlog(UserEntity authUser, BlogFromAppDto blogFromAppDto, Long blogId) {
-
-        BlogEntity blogEntityUpdate = getBlogEntry(authUser.getUserName(), blogId);
-
-        blogEntityUpdate.setEntry(blogFromAppDto.getEntry());
-
-        return blogRepository.save(blogEntityUpdate);
-    }
-
     @Transactional
-    public List<BlogEntity> deleteBlog(UserEntity authUser) {
-        List<BlogEntity> blogEntityListDelete = getAllBlogs(authUser.getUserName());
-
-        for(BlogEntity blogEntityDelete : blogEntityListDelete){
-            var user = userService.getUser(authUser.getUserName());
-            user.getBlogEntries().remove(blogEntityDelete);
-        }
-
-        return new ArrayList<>();
-    }
-
-    @Transactional
-    public BlogEntity deleteBlogEntry(String userName, Long blogId) {
+    public BlogEntity deleteBlogEntry(UserEntity authUser, String userName, Long blogId) {
         var user = userService.getUser(userName);
 
         BlogEntity blogEntityDelete = getBlogEntry(userName, blogId);
+
+        if(authUser.getRole().equals("admin") && user.getRole().equals("admin") && !authUser.getUserName().equals(userName)){
+            throw new IllegalArgumentException("Admin must not delete admins blog");
+        }
 
         user.getBlogEntries().remove(blogEntityDelete);
 
