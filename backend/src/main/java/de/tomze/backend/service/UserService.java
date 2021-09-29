@@ -130,6 +130,7 @@ public class UserService {
                 .userName(userFromAppDto.getUserName())
                 .password(hashedPassword)
                 .email(userFromAppDto.getEmail())
+                .avatar(userFromAppDto.getAvatar())
                 .build();
     }
 
@@ -139,6 +140,7 @@ public class UserService {
                 .role("user")
                 .userName(userEntity.getUserName())
                 .email(userEntity.getEmail())
+                .avatar(userEntity.getAvatar())
                 .build();
     }
 

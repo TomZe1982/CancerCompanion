@@ -30,6 +30,12 @@ public class YoutubeApiController {
         this.videoRepository = videoRepository;
     }
 
+    @GetMapping("api/tomze/videolist")
+    public ResponseEntity<List<VideoEntity>> getVideoList() {
+        List<VideoEntity> videoList = youtubeService.getVideoList();
+
+        return ok(videoList);
+    }
 
     @GetMapping("/api/tomze/videos/{vid_id}")
     public  ResponseEntity<YoutubeApiDto> getVideo (@PathVariable String vid_id){
@@ -40,13 +46,6 @@ public class YoutubeApiController {
         videoRepository.save(videoEntity);
 
         return ok(youtubeToApiDto);
-    }
-
-    @GetMapping("api/tomze/videolist")
-    public ResponseEntity<List<VideoEntity>> getVideoList() {
-        List<VideoEntity> videoList = youtubeService.getVideoList();
-
-        return ok(videoList);
     }
 
    @DeleteMapping("/api/tomze/videos/{vid_id}")

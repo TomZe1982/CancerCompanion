@@ -40,6 +40,9 @@ public class UserEntity {
     @Column(name="email", nullable = false, unique = true)
     private String email;
 
+    @Column(name="avatar")
+    private String avatar;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

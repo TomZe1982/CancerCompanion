@@ -34,7 +34,7 @@ export default function Profile(){
             <NavBar user = {user}/>
             <Main>
                 <Header title = {user.userName} />
-                <UserImage src = "https://thispersondoesnotexist.com/image" alt = "userImage"/>
+                <UserImage src ={user.avatar || "NA.png"} alt = "user_image"/>
                 <ProfileButton as = {Link} to = "/editsettings">Email ändern</ProfileButton>
                 <ProfileButton as = {Link} to = "/editpassword">Passwort ändern</ProfileButton>
                 <ProfileButton as = {Link} to = "/delete" >Profil löschen</ProfileButton>

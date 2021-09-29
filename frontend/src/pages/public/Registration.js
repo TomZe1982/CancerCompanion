@@ -38,6 +38,8 @@ export default function Registration() {
             .finally(() => setCredentials({credentials: ""}))
     }
 
+    console.log(credentials)
+
     if(registeredUser){
         return <Redirect to = "/login"/>
     }
@@ -58,6 +60,11 @@ return (
                 title="Email"
                 name="email"
                 value={credentials.email || ""}
+                onChange={handleOnChange}/>
+            <TextField
+                title="Avatar"
+                name="avatar"
+                value={credentials.avatar || ""}
                 onChange={handleOnChange}/>
             <TextField
                 title="Passwort"

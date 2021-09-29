@@ -15,6 +15,7 @@ abstract class UserControllerMapper {
                 .userName(userEntity.getUserName())
                 .password(userEntity.getPassword())
                 .email(userEntity.getEmail())
+                .avatar(userEntity.getAvatar())
                 .build();
     }
 
@@ -24,6 +25,7 @@ abstract class UserControllerMapper {
                 .role(userEntity.getRole())
                 .userName(userEntity.getUserName())
                 .email(userEntity.getEmail())
+                .avatar(userEntity.getAvatar())
                 .build();
     }
 
