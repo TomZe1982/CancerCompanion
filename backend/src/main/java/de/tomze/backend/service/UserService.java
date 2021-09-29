@@ -81,24 +81,19 @@ public class UserService {
         }
         if(userFromAppDto.getEmail().equals(userEntityToUpdate.getEmail())) {
             userEntityToUpdate = resetPassword(userFromAppDto.getUserName(), userFromAppDto);
+
         }
         if(userFromAppDto.getPassword() == null && !userFromAppDto.getEmail().equals(userEntityToUpdate.getEmail()))  {
             userEntityToUpdate.setEmail(userFromAppDto.getEmail());
         }
 
-        userRepository.save(userEntityToUpdate);
+       return userRepository.save(userEntityToUpdate);
 
-        return userEntityToUpdate;
     }
 
     public UserEntity resetPassword(String userName, UserFromAppDto userFromAppDto) {
 
-        Optional<UserEntity> fetchedUserEntityOptional = userRepository.findByUserName(userName);
-
-        if(fetchedUserEntityOptional.isEmpty()){
-            throw new EntityNotFoundException("User not found");
-        }
-        UserEntity resetPasswordUserEntity = fetchedUserEntityOptional.get();
+        UserEntity resetPasswordUserEntity = getUser(userName);
 
         String newHashedPassword = new BCryptPasswordEncoder().encode(userFromAppDto.getPassword());
         resetPasswordUserEntity.setPassword(newHashedPassword);
@@ -107,13 +102,7 @@ public class UserService {
     }
 
         public UserToAppDto resetUserPassword(String userName) {
-        Optional<UserEntity> fetchedUserEntityOptional = userRepository.findByUserName(userName);
-
-        if(fetchedUserEntityOptional.isEmpty()){
-            throw new EntityNotFoundException("User not found");
-        }
-
-        UserEntity userEntityResetPassword = fetchedUserEntityOptional.get();
+        UserEntity userEntityResetPassword = getUser(userName);
 
         UserToAppDto userToAppDtoResetPassword = mapUserToAppDto(userEntityResetPassword);
 
@@ -149,7 +138,6 @@ public class UserService {
         return  UserToAppDto.builder()
                 .role("user")
                 .userName(userEntity.getUserName())
-                .password(userEntity.getPassword())
                 .email(userEntity.getEmail())
                 .build();
     }

@@ -35,6 +35,8 @@ export default function EditSettings() {
             setChangedCredentials(changedCredentials)
     }
 
+    console.log(credentials)
+
     if(changedCredentials)
     {
         return <Redirect to = "/profile"/>

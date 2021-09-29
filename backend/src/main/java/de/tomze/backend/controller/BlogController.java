@@ -49,18 +49,6 @@ public class BlogController extends BlogControllerMapper {
         return ok(blogToAppDtoFound);
     }
 
-    @GetMapping("/{userName}")
-    public ResponseEntity<List<BlogToAppDto>> getUserBlog(@PathVariable String userName) {
-
-        UserEntity userEntityBlog = userService.getUser(userName);
-
-        List<BlogEntity> blogEntityList = userEntityBlog.getBlogEntries();
-
-
-        List<BlogToAppDto> blogToAppDtoList = mapBlogToAppDtoList(blogEntityList);
-        return ok(blogToAppDtoList);
-
-    }
 
     @PostMapping("/newblog")
     public ResponseEntity<BlogToAppDto> createBlog(@AuthenticationPrincipal UserEntity authUser, @RequestBody BlogFromAppDto blogFromAppDto) {
@@ -73,26 +61,6 @@ public class BlogController extends BlogControllerMapper {
 
     }
 
-    @PutMapping("/update/{blogId}")
-    public ResponseEntity<BlogToAppDto> updateBlog(@AuthenticationPrincipal UserEntity authUser, @PathVariable Long blogId, @RequestBody BlogFromAppDto blogFromAppDto){
-
-        BlogEntity blogEntityUpdate = blogService.updateBlog(authUser, blogFromAppDto, blogId);
-
-        BlogToAppDto blogToAppDtoUpdate = mapBlogToAppDto(blogEntityUpdate);
-
-        return ok(blogToAppDtoUpdate);
-    }
-
-    @DeleteMapping("/delete")
-    public ResponseEntity<List<BlogToAppDto>> deleteBlog(@AuthenticationPrincipal UserEntity authUser){
-
-        List<BlogEntity> blogEntityListDelete = blogService.deleteBlog(authUser);
-
-        List<BlogToAppDto> blogToAppDtoListDelete = mapBlogToAppDtoList(blogEntityListDelete);
-
-        return ok(blogToAppDtoListDelete);
-    }
-
     @DeleteMapping("/delete/{userName}/{blogId}")
     public ResponseEntity<BlogToAppDto> deleteBlogEntry(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName, @PathVariable Long blogId){
 
@@ -100,7 +68,7 @@ public class BlogController extends BlogControllerMapper {
             throw new IllegalArgumentException("User must not delete another user");
         }
 
-        BlogEntity blogEntityDelete = blogService.deleteBlogEntry(userName, blogId);
+        BlogEntity blogEntityDelete = blogService.deleteBlogEntry(authUser, userName, blogId);
 
         BlogToAppDto blogToAppDtoDelete = mapBlogToAppDto(blogEntityDelete);
 

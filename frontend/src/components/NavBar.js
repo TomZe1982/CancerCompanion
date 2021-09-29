@@ -3,6 +3,7 @@ import styled from "styled-components/macro";
 
 
 
+
 export default function NavBar({ user}){
     const history = useHistory()
 

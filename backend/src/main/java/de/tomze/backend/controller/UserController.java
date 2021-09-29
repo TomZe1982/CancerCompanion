@@ -33,9 +33,7 @@ public class UserController extends UserControllerMapper {
 
     @GetMapping("/api/tomze/user")
     public ResponseEntity<List<UserToAppDto>> getAllUsers(@AuthenticationPrincipal UserEntity authUser) {
-      /*  if(authUser.getRole().equals("user")){
-            throw new IllegalArgumentException("User must not get all users");
-        }*/
+
         List<UserEntity> listOfAllUserEntities = userService.getAllUsers();
         List<UserToAppDto> listOfAllUsersToApp = map(listOfAllUserEntities);
 
@@ -44,9 +42,6 @@ public class UserController extends UserControllerMapper {
 
     @GetMapping("/api/tomze/user/{userName}")
     public ResponseEntity<UserToAppDto> getUser(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName) {
-        if(authUser.getRole().equals("user") && !authUser.getUserName().equals(userName)){
-            throw new IllegalArgumentException("User must not get another User");
-        }
 
             UserEntity userEntity = userService.getUser(userName);
             UserToAppDto foundUserToAppDto = mapUserToAppDto(userEntity);
@@ -55,21 +50,21 @@ public class UserController extends UserControllerMapper {
     }
 
     @PostMapping("/api/tomze/register")
-    public ResponseEntity<UserFromAppDto> createUser(@RequestBody UserFromAppDto userFromAppDto) {
+    public ResponseEntity<UserToAppDto> createUser(@RequestBody UserFromAppDto userFromAppDto) {
         UserEntity createdUserEntity = userService.createUser(userFromAppDto);
-        UserFromAppDto createdUserFromAppDto = mapUserFromAppDto(createdUserEntity);
-        return ok(createdUserFromAppDto);
+        UserToAppDto createdUserToAppDto = mapUserToAppDto(createdUserEntity);
+        return ok(createdUserToAppDto);
 
     }
 
     @PutMapping("/api/tomze/user/update/{userName}")
-    public ResponseEntity<UserFromAppDto> updateUser(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName, @RequestBody UserFromAppDto userFromAppDto) {
-        if (authUser.getRole().equals("user") && !authUser.getUserName().equals(userName) && !userFromAppDto.getUserName().equals(userName)){
+    public ResponseEntity<UserToAppDto> updateUser(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName, @RequestBody UserFromAppDto userFromAppDto) {
+        if (authUser.getRole().equals("user") && !authUser.getUserName().equals(userName)){
             throw new IllegalArgumentException("User must not update other user");
         }
         UserEntity updatedUserEntity = userService.updateUser(userName, userFromAppDto);
-        UserFromAppDto updatedUserFromAppDto = mapUserFromAppDto(updatedUserEntity);
-        return ok(updatedUserFromAppDto);
+        UserToAppDto updatedUserToAppDto = mapUserToAppDto(updatedUserEntity);
+        return ok(updatedUserToAppDto);
     }
 
     @PutMapping("/api/tomze/user/resetpassword/{userName}")
@@ -86,7 +81,7 @@ public class UserController extends UserControllerMapper {
 
 
     @DeleteMapping("/api/tomze/user/delete/{userName}")
-    public ResponseEntity<UserFromAppDto> deleteUser(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName) {
+    public ResponseEntity<UserToAppDto> deleteUser(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName) {
         if (authUser.getRole().equals("admin") && authUser.getUserName().equals(userName)) {
             throw new IllegalArgumentException("Admin is not allowed to delete himself");
         }
@@ -94,8 +89,8 @@ public class UserController extends UserControllerMapper {
             throw new IllegalArgumentException("User must not delete other User");
         }
         UserEntity userEntityToDelete = userService.deleteUser(userName);
-        UserFromAppDto deletedUserFromAppDto = mapUserFromAppDto(userEntityToDelete);
-        return ok(deletedUserFromAppDto);
+        UserToAppDto deletedUserToAppDto = mapUserToAppDto(userEntityToDelete);
+        return ok(deletedUserToAppDto);
     }
 
 

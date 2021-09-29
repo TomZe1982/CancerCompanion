@@ -1,7 +1,8 @@
 import {getInfos} from "../../service/apiService";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import StyledLink from "../styled/StyledLink";
+import StyledLinkInfo from "../styled/StyledLinkInfo";
+import styled from "styled-components/macro";
 
 
 
@@ -17,19 +18,22 @@ export default function InfoCard() {
 
 
 
-    const infoMap = infos.map(infoDetails => <StyledLink key={infoDetails.id} as={Link}
+    const infoMap = infos.map(infoDetails => <StyledLinkInfo key={infoDetails.id} as={Link}
                                                          to={`/infodetails/${infoDetails.id}`}>{infoDetails.title}
 
-        </StyledLink>
+        </StyledLinkInfo>
     )
 
     return (
-        <div>
+        <Wrapper>
             {infoMap}
-        </div>
+        </Wrapper>
     )
 
 }
 
 
-//{ user.role === "admin" && <section><Button onClick={() => deleteInfo(infoDetails.id, token)}>Info löschen</Button></section>}
+const Wrapper = styled.div`
+width: 100%;
+  
+`

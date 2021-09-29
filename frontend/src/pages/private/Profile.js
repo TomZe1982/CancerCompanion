@@ -5,7 +5,7 @@ import {useAuth} from "../../auth/AuthProvider";
 import {Link, Redirect} from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import UserImage from "../../components/UserImage";
-import ProfileButton from "../../components/ProfileButton";
+import ProfileButton from "../../components/styled/ProfileButton";
 import {useEffect, useState} from "react";
 import {getBlogList} from "../../service/apiService";
 
@@ -33,7 +33,7 @@ export default function Profile(){
         <Page>
             <NavBar user = {user}/>
             <Main>
-                <Header title ={user.userName} />
+                <Header title = {user.userName} />
                 <UserImage src = "https://thispersondoesnotexist.com/image" alt = "userImage"/>
                 <ProfileButton as = {Link} to = "/editsettings">Email ändern</ProfileButton>
                 <ProfileButton as = {Link} to = "/editpassword">Passwort ändern</ProfileButton>

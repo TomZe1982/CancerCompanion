@@ -9,10 +9,9 @@ import {useAuth} from "../../auth/AuthProvider";
 export default function EachInformationPage () {
     const{user} = useAuth()
 
-    if(user) {
         return (
             <Page>
-                <NavBar user={user}/>
+                {user ? <NavBar user={user}/> :  <NavBar/>}
                 <Main>
                     <Header title="Information"/>
                     <section>
@@ -22,15 +21,3 @@ export default function EachInformationPage () {
             </Page>
         )
     }
-    return (
-        <Page>
-            <NavBar/>
-            <Main>
-                <Header title="Information"/>
-                <section>
-                    <EachInfo/>
-                </section>
-            </Main>
-        </Page>
-    )
-}

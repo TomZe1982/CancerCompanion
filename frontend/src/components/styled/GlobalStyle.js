@@ -26,6 +26,26 @@ export default createGlobalStyle`
       font-family: Verdana;
     }
     
+    p{
+      text-align: center;
+      color: var(--accent);
+    }
+    
+    h1{
+      text-align: center;
+      color: var(--accent);
+    }
+    
+    h2{
+      text-align: center;
+      color: var(--accent);
+    }
+
+    h3{
+      text-align: center;
+      color: var(--accent);
+    }
+    
 `
 
 

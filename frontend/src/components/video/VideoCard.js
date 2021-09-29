@@ -1,6 +1,6 @@
-import {useAuth} from "../auth/AuthProvider";
-import Button from "./styled/Button";
-import {deleteVideo} from "../service/apiService";
+import {useAuth} from "../../auth/AuthProvider";
+import Button from "../styled/Button";
+import {deleteVideo} from "../../service/apiService";
 
 
 export default function VideoCard({videoId, reloadPage}) {

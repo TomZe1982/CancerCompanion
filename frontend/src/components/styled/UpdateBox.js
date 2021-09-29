@@ -1,7 +1,9 @@
 import styled from "styled-components/macro";
 
 export default styled.div`
-  display: block;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr;
   width: 100%;
   height: 100%;
   padding: 2px 0px;
@@ -15,4 +17,23 @@ export default styled.div`
   align-content: center;
   justify-items: center;
   align-items: center;
+  
+  .details{
+    grid-row: 1;
+    text-align: center;
+    justify-items: center;
+    align-items: center;
+  }
+  
+  .button{
+    grid-row: 2;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .link{
+    grid-row: 2;
+    display: flex;
+    justify-content: flex-end;
+  }
 `
