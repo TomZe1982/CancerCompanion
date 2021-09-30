@@ -1,14 +1,14 @@
 import styled from 'styled-components/macro'
 import Label from './Label'
 
-export default function TextArea({
-                                      type = 'text',
-                                      value,
-                                      onChange,
-                                      name,
-                                      title,
-                                      ...props
-                                  }) {
+export default function TextAreaUpdate({
+                                     type = 'text',
+                                     value,
+                                     onChange,
+                                     name,
+                                     title,
+                                     ...props
+                                 }) {
     return (
         <Label {...props}>
             {title}
@@ -19,7 +19,7 @@ export default function TextArea({
 
 const Input = styled.textarea`
   width: 100%;
-  height: 100%;
+  height: 300px;
   
   font-size: 1em;
   padding: var(--size-s);

@@ -8,6 +8,7 @@ import {getInfoById, updateInfo} from "../../service/apiService";
 import TextArea from "../../components/TextArea";
 import Button from "../../components/styled/Button";
 import Error from "../../components/Error";
+import TextAreaUpdate from "../../components/TextAreaUpdate";
 
 
 
@@ -53,7 +54,7 @@ export default function UpdateEachInformation(){
                     value={updatedInfo.title}
                     onChange={handleChange}
                 />
-                <TextArea
+                <TextAreaUpdate
                     title="Info bearbeiten"
                     name="info"
                     value={updatedInfo.info}
