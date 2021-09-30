@@ -21,11 +21,16 @@ export default function Registration() {
     const [credentials, setCredentials] = useState({credentials: ""});
     const [loading, setLoading] = useState(false)
     const [registeredUser, setRegisteredUser] = useState()
+    const [passwordRepeat, setPasswordRepeat] = useState("")
     const [error, setError] = useState()
 
 
     const handleOnChange = event => {
         setCredentials({...credentials, [event.target.name]: event.target.value})
+    }
+
+    const handleOnChangeRepeat = (event) => {
+        setPasswordRepeat(event.target.value)
     }
 
     const handleSubmit = event => {
@@ -69,9 +74,16 @@ return (
             <TextField
                 title="Passwort"
                 name="password"
+                type="password"
                 value={credentials.password || ""}
                 onChange={handleOnChange}/>
-            {(credentials.userName !== "" && credentials.email !== "" && credentials.password !== "") ?
+            <TextField
+                title="Passwort"
+                name="password"
+                type="password"
+                value={passwordRepeat}
+                onChange={handleOnChangeRepeat}/>
+            {(credentials.userName !== "" && credentials.email !== "" && credentials.password !== "" && credentials.password === passwordRepeat) ?
             <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
         </Main>
         )}

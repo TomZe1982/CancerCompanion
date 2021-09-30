@@ -9,6 +9,7 @@ import {Link} from "react-router-dom";
 import UpdateBox from "../../components/styled/UpdateBox";
 
 
+
 export default function UpdateInformation(){
     const {user, token} = useAuth()
     const [infos, setInfos] = useState([])
@@ -47,3 +48,4 @@ export default function UpdateInformation(){
     )
 
 }
+

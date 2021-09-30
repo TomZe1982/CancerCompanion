@@ -19,22 +19,4 @@ export default styled.div`
   justify-items: center;
   align-items: center;
   
-  .details{
-    grid-row: 1;
-    text-align: center;
-    justify-items: center;
-    align-items: center;
-  }
-  
-  .button{
-    grid-row: 2;
-    display: flex;
-    justify-content: flex-start;
-  }
-  
-  .link{
-    grid-row: 2;
-    display: flex;
-    justify-content: flex-end;
-  }
 `

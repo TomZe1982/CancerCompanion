@@ -16,6 +16,7 @@ export default function EditPassword() {
     const [userToChange, setUserToChange] = useState({})
     const [credentials, setCredentials] = useState({})
     const [changedCredentials, setChangedCredentials] = useState()
+    const [passwordRepeat, setPasswordRepeat] = useState("")
 
     useLayoutEffect(() => {
         getUser(user.userName, token)
@@ -30,6 +31,10 @@ export default function EditPassword() {
             [event.target.name]: event.target.value
         })
         setChangedCredentials(changedCredentials)
+    }
+
+    const handleOnChangeRepeat = (event) => {
+        setPasswordRepeat(event.target.value)
     }
 
     if (changedCredentials) {
@@ -55,9 +60,15 @@ export default function EditPassword() {
                 <TextField
                     title="Passwort"
                     name="password"
+                    type="password"
                     value={credentials.password || ""}
                     onChange={handleOnChange}/>
-                {(credentials.password !== "") ?
+                <TextField
+                    title="Passwort"
+                    type="password"
+                    value={passwordRepeat}
+                    onChange={handleOnChangeRepeat}/>
+                {(credentials.password !== "" && credentials.password === passwordRepeat) ?
                     <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
             </Main>
         </Page>
