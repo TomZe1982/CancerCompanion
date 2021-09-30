@@ -18,7 +18,7 @@ import {useAuth} from "../../auth/AuthProvider";
 
 export default function Registration() {
     const{user} = useAuth()
-    const [credentials, setCredentials] = useState("");
+    const [credentials, setCredentials] = useState({credentials: ""});
     const [loading, setLoading] = useState(false)
     const [registeredUser, setRegisteredUser] = useState()
     const [error, setError] = useState()

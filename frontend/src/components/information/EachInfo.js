@@ -2,6 +2,7 @@
 import {useEffect, useState} from "react";
 import {Redirect, useParams} from "react-router-dom";
 import {getInfoById} from "../../service/apiService";
+import Box from "../styled/Box";
 
 
 export default function EachInfo(){
@@ -22,12 +23,14 @@ export default function EachInfo(){
 
     return (
         <div>
+            <Box>
             <section>
                 <h2>{info.title}</h2>
             </section>
             <section>
                 <p>{info.info}</p>
             </section>
+            </Box>
         </div>
     )
 

@@ -1,17 +1,13 @@
 package de.tomze.backend.controller;
 
 
-import de.tomze.backend.api.UserFromAppDto;
-import de.tomze.backend.api.UserToAppDto;
-import de.tomze.backend.api.YoutubeApiDto;
+import de.tomze.backend.api.VideoDto;
 import de.tomze.backend.model.UserEntity;
 import de.tomze.backend.model.VideoEntity;
-import de.tomze.backend.repository.BlogRepository;
-import de.tomze.backend.repository.UserRepository;
+
 import de.tomze.backend.repository.VideoRepository;
 import de.tomze.backend.security.JwtConfig;
 
-import de.tomze.backend.service.YoutubeService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.jupiter.api.*;
@@ -73,7 +69,7 @@ class YoutubeControllerTest {
 
         //WHEN
         HttpEntity<UserEntity> httpEntity = new HttpEntity<>(authorizedHeader("toto", "admin"));
-        ResponseEntity<VideoEntity[]> response = restTemplate.exchange(url() + "/videolist", HttpMethod.GET, httpEntity, VideoEntity[].class);
+        ResponseEntity<VideoDto[]> response = restTemplate.exchange(url() + "/videolist", HttpMethod.GET, httpEntity, VideoDto[].class);
 
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
@@ -92,7 +88,7 @@ class YoutubeControllerTest {
 
         //WHEN
         HttpEntity<UserEntity> httpEntity = new HttpEntity<>(authorizedHeader("toto", "user"));
-        ResponseEntity<VideoEntity[]> response = restTemplate.exchange(url() + "/videolist", HttpMethod.GET, httpEntity, VideoEntity[].class);
+        ResponseEntity<VideoDto[]> response = restTemplate.exchange(url() + "/videolist", HttpMethod.GET, httpEntity, VideoDto[].class);
 
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
@@ -100,7 +96,49 @@ class YoutubeControllerTest {
         assertThat(response.getBody().length, is(2));
     }
 
+    //DELETE VIDEOS
 
+    @Test
+    public void adminShouldDeleteVideos(){
+        //GIVEN
+        videoRepository.save(VideoEntity.builder()
+                .vid_id("1a1a1a").build());
+
+        videoRepository.save(VideoEntity.builder()
+                .vid_id("2b2b2b").build());
+
+        //WHEN
+        HttpEntity<UserEntity> httpEntity = new HttpEntity<>(authorizedHeader("toto", "admin"));
+        ResponseEntity<VideoDto> response = restTemplate.exchange(url() + "/videos/2b2b2b", HttpMethod.DELETE, httpEntity, VideoDto.class);
+        ResponseEntity<VideoDto[]> response2 = restTemplate.exchange(url() + "/videolist", HttpMethod.GET, httpEntity, VideoDto[].class);
+
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response2.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response2.getBody(), is(notNullValue()));
+        assertThat(response2.getBody().length, is(1));
+    }
+
+    @Test
+    public void userMustNotDeleteVideos(){
+        //GIVEN
+        videoRepository.save(VideoEntity.builder()
+                .vid_id("1a1a1a").build());
+
+        videoRepository.save(VideoEntity.builder()
+                .vid_id("2b2b2b").build());
+
+        //WHEN
+        HttpEntity<UserEntity> httpEntity = new HttpEntity<>(authorizedHeader("toto", "user"));
+        ResponseEntity<VideoDto> response = restTemplate.exchange(url() + "/videos/2b2b2b", HttpMethod.DELETE, httpEntity, VideoDto.class);
+        ResponseEntity<VideoDto[]> response2 = restTemplate.exchange(url() + "/videolist", HttpMethod.GET, httpEntity, VideoDto[].class);
+
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR));
+        assertThat(response2.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response2.getBody(), is(notNullValue()));
+        assertThat(response2.getBody().length, is(2));
+    }
 
 
 

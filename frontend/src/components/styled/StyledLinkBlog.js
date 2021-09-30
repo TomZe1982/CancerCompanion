@@ -2,6 +2,7 @@ import styled from "styled-components/macro";
 import {Link} from "react-router-dom";
 
 export default styled(Link)`
+  background: antiquewhite;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 100%;

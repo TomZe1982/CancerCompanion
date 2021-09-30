@@ -4,6 +4,7 @@ export default styled.button`
   display: inline-block;
   width: 150px;
   text-align: center;
+  margin: 20px;
   padding: var(--size-l);
   background: var(--accent);
   border: 1px solid var(--accent);

@@ -1,6 +1,7 @@
 import styled from "styled-components/macro";
 
 export default styled.div`
+  background: antiquewhite;
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr;

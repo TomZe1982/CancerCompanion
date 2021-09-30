@@ -30,6 +30,7 @@ export default function EachUserMapperBlog() {
 
     const eachUserListForBlog = filteredUser.map(fetchedUser => (
         <BlogCard fetchedUserNameForBlog={fetchedUser.userName}
+                  avatar={fetchedUser.avatar}
                   key={fetchedUser.id} reloadBlogPage={reloadBlogPage}
         />)
     )

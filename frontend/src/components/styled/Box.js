@@ -1,6 +1,7 @@
 import styled from "styled-components/macro";
 
 export default styled.div`
+  background: antiquewhite;
   display: block;
   width: 100%;
   height: 100%;
