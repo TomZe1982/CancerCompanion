@@ -152,7 +152,7 @@ class UserControllerTest {
         ResponseEntity<UserToAppDto> response = restTemplate.exchange(url() + "/register", HttpMethod.POST, httpEntity, UserToAppDto.class);
 
         //THEN
-        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR));
+        assertThat(response.getStatusCode(), is(HttpStatus.BAD_REQUEST));
     }
 
     @Test
@@ -384,11 +384,11 @@ class UserControllerTest {
     public void adminMustNotDeleteAdmin(){
 
         //WHEN
-        HttpEntity<UserFromAppDto> httpEntity = new HttpEntity<>(authorizedHeader("toto", "admin"));
-        ResponseEntity<UserToAppDto> response = restTemplate.exchange(url() + "/user/delete/admin", HttpMethod.DELETE, httpEntity, UserToAppDto.class);
+        HttpEntity<UserFromAppDto> httpEntity = new HttpEntity<>(authorizedHeader("tomze", "admin"));
+        ResponseEntity<UserToAppDto> response = restTemplate.exchange(url() + "/user/delete/toto", HttpMethod.DELETE, httpEntity, UserToAppDto.class);
 
         //THEN
-        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR));
+        assertThat(response.getStatusCode(), is(HttpStatus.BAD_REQUEST));
     }
 
 

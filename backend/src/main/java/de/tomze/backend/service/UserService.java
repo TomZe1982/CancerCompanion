@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.ws.rs.BadRequestException;
 
 import static org.springframework.util.StringUtils.hasText;
 
@@ -117,8 +118,13 @@ public class UserService {
         return userToAppDtoResetPassword;
     }
 
-    public UserEntity deleteUser(String userName) {
+    public UserEntity deleteUser(UserEntity authUser, String userName) {
         UserEntity userEntityToDelete = getUser(userName);
+
+        if(authUser.getRole().equals("admin") && userEntityToDelete.getRole().equals("admin")){
+            throw new IllegalArgumentException("Admin must not delete other admin");
+        }
+
         userRepository.delete(userEntityToDelete);
         return userEntityToDelete;
     }

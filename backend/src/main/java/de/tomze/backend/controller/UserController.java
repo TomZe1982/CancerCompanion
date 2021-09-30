@@ -89,7 +89,7 @@ public class UserController extends UserControllerMapper {
         if (authUser.getRole().equals("user") && !authUser.getUserName().equals(userName)) {
             throw new NotAuthorizedException("User must not delete other User");
         }
-        UserEntity userEntityToDelete = userService.deleteUser(userName);
+        UserEntity userEntityToDelete = userService.deleteUser(authUser, userName);
         UserToAppDto deletedUserToAppDto = mapUserToAppDto(userEntityToDelete);
         return ok(deletedUserToAppDto);
     }
