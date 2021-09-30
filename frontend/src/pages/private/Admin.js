@@ -18,14 +18,14 @@ export default function Admin() {
     const [newVideoId, setNewVideoId] = useState("")
     const [loading, setLoading] = useState(false)
     const [fetchedVideo, setFetchedVideo] = useState({})
-
+    const [error, setError] = useState()
 
     const handleSubmitUpload = (event) => {
         event.preventDefault()
         setLoading(true)
         getNewVideo(newVideoId, token)
             .then(fetchedVideo => setFetchedVideo(fetchedVideo))
-            .catch(error => console.error(error),
+            .catch(error => setError(error),
                 setLoading(false))
             .finally(() => setNewVideoId(""))
     }
@@ -58,7 +58,7 @@ export default function Admin() {
                     <section><EachUserMapper/></section>
                 </Main>
             )}
-
+            {error && <Error>{ error.response.data.error}</Error>}
         </Page>
     )
 

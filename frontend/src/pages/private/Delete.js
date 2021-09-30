@@ -8,6 +8,7 @@ import {useState} from "react";
 import NavBar from "../../components/NavBar";
 import Loading from "../../components/Loading";
 import {deleteUser} from "../../service/apiService";
+import Error from "../../components/Error";
 
 
 
@@ -15,6 +16,7 @@ export default function Delete() {
     const {user, token, logout} = useAuth()
     const [deletedUser, setDeletedUser] = useState()
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState()
 
     if(user.role === "admin"){
         return <Redirect to = "/adminerror"/>
@@ -25,7 +27,7 @@ export default function Delete() {
         deleteUser(user.userName, token)
             .then(deletedUser => setDeletedUser(deletedUser))
             .then(logout)
-            .catch(error => console.error(error), setLoading(false))
+            .catch(error => setError(error), setLoading(false))
     }
 
 
@@ -45,6 +47,7 @@ export default function Delete() {
                 <Button as = {Link} to = "/" onClick = {handleDelete}>Ja</Button>
             </Main>
                 )}
+            {error && <Error>{ error.response.data.error}</Error>}
         </Page>
     )
 }

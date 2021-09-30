@@ -7,6 +7,7 @@ import TextArea from "../TextArea";
 import Button from "../styled/Button";
 import InnerBox from "../styled/InnerBox";
 import BlogSection from "../styled/BlogSection";
+import Error from "../Error";
 
 
 
@@ -16,20 +17,21 @@ export default function BlogEntries() {
     const {fetchedUserNameForBlog} = useParams()
     const [allBlogs, setAllBlogs] = useState([])
     const [blogEntry, setBlogEntry] = useState({})
+    const [error, setError] = useState()
 
     console.log(allBlogs)
 
     useEffect(() => {
         getBlogList(fetchedUserNameForBlog, token)
             .then(setAllBlogs)
-            .catch(error => console.error(error))
+            .catch(error => setError(error))
     }, [fetchedUserNameForBlog, token])
 
     const handleSubmit = () => {
         postBlogEntry(blogEntry, token)
             .then(blogEntry => setBlogEntry(blogEntry))
             .then(reloadBlogPage)
-            .catch(error => console.error(error))
+            .catch(error => setError(error))
             .finally(() => setBlogEntry({blogEntry: ""}))
     }
 
@@ -75,6 +77,7 @@ export default function BlogEntries() {
                 <Button onClick={handleSubmit}>Abschicken</Button>
             </section>
             }
+            {error && <Error>{ error.response.data.error}</Error>}
         </div>
     )
 

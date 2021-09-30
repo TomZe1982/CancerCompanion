@@ -15,6 +15,7 @@ export default function AddInformation() {
     const {token, user} = useAuth()
 
     const [credentials, setCredentials] = useState({})
+    const [error, setError] = useState()
 
     const handleOnChange = (event) => {
         setCredentials( {...credentials, [event.target.name] : event.target.value})
@@ -24,7 +25,7 @@ export default function AddInformation() {
         event.preventDefault()
         postInfo(credentials, token )
             .then(response => console.log(response))
-            .catch(error => console.error(error))
+            .catch(error => setError(error))
             .finally(() => setCredentials({credentials: ""}))
     }
 
@@ -46,6 +47,7 @@ export default function AddInformation() {
                 {(credentials.title !== "" && credentials.info !== "") ?
                     <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
             </Main>
+            {error && <Error>{ error.response.data.error}</Error>}
         </Page>
     )
 }

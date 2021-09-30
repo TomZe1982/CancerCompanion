@@ -8,11 +8,13 @@ import Page from "../../../components/Page";
 import Header from "../../../components/styled/Header";
 import {useHistory} from "react-router-dom";
 import NavBar from "../../../components/NavBar";
+import Error from "../../../components/Error";
 
 
 export default function NewBlog() {
     const {user, token} = useAuth()
     const [blogEntry, setBlogEntry] = useState({})
+    const [error, setError] = useState()
     const history = useHistory()
 
 
@@ -21,7 +23,7 @@ export default function NewBlog() {
         postBlogEntry(blogEntry, token)
             .then(blogEntry => setBlogEntry(blogEntry))
             .then(redirectHandler)
-            .catch(error => console.error(error))
+            .catch(error => setError(error))
             .finally(() => setBlogEntry({blogEntry: ""}))
     }
 
@@ -48,6 +50,7 @@ export default function NewBlog() {
                     <Button>Abschicken</Button>
                 </section>
             </Main>
+            {error && <Error>{ error.response.data.error}</Error>}
         </Page>
 
 

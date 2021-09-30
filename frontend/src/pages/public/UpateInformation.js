@@ -7,18 +7,19 @@ import Main from "../../components/Main";
 import Page from "../../components/Page";
 import {Link} from "react-router-dom";
 import UpdateBox from "../../components/styled/UpdateBox";
+import Error from "../../components/Error";
 
 
 
 export default function UpdateInformation(){
     const {user, token} = useAuth()
     const [infos, setInfos] = useState([])
-
+    const [error, setError] = useState()
 
     useEffect(() => {
         getInfos()
             .then(setInfos)
-            .catch(error => console.error(error))
+            .catch(error => setError(error))
     }, [])
 
 
@@ -44,6 +45,7 @@ export default function UpdateInformation(){
             <Main>
                 {info}
             </Main>
+            {error && <Error>{ error.response.data.error}</Error>}
         </Page>
     )
 

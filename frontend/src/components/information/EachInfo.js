@@ -3,17 +3,19 @@ import {useEffect, useState} from "react";
 import {Redirect, useParams} from "react-router-dom";
 import {getInfoById} from "../../service/apiService";
 import Box from "../styled/Box";
+import Error from "../Error";
 
 
 export default function EachInfo(){
 
     const {infoId} = useParams()
     const [info, setInfo] = useState({})
+    const [error, setError] = useState()
 
     useEffect(() => {
         getInfoById(infoId)
             .then(setInfo)
-            .catch(error => console.error(error))
+            .catch(error => setError(error))
     }, [infoId])
 
     if(!infoId){
@@ -31,6 +33,7 @@ export default function EachInfo(){
                 <h4>{info.info}</h4>
             </section>
             </Box>
+            {error && <Error>{ error.response.data.error}</Error>}
         </div>
     )
 

@@ -17,11 +17,12 @@ export default function EditSettings() {
     const [userToChange, setUserToChange] = useState({})
     const [credentials, setCredentials] = useState({})
     const [changedCredentials, setChangedCredentials] = useState()
-
+    const [error, setError] = useState()
 
     useEffect(() => {
         getUser(user.userName, token)
             .then(setUserToChange)
+            .catch(error => setError(error))
     }, [user.userName, token])
 
 
@@ -47,7 +48,7 @@ export default function EditSettings() {
         event.preventDefault()
         updateUser(credentials, token)
             .then(changedCredentials => setChangedCredentials(changedCredentials))
-
+            .catch(error => setError(error))
     }
 
     if (changedCredentials) {
@@ -69,6 +70,7 @@ export default function EditSettings() {
                 {credentials.email !== "" ?
                     <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
             </Main>
+            {error && <Error>{ error.response.data.error}</Error>}
         </Page>
 
     )

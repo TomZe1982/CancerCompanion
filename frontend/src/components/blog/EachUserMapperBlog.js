@@ -3,12 +3,14 @@ import {useAuth} from "../../auth/AuthProvider";
 import {getAllUser} from "../../service/apiService";
 import BlogCard from "./BlogCard";
 import TextField from "../TextField";
+import Error from "../Error";
 
 
 export default function EachUserMapperBlog() {
     const {token} = useAuth()
     const [allUser, setAllUser] = useState([])
     const [foundUser, setFoundUser] = useState("")
+    const [error, setError] = useState()
 
     const handleChange = (event) => {
         setFoundUser(event.target.value)
@@ -16,7 +18,7 @@ export default function EachUserMapperBlog() {
 
     useEffect(() => {
         getAllUser(token).then(setAllUser)
-            .catch(error => console.error(error))
+            .catch(error => setError(error))
     }, [token])
 
     const reloadBlogPage = () => {
@@ -44,6 +46,7 @@ export default function EachUserMapperBlog() {
                 onChange={handleChange}
             />
             {eachUserListForBlog}
+            {error && <Error>{ error.response.data.error}</Error>}
         </div>
     )
 

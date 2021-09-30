@@ -8,6 +8,7 @@ import UserImage from "../../components/UserImage";
 import ProfileButton from "../../components/styled/ProfileButton";
 import {useEffect, useState} from "react";
 import {getBlogList} from "../../service/apiService";
+import Error from "../../components/Error";
 
 
 
@@ -15,11 +16,13 @@ import {getBlogList} from "../../service/apiService";
 export default function Profile(){
     const {user, token} = useAuth()
     const [blogs, setBlogs] = useState([])
+    const [error, setError] = useState()
+
 
     useEffect(() => {
         getBlogList(user.userName, token)
             .then(setBlogs)
-            .catch(error => console.error(error))
+            .catch(error => setError(error))
 
     }, [user, token])
 
@@ -42,6 +45,7 @@ export default function Profile(){
                 <ProfileButton as = {Link} to = "/logout">Logout</ProfileButton>
                 {!blogs.length > 0 && <ProfileButton as = {Link} to = "/newBlog">Bloggen</ProfileButton>}
             </Main>
+            {error && <Error>{ error.response.data.error}</Error>}
         </Page>
     )
 }

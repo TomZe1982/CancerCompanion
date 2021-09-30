@@ -17,10 +17,12 @@ export default function EditPassword() {
     const [credentials, setCredentials] = useState({})
     const [changedCredentials, setChangedCredentials] = useState()
     const [passwordRepeat, setPasswordRepeat] = useState("")
+    const [error, setError] = useState()
 
     useLayoutEffect(() => {
         getUser(user.userName, token)
             .then(setUserToChange)
+            .catch(error => setError(error))
     }, [user.userName, token])
 
 
@@ -45,7 +47,7 @@ export default function EditPassword() {
         event.preventDefault()
         updateUser(credentials, token)
             .then(changedCredentials => setChangedCredentials(changedCredentials))
-            .catch(error => console.error(error))
+            .catch(error => setError(error))
 
     }
 
@@ -71,6 +73,7 @@ export default function EditPassword() {
                 {(credentials.password !== "" && credentials.password === passwordRepeat) ?
                     <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
             </Main>
+            {error && <Error>{ error.response.data.error}</Error>}
         </Page>
 
     )
