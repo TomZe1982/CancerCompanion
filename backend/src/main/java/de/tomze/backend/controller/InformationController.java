@@ -8,9 +8,12 @@ import de.tomze.backend.model.UserEntity;
 import de.tomze.backend.service.InformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.security.auth.login.CredentialException;
+import javax.ws.rs.NotAuthorizedException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +33,10 @@ public class InformationController {
 
 
     @PostMapping()
-    public ResponseEntity<InformationToAppDto> createInfo(@AuthenticationPrincipal UserEntity authUser, @RequestBody InformationFromAppDto informationFromAppDto) throws IllegalAccessException {
+    public ResponseEntity<InformationToAppDto> createInfo(@AuthenticationPrincipal UserEntity authUser, @RequestBody InformationFromAppDto informationFromAppDto){
 
         if(authUser.getRole().equals("user")){
-            throw new IllegalAccessException("User must not create Information");
+            throw new NotAuthorizedException("User must not create Information");
         }
 
         InformationEntity informationEntity = informationService.createInfo(informationFromAppDto);
@@ -66,10 +69,10 @@ public class InformationController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<InformationToAppDto> updateInfo(@AuthenticationPrincipal UserEntity authUser, @PathVariable Long id, @RequestBody InformationFromAppDto informationFromAppDto) throws IllegalAccessException {
+    public ResponseEntity<InformationToAppDto> updateInfo(@AuthenticationPrincipal UserEntity authUser, @PathVariable Long id, @RequestBody InformationFromAppDto informationFromAppDto){
 
         if(authUser.getRole().equals("user")){
-            throw new IllegalAccessException("User must not update Information");
+            throw new NotAuthorizedException("User must not update Information");
         }
 
         InformationEntity updateInformationEntity = informationService.updateInfo(id, informationFromAppDto);
@@ -81,10 +84,10 @@ public class InformationController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<InformationToAppDto> deleteInfo(@AuthenticationPrincipal UserEntity authUser, @PathVariable Long id) throws IllegalAccessException {
+    public ResponseEntity<InformationToAppDto> deleteInfo(@AuthenticationPrincipal UserEntity authUser, @PathVariable Long id){
 
         if(authUser.getRole().equals("user")){
-            throw new IllegalAccessException("User must not delete Information");
+            throw new NotAuthorizedException("User must not delete Information");
         }
 
         InformationEntity deleteInformationEntity = informationService.deleteInfo(id);

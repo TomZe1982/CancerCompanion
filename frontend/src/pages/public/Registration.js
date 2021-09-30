@@ -38,8 +38,7 @@ export default function Registration() {
         setError()
         createUser(credentials)
             .then(registeredUser => setRegisteredUser(registeredUser))
-            .catch(error => {setError(error)
-            setLoading(false)})
+            .catch(error => setError(error))
             .finally(() => setCredentials({credentials: ""}))
     }
 
@@ -87,7 +86,7 @@ return (
             <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
         </Main>
         )}
-        {error && <Error>{error.message}</Error>}
+        {error && <Error>{ error.response.data.error}</Error>}
     </Page>
 
 )

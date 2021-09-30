@@ -28,10 +28,7 @@ export default function Login() {
         setLoading(true)
         setError()
         login(credentials)
-            .catch(error => {
-                setError(error)
-                setLoading(false)
-            })
+            .catch(error => setError(error))
     }
 
 
@@ -62,7 +59,7 @@ export default function Login() {
                         />
                         <Button>Login</Button>
                     </Form>)}
-                {error && <Error>{error.message}</Error>}
+                {error && <Error>{error.response.data.error}</Error>}
                 <Button as={Link} to="/register">Registrieren</Button>
             </Main>
 

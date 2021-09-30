@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import javax.ws.rs.NotAuthorizedException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -71,7 +72,7 @@ public class BlogService {
         BlogEntity blogEntityDelete = getBlogEntry(userName, blogId);
 
         if(authUser.getRole().equals("admin") && user.getRole().equals("admin") && !authUser.getUserName().equals(userName)){
-            throw new IllegalArgumentException("Admin must not delete admins blog");
+            throw new NotAuthorizedException("Admin must not delete admins blog");
         }
 
         user.getBlogEntries().remove(blogEntityDelete);

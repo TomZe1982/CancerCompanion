@@ -28,7 +28,7 @@ export default function EachInfo(){
                 <h2>{info.title}</h2>
             </section>
             <section>
-                <p>{info.info}</p>
+                <h4>{info.info}</h4>
             </section>
             </Box>
         </div>

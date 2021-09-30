@@ -26,7 +26,7 @@ export default function InfoCard() {
 
     return (
         <Wrapper>
-            {infoMap}
+           <p>{infoMap}</p>
         </Wrapper>
     )
 

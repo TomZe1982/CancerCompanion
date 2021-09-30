@@ -17,16 +17,20 @@ export default function Admin() {
     const {user, token} = useAuth()
     const [newVideoId, setNewVideoId] = useState("")
     const [loading, setLoading] = useState(false)
+    const [fetchedVideo, setFetchedVideo] = useState({})
 
 
     const handleSubmitUpload = (event) => {
         event.preventDefault()
         setLoading(true)
         getNewVideo(newVideoId, token)
+            .then(fetchedVideo => setFetchedVideo(fetchedVideo))
             .catch(error => console.error(error),
                 setLoading(false))
             .finally(() => setNewVideoId(""))
     }
+
+    console.log(fetchedVideo.items)
 
 
     const handleOnChangeUpload = (event) => {

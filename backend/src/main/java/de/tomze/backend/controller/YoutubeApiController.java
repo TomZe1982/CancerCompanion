@@ -15,6 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.ws.rs.NotAuthorizedException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +44,11 @@ public class YoutubeApiController {
     }
 
     @GetMapping("/api/tomze/videos/{vid_id}")
-    public  ResponseEntity<YoutubeApiDto> getVideo (@PathVariable String vid_id){
+    public  ResponseEntity<YoutubeApiDto> getVideo (@AuthenticationPrincipal UserEntity authUser, @PathVariable String vid_id){
+       if(authUser.getRole().equals("user")){
+           throw new NotAuthorizedException("User must not add videos");
+       }
+
         YoutubeApiDto youtubeToApiDto = youtubeService.getVideo(vid_id);
 
         VideoEntity videoEntity = VideoEntity.builder()
@@ -56,7 +61,7 @@ public class YoutubeApiController {
    @DeleteMapping("/api/tomze/videos/{vid_id}")
     public ResponseEntity<VideoDto> deleteVideo (@AuthenticationPrincipal UserEntity authUser,  @PathVariable String vid_id){
         if(authUser.getRole().equals("user")){
-            throw new IllegalArgumentException("User must not delete videos");
+            throw new NotAuthorizedException("User must not delete videos");
         }
         VideoEntity videoEntityToDelete = youtubeService.deleteVideo(vid_id);
        VideoDto videoDtoToDelete = map(videoEntityToDelete);

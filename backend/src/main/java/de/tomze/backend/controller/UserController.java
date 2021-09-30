@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.NotAuthorizedException;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -60,7 +61,7 @@ public class UserController extends UserControllerMapper {
     @PutMapping("/api/tomze/user/update/{userName}")
     public ResponseEntity<UserToAppDto> updateUser(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName, @RequestBody UserFromAppDto userFromAppDto) {
         if (authUser.getRole().equals("user") && !authUser.getUserName().equals(userName)){
-            throw new IllegalArgumentException("User must not update other user");
+            throw new NotAuthorizedException("User must not update other user");
         }
         UserEntity updatedUserEntity = userService.updateUser(userName, userFromAppDto);
         UserToAppDto updatedUserToAppDto = mapUserToAppDto(updatedUserEntity);
@@ -70,10 +71,10 @@ public class UserController extends UserControllerMapper {
     @PutMapping("/api/tomze/user/resetpassword/{userName}")
     public ResponseEntity<UserToAppDto> resetUserPassword(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName){
         if(authUser.getRole().equals("user")){
-            throw new IllegalArgumentException("only admin can reset users password");
+            throw new NotAuthorizedException("only admin can reset users password");
         }
         if(authUser.getRole().equals("admin") && authUser.getUserName().equals(userName)){
-            throw new IllegalArgumentException(("Admin must not reset own password"));
+            throw new NotAuthorizedException("Admin must not reset own password");
         }
         UserToAppDto userToAppDtoToResetPassword = userService.resetUserPassword(userName);
         return ok(userToAppDtoToResetPassword);
@@ -83,10 +84,10 @@ public class UserController extends UserControllerMapper {
     @DeleteMapping("/api/tomze/user/delete/{userName}")
     public ResponseEntity<UserToAppDto> deleteUser(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName) {
         if (authUser.getRole().equals("admin") && authUser.getUserName().equals(userName)) {
-            throw new IllegalArgumentException("Admin is not allowed to delete himself");
+            throw new NotAuthorizedException("Admin is not allowed to delete himself");
         }
         if (authUser.getRole().equals("user") && !authUser.getUserName().equals(userName)) {
-            throw new IllegalArgumentException("User must not delete other User");
+            throw new NotAuthorizedException("User must not delete other User");
         }
         UserEntity userEntityToDelete = userService.deleteUser(userName);
         UserToAppDto deletedUserToAppDto = mapUserToAppDto(userEntityToDelete);
