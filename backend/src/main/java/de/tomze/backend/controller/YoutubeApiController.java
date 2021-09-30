@@ -1,5 +1,6 @@
 package de.tomze.backend.controller;
 
+import de.tomze.backend.api.Item;
 import de.tomze.backend.api.VideoDto;
 import de.tomze.backend.api.YoutubeApiDto;
 
@@ -50,6 +51,18 @@ public class YoutubeApiController {
        }
 
         YoutubeApiDto youtubeToApiDto = youtubeService.getVideo(vid_id);
+
+       List<Item> itemList = youtubeToApiDto.getItems();
+
+       if(itemList.size() == 0){
+           throw new IllegalArgumentException("This video does not exist");
+       }
+
+       for(Item item : itemList) {
+           if (!item.getId().equals(vid_id)) {
+               throw new IllegalArgumentException("This video does not exist");
+           }
+       }
 
         VideoEntity videoEntity = VideoEntity.builder()
                 .vid_id(vid_id).build();
