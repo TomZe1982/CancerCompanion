@@ -1,4 +1,4 @@
-import Header from "../components/styled/Header";
+import StartHeader from "../components/styled/StartHeader";
 import Page from "../components/Page";
 import NavBar from "../components/NavBar";
 import Main from "../components/Main";
@@ -16,7 +16,7 @@ export default function StartScreen() {
         <Page>
             <NavBar user = {user}/>
             <Main>
-                <Header title="CancerCompanion"/>
+                <StartHeader title="CancerCompanion"/>
                 <Pulsation/>
             </Main>
             <ButtonGroup>
