@@ -6,6 +6,8 @@ import {Link} from "react-router-dom";
 import {useAuth} from "../auth/AuthProvider";
 import StartScreenButton from "../components/styled/StartScreenButton";
 import styled from "styled-components/macro";
+import Pulsation from "../components/Pulsation";
+
 
 export default function StartScreen() {
     const {user} = useAuth()
@@ -16,8 +18,7 @@ export default function StartScreen() {
             <Main>
                 <Header title="CancerCompanion"></Header>
 
-
-
+                <Pulsation/>
 
             </Main>
             <ButtonGroup>

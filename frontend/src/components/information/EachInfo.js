@@ -27,10 +27,10 @@ export default function EachInfo(){
         <div>
             <Box>
             <section>
-                <h2>{info.title}</h2>
+                <h3>{info.title}</h3>
             </section>
             <section>
-                <h4>{info.info}</h4>
+                <p>{info.info}</p>
             </section>
             </Box>
             {error && <Error>{ error.response.data.error}</Error>}

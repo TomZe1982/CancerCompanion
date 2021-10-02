@@ -9,24 +9,31 @@ import UpdateBox from "../../components/styled/UpdateBox";
 import Error from "../../components/Error";
 import styled from "styled-components/macro";
 import {Link} from "react-router-dom";
+import Loading from "../../components/Loading";
 
 
 
 export default function UpdateInformation(){
     const {user, token} = useAuth()
     const [infos, setInfos] = useState([])
+    const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
 
     useEffect(() => {
+        setLoading(true)
         getInfos()
             .then(setInfos)
+            .then(loading => setLoading(loading === false))
             .catch(error => setError(error))
     }, [])
 
 
     function reloadPage() {
+        setLoading(true)
         return getInfos()
             .then(setInfos)
+            .then(loading => setLoading(loading === false))
+            .catch(error => setError(error))
     }
 
     const info = infos.map(infoDetails =>
@@ -45,9 +52,12 @@ export default function UpdateInformation(){
     return(
         <Page>
             <NavBar user = { user } />
+            {loading && <Loading/>}
+            {!loading && (
             <Main>
                 {info}
             </Main>
+            )}
             {error && <Error>{ error.response.data.error}</Error>}
         </Page>
     )

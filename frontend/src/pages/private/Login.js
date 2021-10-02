@@ -39,10 +39,11 @@ export default function Login() {
     return (
         <Page>
             <NavBar user={user}/>
+            {loading && <Loading/>}
+            {!loading && (
             <Main>
                 <Header title="Login"/>
-                {loading && <Loading/>}
-                {!loading && (
+
                     <Form onSubmit={submitHandler}>
                         <TextField
                             title="Benutzername"
@@ -58,10 +59,11 @@ export default function Login() {
                             onChange={handleOnChange}
                         />
                         <Button>Login</Button>
-                    </Form>)}
+                    </Form>
                 {error && <Error>{error.response.data.error}</Error>}
                 <Button as={Link} to="/register">Registrieren</Button>
             </Main>
+                )}
 
         </Page>
     )

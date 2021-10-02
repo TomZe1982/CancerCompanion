@@ -9,6 +9,7 @@ import {getVideoList} from "../../service/apiService";
 import { useEffect, useState} from "react";
 import VideoCard from "../../components/video/VideoCard";
 import Error from "../../components/Error";
+import Loading from "../../components/Loading";
 
 
 
@@ -16,18 +17,23 @@ export default function MakeUpTutorials() {
     const {user, token} = useAuth()
 
     const [videoList, setVideoList] = useState([])
+    const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
 
     useEffect(()=>{
+        setLoading(true)
         getVideoList(token)
             .then(setVideoList)
+            .then(() => setLoading(false))
             .catch(error => setError(error))
     }, [user, token])
 
 
     const reloadPage = () =>{
+        setLoading(false)
         getVideoList(token)
             .then(setVideoList)
+            .then(()=>setLoading(false))
             .catch(error => setError(error))
     }
 
@@ -49,12 +55,15 @@ export default function MakeUpTutorials() {
     return (
         <Page>
             <NavBar user = {user}/>
+            {loading && <Loading/>}
+            {!loading && (
             <Main>
                 <Header title="Tutorials"/>
                 <ul>
                     <List>{newVideoList}</List>
                 </ul>
             </Main>
+            )}
             {error && <Error>{ error.response.data.error}</Error>}
         </Page>
     )

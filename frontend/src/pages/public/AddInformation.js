@@ -9,12 +9,14 @@ import Button from "../../components/styled/Button";
 import TextField from "../../components/TextField";
 import Error from "../../components/Error";
 import TextAreaUpdate from "../../components/TextAreaUpdate";
+import Loading from "../../components/Loading";
 
 
 export default function AddInformation() {
     const {token, user} = useAuth()
 
     const [credentials, setCredentials] = useState({})
+    const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
 
     const handleOnChange = (event) => {
@@ -23,15 +25,19 @@ export default function AddInformation() {
 
     const handleSubmit = (event) => {
         event.preventDefault()
+        setLoading(true)
         postInfo(credentials, token )
             .then(response => console.log(response))
+            .then(() => setCredentials({credentials: ""}))
             .catch(error => setError(error))
-            .finally(() => setCredentials({credentials: ""}))
+            .finally(() => setLoading(false))
     }
 
     return (
         <Page>
             <NavBar user = {user} />
+            {loading && <Loading/>}
+            {!loading && (
             <Main as = "form" onSubmit={handleSubmit}>
                 <Header title="Admin Add Information"/>
                     <TextField title ="Titel"
@@ -47,6 +53,7 @@ export default function AddInformation() {
                 {(credentials.title !== "" && credentials.info !== "") ?
                     <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
             </Main>
+            )}
             {error && <Error>{ error.response.data.error}</Error>}
         </Page>
     )

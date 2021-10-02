@@ -19,7 +19,7 @@ import {useAuth} from "../../auth/AuthProvider";
 export default function Registration() {
     const{user} = useAuth()
     const [credentials, setCredentials] = useState({credentials: ""});
-    const [loading] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [registeredUser, setRegisteredUser] = useState()
     const [passwordRepeat, setPasswordRepeat] = useState("")
     const [error, setError] = useState()
@@ -35,9 +35,10 @@ export default function Registration() {
 
     const handleSubmit = event => {
         event.preventDefault()
-        setError()
+        setLoading(true)
         createUser(credentials)
             .then(registeredUser => setRegisteredUser(registeredUser))
+            .then(loading => setLoading(loading === false))
             .catch(error => setError(error))
             .finally(() => setCredentials({credentials: ""}))
     }
