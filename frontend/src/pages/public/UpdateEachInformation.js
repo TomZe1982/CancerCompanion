@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import Page from "../../components/Page";
 import NavBar from "../../components/NavBar";
 import Main from "../../components/Main";
@@ -13,6 +13,7 @@ import TextAreaUpdate from "../../components/TextAreaUpdate";
 
 
 export default function UpdateEachInformation(){
+    const history = useHistory()
     const {user, token} = useAuth()
     const {informationId} = useParams();
     const [error, setError] = useState()
@@ -29,16 +30,14 @@ export default function UpdateEachInformation(){
         setUpdatedInfo({...updatedInfo, [event.target.name]: event.target.value})
     }
 
-    const reloadPage = () => {
-        getInfoById(informationId, token)
-            .then(setUpdatedInfo)
-            .catch(error => setError(error))
+    const redirectTo = () => {
+        return history.push("/info")
     }
 
     const handleClick = () => {
         updateInfo(informationId, updatedInfo, token)
             .then(setUpdatedInfo)
-            .then(reloadPage)
+            .then(redirectTo)
             .catch(error => setError(error))
     }
 

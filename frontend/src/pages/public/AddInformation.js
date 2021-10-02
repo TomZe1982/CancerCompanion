@@ -3,12 +3,12 @@ import Page from "../../components/Page";
 import Main from "../../components/Main";
 import Header from "../../components/styled/Header";
 import {useAuth} from "../../auth/AuthProvider";
-import TextArea from "../../components/TextArea";
 import {useState} from "react";
 import {postInfo} from "../../service/apiService";
 import Button from "../../components/styled/Button";
 import TextField from "../../components/TextField";
 import Error from "../../components/Error";
+import TextAreaUpdate from "../../components/TextAreaUpdate";
 
 
 export default function AddInformation() {
@@ -39,7 +39,7 @@ export default function AddInformation() {
                               value={credentials.title || ""}
                               onChange={handleOnChange}
                     />
-                    <TextArea title ="Text"
+                    <TextAreaUpdate title ="Text"
                               name="info"
                               value={credentials.info || ""}
                               onChange={handleOnChange}
