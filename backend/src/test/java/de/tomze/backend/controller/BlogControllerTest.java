@@ -401,7 +401,7 @@ class BlogControllerTest {
         ResponseEntity<BlogToAppDto> response = restTemplate.exchange(url() + "/newblog", HttpMethod.POST, httpEntity, BlogToAppDto.class);
 
         //THEN
-        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR) );
+        assertThat(response.getStatusCode(), is(HttpStatus.NOT_FOUND) );
     }
 
     @Test
@@ -422,7 +422,7 @@ class BlogControllerTest {
         ResponseEntity<BlogToAppDto> response = restTemplate.exchange(url() + "/newblog", HttpMethod.POST, httpEntity, BlogToAppDto.class);
 
         //THEN
-        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR) );
+        assertThat(response.getStatusCode(), is(HttpStatus.NOT_FOUND) );
     }
 
     @Test
@@ -443,7 +443,7 @@ class BlogControllerTest {
         ResponseEntity<BlogToAppDto> response = restTemplate.exchange(url() + "/newblog", HttpMethod.POST, httpEntity, BlogToAppDto.class);
 
         //THEN
-        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR) );
+        assertThat(response.getStatusCode(), is(HttpStatus.NOT_FOUND) );
     }
 
     @Test
@@ -464,7 +464,7 @@ class BlogControllerTest {
         ResponseEntity<BlogToAppDto> response = restTemplate.exchange(url() + "/newblog", HttpMethod.POST, httpEntity, BlogToAppDto.class);
 
         //THEN
-        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR) );
+        assertThat(response.getStatusCode(), is(HttpStatus.NOT_FOUND) );
     }
 
     //DELETE METHOD

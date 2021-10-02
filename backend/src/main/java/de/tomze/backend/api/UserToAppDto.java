@@ -20,4 +20,6 @@ public class UserToAppDto {
 
     private String email;
 
+    private String avatar;
+
 }

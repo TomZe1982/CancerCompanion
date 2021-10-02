@@ -1,6 +1,7 @@
 import styled from "styled-components/macro";
 
 export default styled.div`
+  background: antiquewhite;
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr;
@@ -9,7 +10,7 @@ export default styled.div`
   padding: 2px 0px;
   border: 1px solid var(--accent);
   box-sizing: border-box;
-  border-radius: 12px;
+  border-radius: 5px;
   box-shadow: 1px 2px 8px #666;
   margin: 5px 0px;
   text-align: center;
@@ -18,22 +19,4 @@ export default styled.div`
   justify-items: center;
   align-items: center;
   
-  .details{
-    grid-row: 1;
-    text-align: center;
-    justify-items: center;
-    align-items: center;
-  }
-  
-  .button{
-    grid-row: 2;
-    display: flex;
-    justify-content: flex-start;
-  }
-  
-  .link{
-    grid-row: 2;
-    display: flex;
-    justify-content: flex-end;
-  }
 `

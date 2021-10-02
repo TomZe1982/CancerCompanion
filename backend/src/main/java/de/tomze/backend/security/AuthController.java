@@ -47,9 +47,15 @@ public class AuthController{
     @PostMapping(ACCESS_TOKEN_URL)
     public ResponseEntity<AccessToken> getAccessToken(@RequestBody Credentials credentials){
         String userName = credentials.getUserName();
-        hasText(userName, "Username must not be blank to get token");
         String password = credentials.getPassword();
-        hasText(password, "Password must not be blank to get token");
+
+        if(userName == null || userName.isEmpty()){
+            throw new IllegalArgumentException("username must not be empty");
+        }
+
+        if(password == null || password.isEmpty()){
+            throw new IllegalArgumentException("password must not be empty");
+        }
 
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userName, password);
 

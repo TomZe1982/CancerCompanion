@@ -27,8 +27,8 @@ export default createGlobalStyle`
     }
     
     p{
-      text-align: center;
-      color: var(--accent);
+      text-align: start;
+      color: dimgrey;
     }
     
     h1{
@@ -43,7 +43,12 @@ export default createGlobalStyle`
 
     h3{
       text-align: center;
-      color: var(--accent);
+      color: dimgrey;
+    }
+
+    h4{
+      text-align: center;
+      color: dimgrey;
     }
     
 `

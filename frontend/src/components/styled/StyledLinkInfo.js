@@ -2,6 +2,7 @@ import styled from "styled-components/macro";
 import {Link} from "react-router-dom";
 
 export default styled(Link)`
+  background: antiquewhite;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 100%;
@@ -13,7 +14,7 @@ export default styled(Link)`
   padding: 20px 0px;
   border: 1px solid var(--accent);
   box-sizing: content-box;
-  border-radius: 12px;
+  border-radius: 5px;
   box-shadow: 1px 2px 8px #666;
   margin: 20px 0px;
   align-content: center;

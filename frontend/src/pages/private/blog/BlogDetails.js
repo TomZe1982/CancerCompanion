@@ -16,9 +16,7 @@ export default function BlogDetails() {
             <NavBar user={user}/>
             <Main>
                 <Header title={fetchedNameForUserBlog}/>
-                <section>
                 <BlogEntries/>
-                </section>
             </Main>
 
         </Page>

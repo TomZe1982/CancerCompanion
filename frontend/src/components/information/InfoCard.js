@@ -3,16 +3,18 @@ import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import StyledLinkInfo from "../styled/StyledLinkInfo";
 import styled from "styled-components/macro";
+import Error from "../Error";
 
 
 
 export default function InfoCard() {
     const [infos, setInfos] = useState([])
+    const [error, setError] = useState()
 
     useEffect(() => {
         getInfos()
             .then(setInfos)
-            .catch(error => console.error(error))
+            .catch(error => setError(error))
     }, [])
 
 
@@ -26,7 +28,8 @@ export default function InfoCard() {
 
     return (
         <Wrapper>
-            {infoMap}
+           <p>{infoMap}</p>
+            {error && <Error>{ error.response.data.error}</Error>}
         </Wrapper>
     )
 

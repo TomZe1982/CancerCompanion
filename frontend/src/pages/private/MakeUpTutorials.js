@@ -8,6 +8,7 @@ import List from "../../components/List";
 import {getVideoList} from "../../service/apiService";
 import { useEffect, useState} from "react";
 import VideoCard from "../../components/video/VideoCard";
+import Error from "../../components/Error";
 
 
 
@@ -15,17 +16,19 @@ export default function MakeUpTutorials() {
     const {user, token} = useAuth()
 
     const [videoList, setVideoList] = useState([])
-
+    const [error, setError] = useState()
 
     useEffect(()=>{
         getVideoList(token)
             .then(setVideoList)
+            .catch(error => setError(error))
     }, [user, token])
 
 
     const reloadPage = () =>{
         getVideoList(token)
             .then(setVideoList)
+            .catch(error => setError(error))
     }
 
 
@@ -52,6 +55,7 @@ export default function MakeUpTutorials() {
                     <List>{newVideoList}</List>
                 </ul>
             </Main>
+            {error && <Error>{ error.response.data.error}</Error>}
         </Page>
     )
 

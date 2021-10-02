@@ -1,4 +1,4 @@
-package de.tomze.backend.controller.informationControllerTests;
+package de.tomze.backend.controller;
 
 
 import de.tomze.backend.api.InformationFromAppDto;
@@ -53,32 +53,8 @@ class InformationControllerTest {
         informationRepository.deleteAll();
     }
 
-    @BeforeEach
-    public void initializeDB() {
-        informationRepository.save(InformationEntity.builder()
-                .id(1L)
-                .title("Halli")
-                .info("Hallo").build());
-
-        informationRepository.save(InformationEntity.builder()
-                .id(2L)
-                .title("Affen")
-                .info("Tanz").build());
-
-        informationRepository.save(InformationEntity.builder()
-                .id(3L)
-                .title("Manno")
-                .info("Mann").build());
-
-        informationRepository.save(InformationEntity.builder()
-                .id(4L)
-                .title("Frauo")
-                .info("Frau").build());
-    }
-
 
     @Test
-    @Order(8)
     public void adminShouldCreateInfo() {
         //GIVEN
         InformationFromAppDto informationFromAppDto = InformationFromAppDto.builder()
@@ -97,7 +73,6 @@ class InformationControllerTest {
     }
 
     @Test
-    @Order(7)
     public void userMustNotCreateInfo() {
         //GIVEN
         InformationFromAppDto informationFromAppDto = InformationFromAppDto.builder()
@@ -113,8 +88,15 @@ class InformationControllerTest {
     }
 
     @Test
-    @Order(6)
     public void shouldGetAllInfos() {
+        //GIVEN
+        InformationEntity informationEntity1 = informationRepository.save(InformationEntity.builder()
+                .title("Halli")
+                .info("Hallo").build());
+
+        InformationEntity informationEntity2 = informationRepository.save(InformationEntity.builder()
+                .title("Affen")
+                .info("Tanz").build());
 
         //WHEN
         HttpEntity<InformationFromAppDto> httpEntity = new HttpEntity<>(null);
@@ -123,16 +105,23 @@ class InformationControllerTest {
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(response.getBody(),is(notNullValue()));
-        assertThat(response.getBody().length, is(4));
+        assertThat(response.getBody().length, is(2));
     }
 
     @Test
-    @Order(1)
     public void shouldGetSpecialInfo() {
+        //GIVEN
+        InformationEntity informationEntity1 = informationRepository.save(InformationEntity.builder()
+                .title("Halli")
+                .info("Hallo").build());
+
+        InformationEntity informationEntity2 = informationRepository.save(InformationEntity.builder()
+                .title("Affen")
+                .info("Tanz").build());
 
         //WHEN
         HttpEntity<InformationFromAppDto> httpEntity = new HttpEntity<>(null);
-        ResponseEntity<InformationToAppDto> response = restTemplate.exchange(url() + "/all/1", HttpMethod.GET,  httpEntity, InformationToAppDto.class);
+        ResponseEntity<InformationToAppDto> response = restTemplate.exchange(url() + "/all/" + informationEntity1.getId(), HttpMethod.GET,  httpEntity, InformationToAppDto.class);
 
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
@@ -143,15 +132,23 @@ class InformationControllerTest {
 
 
     @Test
-    @Order(4)
     public void userMustNotUpdateSpecialInfo() {
+        //GIVEN
+        InformationEntity informationEntity1 = informationRepository.save(InformationEntity.builder()
+                .title("Halli")
+                .info("Hallo").build());
+
+        InformationEntity informationEntity2 = informationRepository.save(InformationEntity.builder()
+                .title("Affen")
+                .info("Tanz").build());
+
         InformationFromAppDto informationFromAppDto = InformationFromAppDto.builder()
                 .title("Guten")
                 .info("Flug").build();
 
         //WHEN
         HttpEntity<InformationFromAppDto> httpEntity = new HttpEntity<>(informationFromAppDto, authorizedHeader("lala", "user"));
-        ResponseEntity<InformationToAppDto> response = restTemplate.exchange(url() + "/3", HttpMethod.PUT,  httpEntity, InformationToAppDto.class);
+        ResponseEntity<InformationToAppDto> response = restTemplate.exchange(url() + "/" + informationEntity2.getId(), HttpMethod.PUT,  httpEntity, InformationToAppDto.class);
 
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR));
@@ -159,17 +156,75 @@ class InformationControllerTest {
 
 
     @Test
-    @Order(3)
     public void userMustNotDeleteSpecialInfo() {
+        //GIVEN
+        InformationEntity informationEntity1 = informationRepository.save(InformationEntity.builder()
+                .title("Halli")
+                .info("Hallo").build());
+
+        InformationEntity informationEntity2 = informationRepository.save(InformationEntity.builder()
+                .title("Affen")
+                .info("Tanz").build());
 
         //WHEN
         HttpEntity<InformationFromAppDto> httpEntity = new HttpEntity<>(authorizedHeader("lala", "user"));
-        ResponseEntity<InformationToAppDto> response = restTemplate.exchange(url() + "/4", HttpMethod.DELETE,  httpEntity, InformationToAppDto.class);
+        ResponseEntity<InformationToAppDto> response = restTemplate.exchange(url() + "/" + informationEntity2.getId(), HttpMethod.DELETE,  httpEntity, InformationToAppDto.class);
 
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
+    @Test
+    public void adminShouldUpdateSpecialInfo() {
+        //GIVEN
+        InformationEntity informationEntity1 = informationRepository.save(InformationEntity.builder()
+                .title("Halli")
+                .info("Hallo").build());
+
+        InformationEntity informationEntity2 = informationRepository.save(InformationEntity.builder()
+                .title("Affen")
+                .info("Tanz").build());
+
+        InformationFromAppDto informationFromAppDto = InformationFromAppDto.builder()
+                .title("Guten")
+                .info("Flug").build();
+
+        //WHEN
+        HttpEntity<InformationFromAppDto> httpEntity = new HttpEntity<>(informationFromAppDto, authorizedHeader("toto", "admin"));
+        ResponseEntity<InformationToAppDto> response = restTemplate.exchange(url() + "/" + informationEntity2.getId(), HttpMethod.PUT,  httpEntity, InformationToAppDto.class);
+
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response.getBody(),is(notNullValue()));
+        assertThat(response.getBody().getTitle(), is("Guten"));
+        assertThat(response.getBody().getInfo(), is("Flug"));
+    }
+
+
+
+    @Test
+    public void adminShouldDeleteSpecialInfo() {
+        //GIVEN
+        InformationEntity informationEntity1 = informationRepository.save(InformationEntity.builder()
+                .title("Halli")
+                .info("Hallo").build());
+
+        InformationEntity informationEntity2 = informationRepository.save(InformationEntity.builder()
+                .title("Affen")
+                .info("Tanz").build());
+
+
+        //WHEN
+        HttpEntity<InformationFromAppDto> httpEntity = new HttpEntity<>(authorizedHeader("toto", "admin"));
+        ResponseEntity<InformationToAppDto> response = restTemplate.exchange(url() + "/" +informationEntity2.getId() , HttpMethod.DELETE,  httpEntity, InformationToAppDto.class);
+        ResponseEntity<InformationToAppDto[]> response2 = restTemplate.exchange(url() + "/all", HttpMethod.GET,  httpEntity, InformationToAppDto[].class);
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response2.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response2.getBody(), is(notNullValue()));
+        assertThat(response2.getBody().length, is(1));
+
+    }
 
 
 

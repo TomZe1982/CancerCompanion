@@ -18,9 +18,10 @@ import {useAuth} from "../../auth/AuthProvider";
 
 export default function Registration() {
     const{user} = useAuth()
-    const [credentials, setCredentials] = useState("");
-    const [loading, setLoading] = useState(false)
+    const [credentials, setCredentials] = useState({credentials: ""});
+    const [loading] = useState(false)
     const [registeredUser, setRegisteredUser] = useState()
+    const [passwordRepeat, setPasswordRepeat] = useState("")
     const [error, setError] = useState()
 
 
@@ -28,15 +29,20 @@ export default function Registration() {
         setCredentials({...credentials, [event.target.name]: event.target.value})
     }
 
+    const handleOnChangeRepeat = (event) => {
+        setPasswordRepeat(event.target.value)
+    }
+
     const handleSubmit = event => {
         event.preventDefault()
         setError()
         createUser(credentials)
             .then(registeredUser => setRegisteredUser(registeredUser))
-            .catch(error => {setError(error)
-            setLoading(false)})
+            .catch(error => setError(error))
             .finally(() => setCredentials({credentials: ""}))
     }
+
+    console.log(credentials)
 
     if(registeredUser){
         return <Redirect to = "/login"/>
@@ -60,15 +66,27 @@ return (
                 value={credentials.email || ""}
                 onChange={handleOnChange}/>
             <TextField
+                title="Avatar"
+                name="avatar"
+                value={credentials.avatar || ""}
+                onChange={handleOnChange}/>
+            <TextField
                 title="Passwort"
                 name="password"
+                type="password"
                 value={credentials.password || ""}
                 onChange={handleOnChange}/>
-            {(credentials.userName !== "" && credentials.email !== "" && credentials.password !== "") ?
+            <TextField
+                title="Passwort"
+                name="password"
+                type="password"
+                value={passwordRepeat}
+                onChange={handleOnChangeRepeat}/>
+            {(credentials.userName !== "" && credentials.email !== "" && credentials.password !== "" && credentials.password === passwordRepeat) ?
             <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
         </Main>
         )}
-        {error && <Error>{error.message}</Error>}
+        {error && <Error>{ error.response.data.error}</Error>}
     </Page>
 
 )

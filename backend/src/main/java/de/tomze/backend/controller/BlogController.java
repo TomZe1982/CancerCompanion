@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.NotAuthorizedException;
 import java.util.List;
 
 
@@ -65,7 +66,7 @@ public class BlogController extends BlogControllerMapper {
     public ResponseEntity<BlogToAppDto> deleteBlogEntry(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName, @PathVariable Long blogId){
 
         if(authUser.getRole().equals("user") && !authUser.getUserName().equals(userName)){
-            throw new IllegalArgumentException("User must not delete another user");
+            throw new NotAuthorizedException("User must not delete another user");
         }
 
         BlogEntity blogEntityDelete = blogService.deleteBlogEntry(authUser, userName, blogId);

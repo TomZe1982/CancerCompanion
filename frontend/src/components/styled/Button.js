@@ -6,11 +6,12 @@ export default styled.button`
   width: 150px;
   text-align: center;
   padding: var(--size-xs);
+  margin: 5px 5px;
   background: var(--accent);
   border: 1px solid var(--accent);
   color: var(--neutral-light);
   font-size: 1em;
-  border-radius: var(--size-xl);
+  border-radius: 5px;
 
   :disabled {
     border-color: var(--neutral-dark);

@@ -2,10 +2,12 @@ package de.tomze.backend;
 
 import de.tomze.backend.config.JpaConfig;
 import de.tomze.backend.service.UserService;
+import de.tomze.backend.youtube.YoutubeApi;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.*;
 
+import org.springframework.core.annotation.AliasFor;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
@@ -35,5 +37,11 @@ public class SpringTestContextConfiguration {
         return mock(UserService.class);
     }
 
+    @Primary
+    @Bean(name = "youtubeAPIMock")
+    @AliasFor("youtubeApi")
+    public YoutubeApi getGithubAPI() {
+        return mock(YoutubeApi.class);
+    }
 
 }

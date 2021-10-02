@@ -14,7 +14,7 @@ export default function Header({title, ...props}){
 const Wrapper = styled.header`
   width: 100%;
   text-align: center;
-  background: var(--background);
+  //background: var(--background);
   color: var(--accent);
   
 `

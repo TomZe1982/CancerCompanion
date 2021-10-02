@@ -21,7 +21,7 @@ export default function Logout () {
             <NavBar user = {user}/>
             <Main>
                 <Header title = "Logout"/>
-            <p>{user.userName}, möchtest Du Dich wirklich ausloggen?</p>
+            <h2>{user.userName}, möchtest Du Dich wirklich ausloggen?</h2>
             <Button onClick = {logout}>Logout</Button>
             </Main>
         </Page>
