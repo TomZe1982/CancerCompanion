@@ -16,10 +16,8 @@ export default function StartScreen() {
         <Page>
             <NavBar user = {user}/>
             <Main>
-                <Header title="CancerCompanion"></Header>
-
+                <Header title="CancerCompanion"/>
                 <Pulsation/>
-
             </Main>
             <ButtonGroup>
             <StartScreenButton as={Link} to ="/login">Community</StartScreenButton>

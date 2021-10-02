@@ -74,7 +74,7 @@ export default function EditPassword() {
                     value={credentials.password || ""}
                     onChange={handleOnChange}/>
                 <TextField
-                    title="Passwort"
+                    title="Passwort wiederholen"
                     type="password"
                     value={passwordRepeat}
                     onChange={handleOnChangeRepeat}/>

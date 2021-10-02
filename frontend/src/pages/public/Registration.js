@@ -78,7 +78,7 @@ return (
                 value={credentials.password || ""}
                 onChange={handleOnChange}/>
             <TextField
-                title="Passwort"
+                title="Passwort wiederholen"
                 name="password"
                 type="password"
                 value={passwordRepeat}

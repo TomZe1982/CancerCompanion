@@ -29,6 +29,7 @@ export default function Login() {
         setError()
         login(credentials)
             .catch(error => setError(error))
+            .finally(() => setLoading(false))
     }
 
 

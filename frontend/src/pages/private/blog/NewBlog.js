@@ -14,7 +14,7 @@ import Loading from "../../../components/Loading";
 
 export default function NewBlog() {
     const {user, token} = useAuth()
-    const [blogEntry, setBlogEntry] = useState({})
+    const [blogEntry, setBlogEntry] = useState("")
     const [error, setError] = useState()
     const [loading, setLoading] = useState(false)
     const history = useHistory()

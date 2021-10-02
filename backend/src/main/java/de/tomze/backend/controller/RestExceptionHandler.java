@@ -1,5 +1,6 @@
 package de.tomze.backend.controller;
 
+import io.jsonwebtoken.JwtException;
 import lombok.Getter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<RestException> handle400(Throwable e) {
         return createRestException(e, HttpStatus.BAD_REQUEST);
     }
+
 
 
 
