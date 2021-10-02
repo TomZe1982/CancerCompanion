@@ -4,6 +4,7 @@ import { useState} from "react";
 import {deleteUser, resetPassword} from "../service/apiService";
 import {useAuth} from "../auth/AuthProvider";
 import Error from "./Error";
+import Box from "./styled/Box";
 
 
 
@@ -27,12 +28,16 @@ export default function EachUser( { fetchedUserName, reloadUserPage } ) {
 
     return (
         <div>
+            <Box>
              <section>{fetchedUserName}
             </section>
+                <details>
             <Button onClick={handleDeleteUser}>User löschen</Button>
             <Button onClick={handleResetPassword}>Passwort zurücksetzen</Button>
             <h1>{resetUserPassword.password}</h1>
             {error && <Error>{ error.response.data.error}</Error>}
+                </details>
+            </Box>
         </div>
     )
 }

@@ -10,5 +10,5 @@ export default styled.button`
   border: 1px solid var(--accent);
   color: var(--neutral-light);
   font-size: 1em;
-  border-radius: 50%;
+  border-radius: 5px;
 `
