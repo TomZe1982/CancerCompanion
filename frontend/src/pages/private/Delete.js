@@ -27,7 +27,8 @@ export default function Delete() {
         deleteUser(user.userName, token)
             .then(deletedUser => setDeletedUser(deletedUser))
             .then(logout)
-            .catch(error => setError(error), setLoading(false))
+            .then(() => setLoading(false))
+            .catch(error => setError(error))
     }
 
 
@@ -41,7 +42,8 @@ export default function Delete() {
             <NavBar user = {user}/>
             <Header title="Löschen"/>
             {loading && <Loading/>}
-            {!loading && ( <Main>
+            {!loading && (
+                <Main>
                 <p>{user.userName}, möchtest Du Dein Profil wirklich löschen?</p>
                 <Button as = {Link} to = "/profile">Nein, natürlich nicht</Button>
                 <Button as = {Link} to = "/" onClick = {handleDelete}>Ja</Button>

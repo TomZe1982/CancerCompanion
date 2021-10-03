@@ -14,5 +14,6 @@ const Wrapper = styled.header`
   width: 100%;
   text-align: center;
   color: var(--accent);
+
   
 `

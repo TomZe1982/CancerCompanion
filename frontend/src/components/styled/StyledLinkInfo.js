@@ -8,7 +8,7 @@ export default styled(Link)`
   grid-template-rows: 100%;
   text-decoration: none;
   text-align: center;
-  color: var(--accent);
+  color: dimgrey;
   width: 100%;
   height: 100%;
   padding: 20px 0px;

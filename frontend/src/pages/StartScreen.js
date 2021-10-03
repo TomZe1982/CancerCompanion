@@ -1,4 +1,4 @@
-import Header from "../components/styled/Header";
+import StartHeader from "../components/styled/StartHeader";
 import Page from "../components/Page";
 import NavBar from "../components/NavBar";
 import Main from "../components/Main";
@@ -6,6 +6,8 @@ import {Link} from "react-router-dom";
 import {useAuth} from "../auth/AuthProvider";
 import StartScreenButton from "../components/styled/StartScreenButton";
 import styled from "styled-components/macro";
+import Pulsation from "../components/Pulsation";
+
 
 export default function StartScreen() {
     const {user} = useAuth()
@@ -14,11 +16,8 @@ export default function StartScreen() {
         <Page>
             <NavBar user = {user}/>
             <Main>
-                <Header title="CancerCompanion"></Header>
-
-
-
-
+                <StartHeader title="CancerCompanion"/>
+                <Pulsation/>
             </Main>
             <ButtonGroup>
             <StartScreenButton as={Link} to ="/login">Community</StartScreenButton>

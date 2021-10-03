@@ -10,6 +10,7 @@ import {useEffect, useState} from "react";
 import {Redirect} from "react-router-dom";
 import {getUser, updateUser} from "../../service/apiService";
 import Box from "../../components/styled/Box";
+import Loading from "../../components/Loading";
 
 
 export default function EditSettings() {
@@ -17,11 +18,14 @@ export default function EditSettings() {
     const [userToChange, setUserToChange] = useState({})
     const [credentials, setCredentials] = useState({})
     const [changedCredentials, setChangedCredentials] = useState()
+    const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
 
     useEffect(() => {
+        setLoading(true)
         getUser(user.userName, token)
             .then(setUserToChange)
+            .then(()=>setLoading(false))
             .catch(error => setError(error))
     }, [user.userName, token])
 
@@ -36,8 +40,6 @@ export default function EditSettings() {
             setChangedCredentials(changedCredentials)
     }
 
-    console.log(credentials)
-
     if(changedCredentials)
     {
         return <Redirect to = "/profile"/>
@@ -46,8 +48,10 @@ export default function EditSettings() {
 
     const handleSubmit = (event) => {
         event.preventDefault()
+        setLoading(true)
         updateUser(credentials, token)
             .then(changedCredentials => setChangedCredentials(changedCredentials))
+            .then(()=>setLoading(false))
             .catch(error => setError(error))
     }
 
@@ -57,6 +61,8 @@ export default function EditSettings() {
 
     return (<Page>
             <NavBar user = {user}/>
+            {loading && <Loading/>}
+            {!loading && (
             <Main as="form" onSubmit={handleSubmit}>
                 <Header title="Profil bearbeiten"/>
                 <Box>
@@ -70,6 +76,7 @@ export default function EditSettings() {
                 {credentials.email !== "" ?
                     <Button>Bestätigen</Button> : <Error>Bitte Felder befüllen</Error>}
             </Main>
+            )}
             {error && <Error>{ error.response.data.error}</Error>}
         </Page>
 

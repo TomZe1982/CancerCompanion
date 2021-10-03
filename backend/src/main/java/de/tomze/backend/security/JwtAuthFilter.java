@@ -50,7 +50,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 );
             }
         } catch (JwtException e) {
-            log.error("Unable to parse JWT", e);
+           log.error("Wrong registration data");
         }
 
         filterchain.doFilter(request, response);

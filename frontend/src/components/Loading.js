@@ -1,46 +1,15 @@
-import styled from "styled-components/macro";
+import Loader from 'react-loader-spinner'
 
 
-export default function Loading ( { props }) {
+export default function Loading () {
 
-    return(
 
-    <Wrapper {...props}>
-        <div className="lds-circle">
-            <div></div>
+
+    return (
+        <div>
+            <Loader type="Rings" color="var(--accent)" height={150} width={150}/>
         </div>
-    </Wrapper>
-)
+    )
+
+
 }
-
-const Wrapper = styled.div`
-  .lds-circle {
-    display: inline-block;
-    transform: translateZ(1px);
-  }
-  .lds-circle > div {
-    display: inline-block;
-    width: 64px;
-    height: 64px;
-    margin: 8px;
-    border-radius: 50%;
-    background: (var--accent);
-    animation: lds-circle 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-  }
-  @keyframes lds-circle {
-    0%, 100% {
-      animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
-    }
-    0% {
-      transform: rotateY(0deg);
-    }
-    50% {
-      transform: rotateY(1800deg);
-      animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
-    }
-    100% {
-      transform: rotateY(3600deg);
-    }
-  }
-
-`
