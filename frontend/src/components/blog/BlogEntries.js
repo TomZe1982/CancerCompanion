@@ -1,7 +1,7 @@
 import {useAuth} from "../../auth/AuthProvider";
 import {deleteBlogEntry, getBlogList, postBlogEntry} from "../../service/apiService";
 import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
 import Box from "../styled/Box";
 import TextArea from "../TextArea";
 import Button from "../styled/Button";
@@ -19,7 +19,6 @@ export default function BlogEntries() {
     const [blogEntry, setBlogEntry] = useState({})
     const [error, setError] = useState()
 
-    console.log(allBlogs)
 
     useEffect(() => {
         getBlogList(fetchedUserNameForBlog, token)
@@ -44,8 +43,9 @@ export default function BlogEntries() {
         setBlogEntry({[event.target.name]: event.target.value})
     }
 
-    console.log(allBlogs)
-
+    if(!blogEntry && !allBlogs){
+        return <Redirect to = "/profile"/>
+    }
 
     const blog = allBlogs.map(blog =>
         <Box key={blog.blogId}>

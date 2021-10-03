@@ -29,7 +29,7 @@ export default createGlobalStyle`
     p{
       text-align: start;
       color: dimgrey;
-      margin: 5px 5px;
+      margin: 10px 15px;
     }
     
     h1{

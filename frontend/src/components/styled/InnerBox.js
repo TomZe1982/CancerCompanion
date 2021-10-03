@@ -4,6 +4,7 @@ export default styled.div`
   background: whitesmoke;
   display: block;
   width: 100%;
+  min-width: 350px;
   height: 100%;
   padding: 20px 0px;
   border: 1px solid var(--accent);
