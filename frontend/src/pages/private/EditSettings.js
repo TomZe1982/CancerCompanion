@@ -7,7 +7,6 @@ import TextField from "../../components/TextField";
 import Button from "../../components/styled/Button";
 import Error from "../../components/Error";
 import {useEffect, useState} from "react";
-import {Redirect} from "react-router-dom";
 import {getUser, updateUser} from "../../service/apiService";
 import Box from "../../components/styled/Box";
 import Loading from "../../components/Loading";
@@ -29,6 +28,14 @@ export default function EditSettings() {
             .catch(error => setError(error))
     }, [user.userName, token])
 
+    const reloadPage = () => {
+        setLoading(true)
+        getUser(user.userName, token)
+            .then(setUserToChange)
+            .then(()=>setLoading(false))
+            .catch(error => setError(error))
+    }
+
 
     const handleOnChange = (event) => {
         setCredentials({
@@ -40,24 +47,20 @@ export default function EditSettings() {
             setChangedCredentials(changedCredentials)
     }
 
-    if(changedCredentials)
-    {
-        return <Redirect to = "/profile"/>
-    }
-
 
     const handleSubmit = (event) => {
         event.preventDefault()
         setLoading(true)
         updateUser(credentials, token)
             .then(changedCredentials => setChangedCredentials(changedCredentials))
+            .then(reloadPage)
             .then(()=>setLoading(false))
             .catch(error => setError(error))
     }
-
+/*
     if (changedCredentials) {
         return <Redirect to="/login"/>
-    }
+    }*/
 
     return (<Page>
             <NavBar user = {user}/>
