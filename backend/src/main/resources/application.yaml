@@ -18,9 +18,9 @@ spring:
 
 security:
   jwt:
-    secret: "super-secret"
+    secret: ${SECRET_TOKEN}
     expire-after-minutes: 120
 
 tomze:
   youtube-client:
-    access-token: "AIzaSyDD7shhi7A-DudOec17dpevvsTzianfXx4"
+    access-token: ${YOUTUBE_TOKEN}
