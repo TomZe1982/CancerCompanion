@@ -16,11 +16,18 @@ import java.util.*;
 @Builder
 public class UserEntity {
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "userId")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "userId")
     private List<BlogEntity> blogEntries = new ArrayList<>();
 
     public void addBlog(BlogEntity blogEntity) {
         blogEntries.add(blogEntity);
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "userId")
+    private List<TherapyPassEntity> therapyEntries = new ArrayList<>();
+
+    public void addTherapy(TherapyPassEntity therapyPassEntity){
+        therapyEntries.add(therapyPassEntity);
     }
 
     @Id
@@ -48,11 +55,11 @@ public class UserEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
-        return Objects.equals(blogEntries, that.blogEntries)  && userId.equals(that.userId) && role.equals(that.role) && userName.equals(that.userName) && password.equals(that.password) && email.equals(that.email);
+        return Objects.equals(blogEntries, that.blogEntries) && Objects.equals(therapyEntries, that.therapyEntries)  && userId.equals(that.userId) && role.equals(that.role) && userName.equals(that.userName) && password.equals(that.password) && email.equals(that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(blogEntries, userId, role, userName, password, email);
+        return Objects.hash(blogEntries, therapyEntries, userId, role, userName, password, email);
     }
 }
