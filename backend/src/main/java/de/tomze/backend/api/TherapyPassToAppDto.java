@@ -7,7 +7,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TherapyPassDto {
+public class TherapyPassToAppDto {
 
     private Long therapyId;
 

@@ -2,6 +2,8 @@ package de.tomze.backend.model;
 
 
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.*;
@@ -16,13 +18,14 @@ import java.util.*;
 @Builder
 public class UserEntity {
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "userId")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "userId")
     private List<BlogEntity> blogEntries = new ArrayList<>();
 
     public void addBlog(BlogEntity blogEntity) {
         blogEntries.add(blogEntity);
     }
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "userId")
     private List<TherapyPassEntity> therapyEntries = new ArrayList<>();
 

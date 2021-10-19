@@ -12,7 +12,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TherapyPassEntity {
+public class TherapyPassEntity implements Comparable<TherapyPassEntity> {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -31,6 +31,12 @@ public class TherapyPassEntity {
 
     @Column(name = "description", nullable = false)
     private String description;
+
+    @Override
+    public int compareTo(TherapyPassEntity o) {
+        return getDate().compareTo(o.getDate());
+    }
+
 
     @Override
     public boolean equals(Object o) {
