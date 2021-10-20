@@ -14,7 +14,7 @@ import TextArea from "../../components/TextArea";
 import {useParams} from "react-router-dom";
 
 
-export default function TherapyPass() {
+export default function TherapyPassCreate() {
     const { fetchedUserName } = useParams()
     const {user, token} = useAuth()
     const [therapy, setTherapy] = useState({})

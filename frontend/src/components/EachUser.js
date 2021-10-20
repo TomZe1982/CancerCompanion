@@ -33,7 +33,8 @@ export default function EachUser({fetchedUserName, reloadUserPage}) {
                 <details>
                     <Button onClick={handleDeleteUser}>User löschen</Button>
                     <Button onClick={handleResetPassword}>Passwort zurücksetzen</Button>
-                    <Link to = {`/therapy/${fetchedUserName}`}>Therapy hinzufügen</Link>
+                    <Link to = {`/therapy/${fetchedUserName}`}>Therapie hinzufügen</Link>
+                    <Link to = {`/timeline/${fetchedUserName}`}>Therapie Timeline</Link>
                     <h1>{resetUserPassword.password}</h1>
                     {error && <Error>{error.response.data.error}</Error>}
                 </details>
