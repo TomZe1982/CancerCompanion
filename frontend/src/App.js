@@ -21,6 +21,7 @@ import AddInformation from "./pages/public/AddInformation";
 import NewBlog from "./pages/private/blog/NewBlog";
 import UpdateInformation from "./pages/public/UpateInformation";
 import UpdateEachInformation from "./pages/public/UpdateEachInformation";
+import TherapyPass from "./pages/private/TherapyPass";
 
 
 
@@ -45,6 +46,7 @@ export default function App() {
                     <ProtectedRoute path="/blogs" component={Blogs}/>
                     <ProtectedRoute path="/userblogs/:fetchedUserNameForBlog" component={BlogDetails}/>
                     <ProtectedRoute path="/newblog" component={NewBlog}/>
+                    <ProtectedRoute path="/therapy/:fetchedUserName" component={TherapyPass}/>
                     <ProtectedRoute adminOnly path="/admin" component={Admin}/>
                     <ProtectedRoute adminOnly path="/adminerror" component={AdminError}/>
                     <ProtectedRoute adminOnly path="/addinfos" component={AddInformation}/>

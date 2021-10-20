@@ -10,6 +10,7 @@ import lombok.*;
 public class TherapyPassFromAppDto {
 
 
+    private String date;
 
     private String title;
 

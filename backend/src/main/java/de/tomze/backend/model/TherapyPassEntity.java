@@ -3,6 +3,7 @@ package de.tomze.backend.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity

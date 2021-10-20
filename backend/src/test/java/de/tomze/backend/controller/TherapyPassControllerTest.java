@@ -94,8 +94,8 @@ class TherapyPassControllerTest {
         ResponseEntity<TherapyPassToAppDto[]> response = restTemplate.exchange(url() + "/" + userEntity.getUserName(), HttpMethod.GET, httpEntity, TherapyPassToAppDto[].class);
 
         //THEN
-        assertThat(response.getStatusCode(), is(HttpStatus.OK) );
-        assertThat(response.getBody(),is(notNullValue()));
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response.getBody(), is(notNullValue()));
         assertThat(response.getBody().length, is(2));
 
     }
@@ -128,8 +128,8 @@ class TherapyPassControllerTest {
         ResponseEntity<TherapyPassToAppDto[]> response = restTemplate.exchange(url() + "/" + userEntity.getUserName(), HttpMethod.GET, httpEntity, TherapyPassToAppDto[].class);
 
         //THEN
-        assertThat(response.getStatusCode(), is(HttpStatus.OK) );
-        assertThat(response.getBody(),is(notNullValue()));
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response.getBody(), is(notNullValue()));
         assertThat(response.getBody().length, is(2));
 
     }
@@ -162,13 +162,13 @@ class TherapyPassControllerTest {
         ResponseEntity<TherapyPassToAppDto[]> response = restTemplate.exchange(url() + "/" + userEntity.getUserName(), HttpMethod.GET, httpEntity, TherapyPassToAppDto[].class);
 
         //THEN
-        assertThat(response.getStatusCode(), is(HttpStatus.OK) );
-        assertThat(response.getBody(),is(notNullValue()));
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response.getBody(), is(notNullValue()));
         assertThat(response.getBody().length, is(2));
 
     }
 
-/*    @Test
+  /* @Test
     public void UserMustNotGetUsersTherapies() {
         //GIVEN
         UserEntity userEntity = UserEntity.builder()
@@ -198,9 +198,9 @@ class TherapyPassControllerTest {
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.UNAUTHORIZED) );
 
-    }
+    }*/
 
-    @Test
+/*    @Test
     public void UserHasNoTherapies() {
         //GIVEN
         UserEntity userEntity = UserEntity.builder()
@@ -217,7 +217,7 @@ class TherapyPassControllerTest {
         ResponseEntity<TherapyPassToAppDto[]> response = restTemplate.exchange(url() + "/" + userEntity.getUserName(), HttpMethod.GET, httpEntity, TherapyPassToAppDto[].class);
 
         //THEN
-        assertThat(response.getStatusCode(), is(HttpStatus.NOT_FOUND) );
+        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR) );
     }*/
 
     @Test
@@ -253,14 +253,14 @@ class TherapyPassControllerTest {
         ResponseEntity<TherapyPassToAppDto[]> responseList = restTemplate.exchange(url() + "/" + userEntity.getUserName(), HttpMethod.GET, httpEntity, TherapyPassToAppDto[].class);
 
         //THEN
-        assertThat(response.getStatusCode(), is(HttpStatus.OK) );
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(response.getBody(), is(notNullValue()));
-        assertThat(response.getBody().getDate(),is(notNullValue()));
+        assertThat(response.getBody().getDate(), is(notNullValue()));
         assertThat(response.getBody().getTitle(), is("Hallo Welt!"));
         assertThat(response.getBody().getDescription(), is("Hallo Welt!"));
-        assertThat(responseList.getStatusCode(), is(HttpStatus.OK) );
+        assertThat(responseList.getStatusCode(), is(HttpStatus.OK));
         assertThat(responseList.getBody(), is(notNullValue()));
-        assertThat(responseList.getBody().length,is(3));
+        assertThat(responseList.getBody().length, is(3));
 
     }
 
@@ -296,7 +296,7 @@ class TherapyPassControllerTest {
         ResponseEntity<TherapyPassToAppDto> response = restTemplate.exchange(url() + "/" + userEntity.getUserName(), HttpMethod.POST, httpEntity, TherapyPassToAppDto.class);
 
         //THEN
-        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR) );
+        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR));
 
     }
 
@@ -332,7 +332,7 @@ class TherapyPassControllerTest {
         ResponseEntity<TherapyPassToAppDto> response = restTemplate.exchange(url() + "/" + userEntity.getUserName(), HttpMethod.POST, httpEntity, TherapyPassToAppDto.class);
 
         //THEN
-        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR) );
+        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR));
 
     }
 
@@ -371,23 +371,235 @@ class TherapyPassControllerTest {
         ResponseEntity<TherapyPassToAppDto[]> responseList = restTemplate.exchange(url() + "/" + userEntity.getUserName(), HttpMethod.GET, httpEntity, TherapyPassToAppDto[].class);
 
         //THEN
-        assertThat(response.getStatusCode(), is(HttpStatus.OK) );
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(response.getBody(), is(notNullValue()));
-        assertThat(response.getBody().getDate(),is(notNullValue()));
+        assertThat(response.getBody().getDate(), is(notNullValue()));
         assertThat(response.getBody().getTitle(), is("Hallo Welt!"));
         assertThat(response.getBody().getDescription(), is("Hallo Welt!"));
-        assertThat(responseList.getStatusCode(), is(HttpStatus.OK) );
+        assertThat(responseList.getStatusCode(), is(HttpStatus.OK));
         assertThat(responseList.getBody(), is(notNullValue()));
-        assertThat(responseList.getBody().length,is(2));
+        assertThat(responseList.getBody().length, is(2));
     }
 
+    @Test
+    public void userMustNotUpdateOwnTherapies() {
+        //GIVEN
+        UserEntity userEntity = UserEntity.builder()
+                .role("user")
+                .userName("toto")
+                .password("123")
+                .email("toto@toto.de").build();
+
+        userRepository.save(userEntity);
+
+        TherapyPassEntity therapyPassEntity1 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
+                .userId(userEntity)
+                .date("01.01.1910")
+                .title("Hallo Mond!")
+                .description("Hallo Mond!").build());
+
+        TherapyPassEntity therapyPassEntity2 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
+                .userId(userEntity)
+                .date("01.01.1920")
+                .title("Hallo Sterne!")
+                .description("Hallo Sterne!").build());
+
+        TherapyPassFromAppDto newTherapy = TherapyPassFromAppDto.builder()
+                .title("Hallo Welt!")
+                .description("Hallo Welt!").build();
+
+        //WHEN
+        HttpEntity<TherapyPassFromAppDto> httpEntity = new HttpEntity<>(newTherapy, authorizedHeader(userEntity.getUserName(), userEntity.getRole()));
+        ResponseEntity<TherapyPassToAppDto> response = restTemplate.exchange(url() + "/" + userEntity.getUserName() + "/" + therapyPassEntity1.getTherapyId(), HttpMethod.PUT, httpEntity, TherapyPassToAppDto.class);
+
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+
+    @Test
+    public void userMustNotUpdateUserTherapies() {
+        //GIVEN
+        UserEntity userEntity = UserEntity.builder()
+                .role("user")
+                .userName("toto")
+                .password("123")
+                .email("toto@toto.de").build();
+
+        userRepository.save(userEntity);
+
+        TherapyPassEntity therapyPassEntity1 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
+                .userId(userEntity)
+                .date("01.01.1910")
+                .title("Hallo Mond!")
+                .description("Hallo Mond!").build());
+
+        TherapyPassEntity therapyPassEntity2 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
+                .userId(userEntity)
+                .date("01.01.1920")
+                .title("Hallo Sterne!")
+                .description("Hallo Sterne!").build());
+
+        TherapyPassFromAppDto newTherapy = TherapyPassFromAppDto.builder()
+                .title("Hallo Welt!")
+                .description("Hallo Welt!").build();
+
+        //WHEN
+        HttpEntity<TherapyPassFromAppDto> httpEntity = new HttpEntity<>(newTherapy, authorizedHeader("tomze", "user"));
+        ResponseEntity<TherapyPassToAppDto> response = restTemplate.exchange(url() + "/" + userEntity.getUserName() + "/" + therapyPassEntity1.getTherapyId(), HttpMethod.PUT, httpEntity, TherapyPassToAppDto.class);
+
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+
+    @Test
+    public void therapyNotFoundToUpdate() {
+        //GIVEN
+        UserEntity userEntity = UserEntity.builder()
+                .role("user")
+                .userName("toto")
+                .password("123")
+                .email("toto@toto.de").build();
+
+        userRepository.save(userEntity);
+
+        TherapyPassEntity therapyPassEntity1 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
+                .userId(userEntity)
+                .date("01.01.1910")
+                .title("Hallo Mond!")
+                .description("Hallo Mond!").build());
+
+        TherapyPassEntity therapyPassEntity2 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
+                .userId(userEntity)
+                .date("01.01.1920")
+                .title("Hallo Sterne!")
+                .description("Hallo Sterne!").build());
+
+        TherapyPassFromAppDto newTherapy = TherapyPassFromAppDto.builder()
+                .title("Hallo Welt!")
+                .description("Hallo Welt!").build();
+
+        //WHEN
+        HttpEntity<TherapyPassFromAppDto> httpEntity = new HttpEntity<>(newTherapy, authorizedHeader("tomze", "admin"));
+        ResponseEntity<TherapyPassToAppDto> response = restTemplate.exchange(url() + "/" + userEntity.getUserName() + "/1", HttpMethod.PUT, httpEntity, TherapyPassToAppDto.class);
+        ResponseEntity<TherapyPassToAppDto[]> responseList = restTemplate.exchange(url() + "/" + userEntity.getUserName(), HttpMethod.GET, httpEntity, TherapyPassToAppDto[].class);
+
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.NOT_FOUND));
+        assertThat(responseList.getBody(), is(notNullValue()));
+        assertThat(responseList.getBody().length, is(2));
+    }
+
+    //DELETE THERAPY
+
+    @Test
+    public void adminCanDeleteUserTherapy() {
+        //GIVEN
+        UserEntity userEntity = UserEntity.builder()
+                .role("user")
+                .userName("toto")
+                .password("123")
+                .email("toto@toto.de").build();
+
+        userRepository.save(userEntity);
+
+        TherapyPassEntity therapyPassEntity1 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
+                .userId(userEntity)
+                .date("01.01.1910")
+                .title("Hallo Mond!")
+                .description("Hallo Mond!").build());
+
+        TherapyPassEntity therapyPassEntity2 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
+                .userId(userEntity)
+                .date("01.01.1920")
+                .title("Hallo Sterne!")
+                .description("Hallo Sterne!").build());
 
 
+        //WHEN
+        HttpEntity<TherapyPassFromAppDto> httpEntity = new HttpEntity<>(authorizedHeader("tomze", "admin"));
+        ResponseEntity<TherapyPassToAppDto> response = restTemplate.exchange(url() + "/" + userEntity.getUserName() + "/" + therapyPassEntity1.getTherapyId(), HttpMethod.DELETE, httpEntity, TherapyPassToAppDto.class);
+        ResponseEntity<TherapyPassToAppDto[]> responseList = restTemplate.exchange(url() + "/" + userEntity.getUserName(), HttpMethod.GET, httpEntity, TherapyPassToAppDto[].class);
+
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(responseList.getBody(), is(notNullValue()));
+        assertThat(responseList.getBody().length, is(1));
+    }
+
+    @Test
+    public void userMustNotDeleteOwnTherapy() {
+        //GIVEN
+        UserEntity userEntity = UserEntity.builder()
+                .role("user")
+                .userName("toto")
+                .password("123")
+                .email("toto@toto.de").build();
+
+        userRepository.save(userEntity);
+
+        TherapyPassEntity therapyPassEntity1 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
+                .userId(userEntity)
+                .date("01.01.1910")
+                .title("Hallo Mond!")
+                .description("Hallo Mond!").build());
+
+        TherapyPassEntity therapyPassEntity2 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
+                .userId(userEntity)
+                .date("01.01.1920")
+                .title("Hallo Sterne!")
+                .description("Hallo Sterne!").build());
 
 
+        //WHEN
+        HttpEntity<TherapyPassFromAppDto> httpEntity = new HttpEntity<>(authorizedHeader(userEntity.getUserName(), userEntity.getRole()));
+        ResponseEntity<TherapyPassToAppDto> response = restTemplate.exchange(url() + "/" + userEntity.getUserName() + "/" + therapyPassEntity1.getTherapyId(), HttpMethod.DELETE, httpEntity, TherapyPassToAppDto.class);
+        ResponseEntity<TherapyPassToAppDto[]> responseList = restTemplate.exchange(url() + "/" + userEntity.getUserName(), HttpMethod.GET, httpEntity, TherapyPassToAppDto[].class);
 
-    private HttpHeaders authorizedHeader(String username, String role){
-        Map<String,Object> claims = new HashMap<>();
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR));
+        assertThat(responseList.getBody(), is(notNullValue()));
+        assertThat(responseList.getBody().length, is(2));
+    }
+
+    /*
+      @Test
+    public void userMustNotDeleteUserTherapy() {
+        //GIVEN
+        UserEntity userEntity = UserEntity.builder()
+                .role("user")
+                .userName("toto")
+                .password("123")
+                .email("toto@toto.de").build();
+
+        userRepository.save(userEntity);
+
+        TherapyPassEntity therapyPassEntity1 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
+                .userId(userEntity)
+                .date("01.01.1910")
+                .title("Hallo Mond!")
+                .description("Hallo Mond!").build());
+
+        TherapyPassEntity therapyPassEntity2 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
+                .userId(userEntity)
+                .date("01.01.1920")
+                .title("Hallo Sterne!")
+                .description("Hallo Sterne!").build());
+
+
+        //WHEN
+        HttpEntity<TherapyPassFromAppDto> httpEntity = new HttpEntity<>(authorizedHeader("tomze", "user"));
+        ResponseEntity<TherapyPassToAppDto> response = restTemplate.exchange(url() + "/" + userEntity.getUserName() + "/" + therapyPassEntity1.getTherapyId(), HttpMethod.DELETE, httpEntity, TherapyPassToAppDto.class);
+        ResponseEntity<TherapyPassToAppDto[]> responseList = restTemplate.exchange(url() + "/" + userEntity.getUserName(), HttpMethod.GET, httpEntity, TherapyPassToAppDto[].class);
+
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR));
+        assertThat(responseList.getBody(), is(notNullValue()));
+        assertThat(responseList.getBody().length, is(2));
+    }*/
+
+
+    private HttpHeaders authorizedHeader(String username, String role) {
+        Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
         Instant now = Instant.now();
         Date iat = Date.from(now);

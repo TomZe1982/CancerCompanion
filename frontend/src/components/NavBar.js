@@ -13,10 +13,11 @@ export default function NavBar({ user}){
             <NavBarButton onClick={history.goBack} >Back</NavBarButton>
             <NavLink exact to = "/" >Home</NavLink>
             <NavLink to = "/info" >Infos</NavLink>
+            {!user && <NavLink to = "/login" >Login</NavLink>}
             {user && <NavLink to = "/logout" >Logout</NavLink>}
             {user && <NavLink to = "/profile" >Profil</NavLink>}
-            {!user && <NavLink to = "/login" >Login</NavLink>}
             {user && <NavLink to = "/blogs" >Blogs</NavLink>}
+            {user && <NavLink to = {`/therapy/${user.userName}`} >TherapiePass</NavLink>}
             {user && user.role === "admin" && <NavLink to = "/admin" >Admin</NavLink>}
             {user && user.role === "admin" && <NavLink to = "/addinfos" >Info hinzufügen</NavLink>}
             {user && user.role === "admin" && <NavLink to = "/updateinfos" >Info bearbeiten</NavLink>}

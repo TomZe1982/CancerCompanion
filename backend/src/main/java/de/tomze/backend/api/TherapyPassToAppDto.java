@@ -2,6 +2,8 @@ package de.tomze.backend.api;
 
 import lombok.*;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @Builder

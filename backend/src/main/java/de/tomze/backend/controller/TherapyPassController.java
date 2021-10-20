@@ -71,6 +71,21 @@ public class TherapyPassController {
         return ok(updatedTherapyPassToAppDto);
     }
 
+    @DeleteMapping("/{userName}/{therapyId}")
+    public ResponseEntity<TherapyPassToAppDto> updateTherapy(@AuthenticationPrincipal UserEntity authUser, @PathVariable String userName, @PathVariable Long therapyId) {
+
+        if(authUser.getRole().equals("user") || authUser.getUserName().equals(userName)){
+            throw new NotAuthorizedException("Only admin can delete therapies!");
+        }
+
+        TherapyPassEntity deletedTherapyEntity = therapyPassService.deleteTherapy(userName, therapyId);
+
+        TherapyPassToAppDto deletedTherapyPassToAppDto = map(deletedTherapyEntity);
+
+        return ok(deletedTherapyPassToAppDto);
+    }
+
+
     private List<TherapyPassToAppDto> mapList(List<TherapyPassEntity> therapyPassEntityList) {
 
         List<TherapyPassToAppDto> therapyPassDtoList = new ArrayList<>();

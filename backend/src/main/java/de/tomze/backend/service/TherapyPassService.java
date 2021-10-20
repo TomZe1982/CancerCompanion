@@ -2,17 +2,16 @@ package de.tomze.backend.service;
 
 
 import de.tomze.backend.api.TherapyPassFromAppDto;
-import de.tomze.backend.api.TherapyPassToAppDto;
 import de.tomze.backend.model.TherapyPassEntity;
 import de.tomze.backend.model.UserEntity;
 import de.tomze.backend.repository.TherapyPassRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -65,18 +64,41 @@ public class TherapyPassService {
     }
 
 
+    @Transactional
+    public TherapyPassEntity deleteTherapy(String userName, Long therapyId) {
+        var user = userService.getUser(userName);
+
+        List<TherapyPassEntity> therapyPassEntityList = user.getTherapyEntries();
+
+        for(TherapyPassEntity therapyPassEntity : therapyPassEntityList){
+            if(therapyPassEntity.getTherapyId().equals(therapyId)){
+                therapyPassEntityList.remove(therapyPassEntity);
+                return new TherapyPassEntity();
+            }
+
+        }
+        throw new EntityNotFoundException("No Therapy found!");
+    }
+
+
     private TherapyPassEntity map(TherapyPassFromAppDto therapyPassFromAppDto) {
-        LocalDateTime now = LocalDateTime.now();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
-        String formatDateTime = now.format(formatter);
+        System.out.println(therapyPassFromAppDto.getDate());
+
+        LocalDateTime dateTime = LocalDateTime.parse(therapyPassFromAppDto.getDate(), formatter1);
+
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+        String formatDateTime = dateTime.format(formatter2);
 
         return TherapyPassEntity.builder()
                 .date(formatDateTime)
                 .title(therapyPassFromAppDto.getTitle())
                 .description(therapyPassFromAppDto.getDescription()).build();
     }
+
 
 
 }
