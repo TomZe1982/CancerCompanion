@@ -2,6 +2,8 @@ package de.tomze.backend.model;
 
 
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.*;
@@ -21,6 +23,14 @@ public class UserEntity {
 
     public void addBlog(BlogEntity blogEntity) {
         blogEntries.add(blogEntity);
+    }
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "userId")
+    private List<TherapyPassEntity> therapyEntries = new ArrayList<>();
+
+    public void addTherapy(TherapyPassEntity therapyPassEntity){
+        therapyEntries.add(therapyPassEntity);
     }
 
     @Id
@@ -48,11 +58,11 @@ public class UserEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
-        return Objects.equals(blogEntries, that.blogEntries)  && userId.equals(that.userId) && role.equals(that.role) && userName.equals(that.userName) && password.equals(that.password) && email.equals(that.email);
+        return Objects.equals(blogEntries, that.blogEntries) && Objects.equals(therapyEntries, that.therapyEntries)  && userId.equals(that.userId) && role.equals(that.role) && userName.equals(that.userName) && password.equals(that.password) && email.equals(that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(blogEntries, userId, role, userName, password, email);
+        return Objects.hash(blogEntries, therapyEntries, userId, role, userName, password, email);
     }
 }

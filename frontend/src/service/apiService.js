@@ -82,5 +82,16 @@ export const deleteInfo = (infoId, token) =>
 export const updateInfo = (infoId, credentials, token) =>
     axios.put("/api/tomze/info/"+infoId, credentials, headers(token))
 
+export const getTherapies = (userName, token) =>
+    axios.get("/api/tomze/therapy/"+userName, headers(token))
+        .then(response => response.data)
+
+export const createTherapy = (userName, therapy, token) =>
+    axios.post("/api/tomze/therapy/"+userName, therapy,  headers(token))
+
+export const deleteTherapy = (userName, id, token) =>
+    axios.delete("/api/tomze/therapy/"+userName +"/" + id,  headers(token))
+
+
 
 
