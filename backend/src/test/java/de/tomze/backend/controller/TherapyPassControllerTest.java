@@ -21,6 +21,8 @@ import org.springframework.http.*;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -79,13 +81,15 @@ class TherapyPassControllerTest {
 
         therapyPassRespository.save(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1901")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Welt!")
                 .description("Hallo Welt!").build());
 
         therapyPassRespository.save(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1910")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Mond!")
                 .description("Hallo Mond!").build());
 
@@ -113,13 +117,15 @@ class TherapyPassControllerTest {
 
         therapyPassRespository.save(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1901")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Welt!")
                 .description("Hallo Welt!").build());
 
         therapyPassRespository.save(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1910")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Mond!")
                 .description("Hallo Mond!").build());
 
@@ -147,13 +153,15 @@ class TherapyPassControllerTest {
 
         therapyPassRespository.save(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1901")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Welt!")
                 .description("Hallo Welt!").build());
 
         therapyPassRespository.save(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1910")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Mond!")
                 .description("Hallo Mond!").build());
 
@@ -231,20 +239,23 @@ class TherapyPassControllerTest {
 
         userRepository.save(userEntity);
 
-        therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
+        therapyPassRespository.save(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1910")
-                .title("Hallo Mond!")
-                .description("Hallo Mond!").build());
-
-        therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
-                .userId(userEntity)
-                .date("01.01.1920")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Sterne!")
                 .description("Hallo Sterne!").build());
 
+        therapyPassRespository.save(TherapyPassEntity.builder()
+                .userId(userEntity)
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
+                .title("Hallo Mond!")
+                .description("Hallo Mond!").build());
+
         TherapyPassFromAppDto newTherapy = TherapyPassFromAppDto.builder()
                 .title("Hallo Welt!")
+                .date("2021-11-17T09:01:45.809Z")
                 .description("Hallo Welt!").build();
 
         //WHEN
@@ -275,17 +286,19 @@ class TherapyPassControllerTest {
 
         userRepository.save(userEntity);
 
-        therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
+        therapyPassRespository.save(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1910")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
+                .title("Hallo Welt!")
+                .description("Hallo Welt!").build());
+
+        therapyPassRespository.save(TherapyPassEntity.builder()
+                .userId(userEntity)
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Mond!")
                 .description("Hallo Mond!").build());
-
-        therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
-                .userId(userEntity)
-                .date("01.01.1920")
-                .title("Hallo Sterne!")
-                .description("Hallo Sterne!").build());
 
         TherapyPassFromAppDto newTherapy = TherapyPassFromAppDto.builder()
                 .title("Hallo Welt!")
@@ -311,17 +324,19 @@ class TherapyPassControllerTest {
 
         userRepository.save(userEntity);
 
-        therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
+        therapyPassRespository.save(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1910")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
+                .title("Hallo Welt!")
+                .description("Hallo Welt!").build());
+
+        therapyPassRespository.save(TherapyPassEntity.builder()
+                .userId(userEntity)
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Mond!")
                 .description("Hallo Mond!").build());
-
-        therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
-                .userId(userEntity)
-                .date("01.01.1920")
-                .title("Hallo Sterne!")
-                .description("Hallo Sterne!").build());
 
         TherapyPassFromAppDto newTherapy = TherapyPassFromAppDto.builder()
                 .title("Hallo Welt!")
@@ -351,13 +366,15 @@ class TherapyPassControllerTest {
 
         TherapyPassEntity therapyPassEntity1 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1910")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Mond!")
                 .description("Hallo Mond!").build());
 
         TherapyPassEntity therapyPassEntity2 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1920")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Sterne!")
                 .description("Hallo Sterne!").build());
 
@@ -394,13 +411,15 @@ class TherapyPassControllerTest {
 
         TherapyPassEntity therapyPassEntity1 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1910")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Mond!")
                 .description("Hallo Mond!").build());
 
         TherapyPassEntity therapyPassEntity2 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1920")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Sterne!")
                 .description("Hallo Sterne!").build());
 
@@ -429,13 +448,15 @@ class TherapyPassControllerTest {
 
         TherapyPassEntity therapyPassEntity1 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1910")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Mond!")
                 .description("Hallo Mond!").build());
 
         TherapyPassEntity therapyPassEntity2 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1920")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Sterne!")
                 .description("Hallo Sterne!").build());
 
@@ -464,13 +485,15 @@ class TherapyPassControllerTest {
 
         TherapyPassEntity therapyPassEntity1 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1910")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Mond!")
                 .description("Hallo Mond!").build());
 
         TherapyPassEntity therapyPassEntity2 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1920")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Sterne!")
                 .description("Hallo Sterne!").build());
 
@@ -504,13 +527,15 @@ class TherapyPassControllerTest {
 
         TherapyPassEntity therapyPassEntity1 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1910")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Mond!")
                 .description("Hallo Mond!").build());
 
         TherapyPassEntity therapyPassEntity2 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1920")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Sterne!")
                 .description("Hallo Sterne!").build());
 
@@ -539,13 +564,15 @@ class TherapyPassControllerTest {
 
         TherapyPassEntity therapyPassEntity1 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1910")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Mond!")
                 .description("Hallo Mond!").build());
 
         TherapyPassEntity therapyPassEntity2 = therapyPassRespository.saveAndFlush(TherapyPassEntity.builder()
                 .userId(userEntity)
-                .date("01.01.1920")
+                .date("11-11-2222 11:11")
+                .dateTime(LocalDateTime.now())
                 .title("Hallo Sterne!")
                 .description("Hallo Sterne!").build());
 
