@@ -5,7 +5,7 @@ import {useAuth} from "../../auth/AuthProvider";
 
 
 export default function TimeLineItem({reloadPage, fetchedUserName, therapy}) {
-    const {token} = useAuth()
+    const {user, token} = useAuth()
 
     const handleDelete = () => {
         deleteTherapy(fetchedUserName, therapy.therapyId, token)
@@ -15,7 +15,7 @@ export default function TimeLineItem({reloadPage, fetchedUserName, therapy}) {
     return (
         <WrapperItem>
             <WrapperContent>
-                <DeleteButton onClick={handleDelete}>X</DeleteButton>
+                {user.role === "admin" && <DeleteButton onClick={handleDelete}>X</DeleteButton>}
                 <Date>{therapy.date}</Date>
                 <p>{therapy.title}</p>
                 <Details>{therapy.description}</Details>
@@ -32,8 +32,9 @@ const DeleteButton = styled.button`
     height: 20px;
 `
 
-const Date = styled.p`
+const Date = styled.time`
   background-color: antiquewhite;
+  color: dimgray;
   font-size: 15px;
 `
 
@@ -59,7 +60,7 @@ const WrapperItem = styled.div`
 
 const Circle = styled.span`
   background-color: whitesmoke;
-  border: 4px solid dimgrey;
+  border: 3px solid dimgrey;
   border-radius: 50%;
   position: absolute;
   top: calc(50% - 10px);

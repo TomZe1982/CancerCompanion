@@ -8,7 +8,6 @@ export default function TimeLine({reloadPage, fetchedUserName, therapyList}) {
         <TimeLineItem reloadPage={reloadPage} fetchedUserName={fetchedUserName} therapy={therapy} key={therapy.id}/>
     ))
 
-
     return (
         <Wrapper>
             {therapyListMap}
@@ -23,14 +22,15 @@ const Wrapper = styled.div`
   flex-direction: column;
   margin: 20px 0;
   position: relative;
+  width: 400px;
   
   
   &::after{
     background-color: dimgray;
     content: '';
     position: absolute;
-    left: calc(50% - 2.5px);
-    width: 5px;
+    left: calc(50% - 1.5px);
+    width: 3px;
     height: 100%;
   }
 `

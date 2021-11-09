@@ -3,6 +3,7 @@ package de.tomze.backend.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -23,6 +24,9 @@ public class TherapyPassEntity implements Comparable<TherapyPassEntity> {
     @GeneratedValue
     @Column(name = "therapy_pass_id", nullable = false)
     private Long therapyId;
+
+    @Column(name = "date_time", nullable = false)
+    private LocalDateTime dateTime;
 
     @Column(name = "date", nullable = false)
     private String date;
